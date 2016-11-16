@@ -3760,7 +3760,7 @@ bool TTrain::Update()
         if (ggLocalBrake.SubModel)
         {
             if (DynamicObject->Mechanik ?
-                    (DynamicObject->Mechanik->AIControllFlag ? false : (Global::iFeedbackMode == 4Global::iFeedbackMode == 4 || (Global::iFeedbackMode == 5 && Global::bMWDBreakEnable))) :
+                    (DynamicObject->Mechanik->AIControllFlag ? false : (Global::iFeedbackMode == 4 || (Global::iFeedbackMode == 5 && Global::bMWDBreakEnable))) :
                     false) // nie blokujemy AI
             { // Ra: nie najlepsze miejsce, ale na pocz¹tek gdzieœ to daæ trzeba
 			  // Firleju: dlatego kasujemy i zastepujemy funkcj¹ w Console
