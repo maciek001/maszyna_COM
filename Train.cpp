@@ -187,7 +187,7 @@ TTrain::~TTrain()
     if (DynamicObject)
         if (DynamicObject->Mechanik)
             DynamicObject->Mechanik->TakeControl(
-                        true); // likwidacja kabiny wymaga przejêcia przez AI
+                true); // likwidacja kabiny wymaga przejêcia przez AI
 }
 
 bool TTrain::Init(TDynamicObject *NewDynamicObject, bool e3d)
@@ -270,8 +270,8 @@ PyObject *TTrain::GetTrainState()
     }
 
     PyDict_SetItemString(dict, "direction", PyGetInt(DynamicObject->MoverParameters->ActiveDir));
-    PyDict_SetItemString(dict, "cab", PyGetInt(DynamicObject->MoverParameters->ActiveCab));
-    PyDict_SetItemString(dict, "slipping_wheels",
+	PyDict_SetItemString(dict, "cab", PyGetInt(DynamicObject->MoverParameters->ActiveCab));
+	PyDict_SetItemString(dict, "slipping_wheels",
                          PyGetBool(DynamicObject->MoverParameters->SlippingWheels));
     PyDict_SetItemString(dict, "converter",
                          PyGetBool(DynamicObject->MoverParameters->ConverterFlag));
@@ -291,66 +291,66 @@ PyObject *TTrain::GetTrainState()
     PyDict_SetItemString(dict, "minutes", PyGetInt(GlobalTime->mm));
     PyDict_SetItemString(dict, "seconds", PyGetInt(GlobalTime->mr));
     PyDict_SetItemString(dict, "velocity_desired", PyGetFloat(DynamicObject->Mechanik->VelDesired));
-    Char* TXTT[10] = { "fd","fdt","fdb","pd","pdt","pdb","itothv","1","2","3" };
-    Char* TXTC[10] = { "fr","frt","frb","pr","prt","prb","im","vm","ihv","uhv" };
-    Char* TXTP[3] = { "bc","bp","sp" };
-    for (int j = 0; j<10; j++)
-        PyDict_SetItemString(dict, (AnsiString("eimp_t_") + AnsiString(TXTT[j])).c_str(), PyGetFloatS(fEIMParams[0][j]));
-    for (int i = 0; i<8; i++)
-    {
-        for (int j = 0; j<10; j++)
-            PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_") + AnsiString(TXTC[j])).c_str(), PyGetFloatS(fEIMParams[i + 1][j]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_ms")).c_str(), PyGetBool(bMains[i]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_cv")).c_str(), PyGetFloatS(fCntVol[i]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_u") + IntToStr(i + 1) + AnsiString("_pf")).c_str(), PyGetBool(bPants[i][0]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_u") + IntToStr(i + 1) + AnsiString("_pr")).c_str(), PyGetBool(bPants[i][1]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_fuse")).c_str(), PyGetBool(bFuse[i]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_batt")).c_str(), PyGetBool(bBatt[i]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_conv")).c_str(), PyGetBool(bConv[i]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_u") + IntToStr(i + 1) + AnsiString("_comp_a")).c_str(), PyGetBool(bComp[i][0]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_u") + IntToStr(i + 1) + AnsiString("_comp_w")).c_str(), PyGetBool(bComp[i][1]));
-        PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_heat")).c_str(), PyGetBool(bHeat[i]));
+	Char* TXTT[10] = { "fd","fdt","fdb","pd","pdt","pdb","itothv","1","2","3" };
+	Char* TXTC[10] = { "fr","frt","frb","pr","prt","prb","im","vm","ihv","uhv" };
+	Char* TXTP[3] = { "bc","bp","sp" };
+	for (int j = 0; j<10; j++)
+		PyDict_SetItemString(dict, (AnsiString("eimp_t_") + AnsiString(TXTT[j])).c_str(), PyGetFloatS(fEIMParams[0][j]));
+	for (int i = 0; i<8; i++)
+	{
+		for (int j = 0; j<10; j++)
+			PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_") + AnsiString(TXTC[j])).c_str(), PyGetFloatS(fEIMParams[i + 1][j]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_ms")).c_str(), PyGetBool(bMains[i]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_cv")).c_str(), PyGetFloatS(fCntVol[i]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_u") + IntToStr(i + 1) + AnsiString("_pf")).c_str(), PyGetBool(bPants[i][0]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_u") + IntToStr(i + 1) + AnsiString("_pr")).c_str(), PyGetBool(bPants[i][1]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_fuse")).c_str(), PyGetBool(bFuse[i]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_batt")).c_str(), PyGetBool(bBatt[i]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_conv")).c_str(), PyGetBool(bConv[i]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_u") + IntToStr(i + 1) + AnsiString("_comp_a")).c_str(), PyGetBool(bComp[i][0]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_u") + IntToStr(i + 1) + AnsiString("_comp_w")).c_str(), PyGetBool(bComp[i][1]));
+		PyDict_SetItemString(dict, (AnsiString("eimp_c") + IntToStr(i + 1) + AnsiString("_heat")).c_str(), PyGetBool(bHeat[i]));
 
-    }
-    for (int i = 0; i<20; i++)
-    {
-        for (int j = 0; j<3; j++)
-            PyDict_SetItemString(dict, (AnsiString("eimp_pn") + IntToStr(i + 1) + AnsiString("_") + AnsiString(TXTP[j])).c_str(),
-                                 PyGetFloatS(fPress[i][j]));
-    }
-    bool bEP, bPN;
-    bEP = (mvControlled->LocHandle->GetCP()>0.2) || (fEIMParams[0][2]>0.01);
-    PyDict_SetItemString(dict, "dir_brake", PyGetBool(bEP));
-    if (mvControlled->Hamulec->ClassNameIs("TLSt") || mvControlled->Hamulec->ClassNameIs("TEStED"))
-    {
-        TBrake* temp_ham = mvControlled->Hamulec;
-        //        TLSt* temp_ham2 = temp_ham;
-        bPN = (static_cast<TLSt*>(temp_ham)->GetEDBCP()>0.2);
-    }
-    else
-        bPN = false;
-    PyDict_SetItemString(dict, "indir_brake", PyGetBool(bPN));
-    for (int i = 0; i<20; i++)
-    {
-        PyDict_SetItemString(dict, (AnsiString("doors_") + IntToStr(i + 1)).c_str(), PyGetFloatS(bDoors[i][0]));
-        PyDict_SetItemString(dict, (AnsiString("doors_r_") + IntToStr(i + 1)).c_str(), PyGetFloatS(bDoors[i][1]));
-        PyDict_SetItemString(dict, (AnsiString("doors_l_") + IntToStr(i + 1)).c_str(), PyGetFloatS(bDoors[i][2]));
-        PyDict_SetItemString(dict, (AnsiString("doors_no_") + IntToStr(i + 1)).c_str(), PyGetInt(iDoorNo[i]));
-        PyDict_SetItemString(dict, (AnsiString("code_") + IntToStr(i + 1)).c_str(), PyGetString(AnsiString(IntToStr(iUnits[i]) +
-                                                                                                           cCode[i]).c_str()));
-        PyDict_SetItemString(dict, (AnsiString("car_name") + IntToStr(i + 1)).c_str(), PyGetString(asCarName[i].c_str()));
-    }
-    PyDict_SetItemString(dict, "car_no", PyGetInt(iCarNo));
-    PyDict_SetItemString(dict, "power_no", PyGetInt(iPowerNo));
-    PyDict_SetItemString(dict, "unit_no", PyGetInt(iUnitNo));
-    PyDict_SetItemString(dict, "universal3", PyGetBool(LampkaUniversal3_st));
-    PyDict_SetItemString(dict, "ca", PyGetBool(TestFlag(mvOccupied->SecuritySystem.Status, s_aware)));
-    PyDict_SetItemString(dict, "shp", PyGetBool(TestFlag(mvOccupied->SecuritySystem.Status, s_active)));
-    PyDict_SetItemString(dict, "manual_brake", PyGetBool(mvOccupied->ManualBrakePos > 0));
-    PyDict_SetItemString(dict, "pantpress", PyGetFloat(mvControlled->PantPress));
-    PyDict_SetItemString(dict, "trainnumber", PyGetString(DynamicObject->Mechanik->TrainName().c_str()));
-
-    return dict;
+	}
+	for (int i = 0; i<20; i++)
+	{
+		for (int j = 0; j<3; j++)
+			PyDict_SetItemString(dict, (AnsiString("eimp_pn") + IntToStr(i + 1) + AnsiString("_") + AnsiString(TXTP[j])).c_str(),
+				PyGetFloatS(fPress[i][j]));
+	}
+	bool bEP, bPN;
+	bEP = (mvControlled->LocHandle->GetCP()>0.2) || (fEIMParams[0][2]>0.01);
+	PyDict_SetItemString(dict, "dir_brake", PyGetBool(bEP));
+	if (mvControlled->Hamulec->ClassNameIs("TLSt") || mvControlled->Hamulec->ClassNameIs("TEStED"))
+	{
+		TBrake* temp_ham = mvControlled->Hamulec;
+		//        TLSt* temp_ham2 = temp_ham;
+		bPN = (static_cast<TLSt*>(temp_ham)->GetEDBCP()>0.2);
+	}
+	else
+		bPN = false;
+	PyDict_SetItemString(dict, "indir_brake", PyGetBool(bPN));
+	for (int i = 0; i<20; i++)
+	{
+		PyDict_SetItemString(dict, (AnsiString("doors_") + IntToStr(i + 1)).c_str(), PyGetFloatS(bDoors[i][0]));
+		PyDict_SetItemString(dict, (AnsiString("doors_r_") + IntToStr(i + 1)).c_str(), PyGetFloatS(bDoors[i][1]));
+		PyDict_SetItemString(dict, (AnsiString("doors_l_") + IntToStr(i + 1)).c_str(), PyGetFloatS(bDoors[i][2]));
+		PyDict_SetItemString(dict, (AnsiString("doors_no_") + IntToStr(i + 1)).c_str(), PyGetInt(iDoorNo[i]));
+		PyDict_SetItemString(dict, (AnsiString("code_") + IntToStr(i + 1)).c_str(), PyGetString(AnsiString(IntToStr(iUnits[i]) +
+			cCode[i]).c_str()));
+		PyDict_SetItemString(dict, (AnsiString("car_name") + IntToStr(i + 1)).c_str(), PyGetString(asCarName[i].c_str()));
+	}
+	PyDict_SetItemString(dict, "car_no", PyGetInt(iCarNo));
+	PyDict_SetItemString(dict, "power_no", PyGetInt(iPowerNo));
+	PyDict_SetItemString(dict, "unit_no", PyGetInt(iUnitNo));
+	PyDict_SetItemString(dict, "universal3", PyGetBool(LampkaUniversal3_st));
+	PyDict_SetItemString(dict, "ca", PyGetBool(TestFlag(mvOccupied->SecuritySystem.Status, s_aware)));
+	PyDict_SetItemString(dict, "shp", PyGetBool(TestFlag(mvOccupied->SecuritySystem.Status, s_active)));
+	PyDict_SetItemString(dict, "manual_brake", PyGetBool(mvOccupied->ManualBrakePos > 0));
+	PyDict_SetItemString(dict, "pantpress", PyGetFloat(mvControlled->PantPress));
+	PyDict_SetItemString(dict, "trainnumber", PyGetString(DynamicObject->Mechanik->TrainName().c_str()));
+	
+	return dict;
 }
 
 void TTrain::OnKeyDown(int cKey)
@@ -362,781 +362,781 @@ void TTrain::OnKeyDown(int cKey)
     // isEztOer=(mvControlled->TrainType==dt_EZT)&&(mvControlled->Mains)&&(mvOccupied->BrakeSubsystem==ss_ESt)&&(mvControlled->ActiveDir!=0);
     // isEztOer=((mvControlled->TrainType==dt_EZT)&&(mvControlled->Battery==true)&&(mvControlled->EpFuse==true)&&(mvOccupied->BrakeSubsystem==Oerlikon)&&(mvControlled->ActiveDir!=0));
 
-    if (GetAsyncKeyState(VK_SHIFT) < 0)
-    { // wciœniêty [Shift]
-        if (cKey == Global::Keys[k_IncMainCtrlFAST]) // McZapkie-200702: szybkie
-            // przelaczanie na poz.
-            // bezoporowa
-        {
-            if (mvControlled->IncMainCtrl(2))
-            {
-                dsbNastawnikJazdy->SetCurrentPosition(0);
-                dsbNastawnikJazdy->Play(0, 0, 0);
-            }
-        }
-        else if (cKey == Global::Keys[k_DirectionBackward])
-        {
-            if (mvOccupied->Radio == false)
-                if (GetAsyncKeyState(VK_CONTROL) >= 0)
-                {
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                    mvOccupied->Radio = true;
-                }
-        }
-        else if (cKey == Global::Keys[k_DecMainCtrlFAST])
-            if (mvControlled->DecMainCtrl(2))
-            {
-                dsbNastawnikJazdy->SetCurrentPosition(0);
-                dsbNastawnikJazdy->Play(0, 0, 0);
-            }
-            else
-                ;
-        else if (cKey == Global::Keys[k_IncScndCtrlFAST])
-            if (mvControlled->IncScndCtrl(2))
-            {
-                if (dsbNastawnikBocz) // hunter-081211
-                {
-                    dsbNastawnikBocz->SetCurrentPosition(0);
-                    dsbNastawnikBocz->Play(0, 0, 0);
-                }
-                else if (!dsbNastawnikBocz)
-                {
-                    dsbNastawnikJazdy->SetCurrentPosition(0);
-                    dsbNastawnikJazdy->Play(0, 0, 0);
-                }
-            }
-            else
-                ;
-        else if (cKey == Global::Keys[k_DecScndCtrlFAST])
-            if (mvControlled->DecScndCtrl(2))
-            {
-                if (dsbNastawnikBocz) // hunter-081211
-                {
-                    dsbNastawnikBocz->SetCurrentPosition(0);
-                    dsbNastawnikBocz->Play(0, 0, 0);
-                }
-                else if (!dsbNastawnikBocz)
-                {
-                    dsbNastawnikJazdy->SetCurrentPosition(0);
-                    dsbNastawnikJazdy->Play(0, 0, 0);
-                }
-            }
-            else
-                ;
-        else if (cKey == Global::Keys[k_IncLocalBrakeLevelFAST])
-            if (mvOccupied->IncLocalBrakeLevel(2))
-                ;
-            else
-                ;
-        else if (cKey == Global::Keys[k_DecLocalBrakeLevelFAST])
-            if (mvOccupied->DecLocalBrakeLevel(2))
-                ;
-            else
-                ;
-        // McZapkie-240302 - wlaczanie glownego obwodu klawiszem M+shift
-        //-----------
-        // hunter-141211: wyl. szybki zalaczony przeniesiony do TTrain::Update()
-        /* if (cKey==Global::Keys[k_Main])
-                {
-                   ggMainOnButton.PutValue(1);
-                   if (mvControlled->MainSwitch(true))
-                         {
-                                if (mvControlled->EngineType==DieselEngine)
-                                 dsbDieselIgnition->Play(0,0,0);
-                                else
-                                 dsbNastawnikJazdy->Play(0,0,0);
-                         }
-                }
-                else */
-        if (cKey == Global::Keys[k_Battery])
-        {
-            // if
-            // (((mvControlled->TrainType==dt_EZT)||(mvControlled->EngineType==ElectricSeriesMotor)||(mvControlled->EngineType==DieselElectric))&&(!mvControlled->Battery))
-            if (!mvControlled->Battery)
-            { // wy³¹cznik jest te¿ w SN61, ewentualnie
-                // za³¹czaæ pr¹d na sta³e z poziomu FIZ
-                if (mvOccupied->BatterySwitch(true)) // bateria potrzebna np. do zapalenia œwiate³
-                {
-                    dsbSwitch->Play(0, 0, 0);
-                    if (mvOccupied->LightsPosNo > 0)
-                    {
-                        SetLights();
-                    }
-                    if (TestFlag(mvOccupied->SecuritySystem.SystemType,
-                                 2)) // Ra: znowu w kabinie jest coœ, co byæ nie powinno!
-                    {
-                        SetFlag(mvOccupied->SecuritySystem.Status, s_active);
-                        SetFlag(mvOccupied->SecuritySystem.Status, s_SHPalarm);
-                    }
-                }
-            }
-        }
-        else if (cKey == Global::Keys[k_StLinOff])
-        {
-            if (mvControlled->TrainType == dt_EZT)
-            {
-                if ((mvControlled->Signalling == false))
-                {
-                    dsbSwitch->Play(0, 0, 0);
-                    mvControlled->Signalling = true;
-                }
-            }
-        }
-        else if (cKey == Global::Keys[k_Sand])
-        {
-            if (mvControlled->TrainType == dt_EZT)
-            {
-                if (ggDoorSignallingButton.SubModel != NULL)
-                {
-                    if (!mvControlled->DoorSignalling)
-                    {
-                        mvOccupied->DoorBlocked = true;
-                        dsbSwitch->Play(0, 0, 0);
-                        mvControlled->DoorSignalling = true;
-                    }
-                }
-            }
-            else if (mvControlled->TrainType != dt_EZT)
-            {
-                if (ggSandButton.SubModel != NULL)
-                {
-                    ggSandButton.PutValue(1);
-                    // dsbPneumaticRelay->SetVolume(-80);
-                    // dsbPneumaticRelay->Play(0, 0, 0);
-                }
-            }
-        }
-        if (cKey == Global::Keys[k_Main])
-        {
-            if (fabs(ggMainOnButton.GetValue()) < 0.001)
-                if (dsbSwitch)
-                {
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                }
-        }
-        else if (cKey == Global::Keys[k_BrakeProfile]) // McZapkie-240302-B:
-            //-----------
+	if (GetAsyncKeyState(VK_SHIFT) < 0)
+	{ // wciœniêty [Shift]
+		if (cKey == Global::Keys[k_IncMainCtrlFAST]) // McZapkie-200702: szybkie
+		// przelaczanie na poz.
+		// bezoporowa
+		{
+			if (mvControlled->IncMainCtrl(2))
+			{
+				dsbNastawnikJazdy->SetCurrentPosition(0);
+				dsbNastawnikJazdy->Play(0, 0, 0);
+			}
+		}
+		else if (cKey == Global::Keys[k_DirectionBackward])
+		{
+			if (mvOccupied->Radio == false)
+				if (GetAsyncKeyState(VK_CONTROL) >= 0)
+				{
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+					mvOccupied->Radio = true;
+				}
+		}
+		else if (cKey == Global::Keys[k_DecMainCtrlFAST])
+			if (mvControlled->DecMainCtrl(2))
+			{
+				dsbNastawnikJazdy->SetCurrentPosition(0);
+				dsbNastawnikJazdy->Play(0, 0, 0);
+			}
+			else
+				;
+		else if (cKey == Global::Keys[k_IncScndCtrlFAST])
+			if (mvControlled->IncScndCtrl(2))
+			{
+				if (dsbNastawnikBocz) // hunter-081211
+				{
+					dsbNastawnikBocz->SetCurrentPosition(0);
+					dsbNastawnikBocz->Play(0, 0, 0);
+				}
+				else if (!dsbNastawnikBocz)
+				{
+					dsbNastawnikJazdy->SetCurrentPosition(0);
+					dsbNastawnikJazdy->Play(0, 0, 0);
+				}
+			}
+			else
+				;
+		else if (cKey == Global::Keys[k_DecScndCtrlFAST])
+			if (mvControlled->DecScndCtrl(2))
+			{
+				if (dsbNastawnikBocz) // hunter-081211
+				{
+					dsbNastawnikBocz->SetCurrentPosition(0);
+					dsbNastawnikBocz->Play(0, 0, 0);
+				}
+				else if (!dsbNastawnikBocz)
+				{
+					dsbNastawnikJazdy->SetCurrentPosition(0);
+					dsbNastawnikJazdy->Play(0, 0, 0);
+				}
+			}
+			else
+				;
+		else if (cKey == Global::Keys[k_IncLocalBrakeLevelFAST])
+			if (mvOccupied->IncLocalBrakeLevel(2))
+				;
+			else
+				;
+		else if (cKey == Global::Keys[k_DecLocalBrakeLevelFAST])
+			if (mvOccupied->DecLocalBrakeLevel(2))
+				;
+			else
+				;
+		// McZapkie-240302 - wlaczanie glownego obwodu klawiszem M+shift
+		//-----------
+		// hunter-141211: wyl. szybki zalaczony przeniesiony do TTrain::Update()
+		/* if (cKey==Global::Keys[k_Main])
+		{
+		   ggMainOnButton.PutValue(1);
+		   if (mvControlled->MainSwitch(true))
+			 {
+				if (mvControlled->EngineType==DieselEngine)
+				 dsbDieselIgnition->Play(0,0,0);
+				else
+				 dsbNastawnikJazdy->Play(0,0,0);
+			 }
+		}
+		else */
+		if (cKey == Global::Keys[k_Battery])
+		{
+			// if
+			// (((mvControlled->TrainType==dt_EZT)||(mvControlled->EngineType==ElectricSeriesMotor)||(mvControlled->EngineType==DieselElectric))&&(!mvControlled->Battery))
+			if (!mvControlled->Battery)
+			{ // wy³¹cznik jest te¿ w SN61, ewentualnie
+				// za³¹czaæ pr¹d na sta³e z poziomu FIZ
+				if (mvOccupied->BatterySwitch(true)) // bateria potrzebna np. do zapalenia œwiate³
+				{
+					dsbSwitch->Play(0, 0, 0);
+					if (mvOccupied->LightsPosNo > 0)
+					{
+						SetLights();
+					}
+					if (TestFlag(mvOccupied->SecuritySystem.SystemType,
+						2)) // Ra: znowu w kabinie jest coœ, co byæ nie powinno!
+					{
+						SetFlag(mvOccupied->SecuritySystem.Status, s_active);
+						SetFlag(mvOccupied->SecuritySystem.Status, s_SHPalarm);
+					}
+				}
+			}
+		}
+		else if (cKey == Global::Keys[k_StLinOff])
+		{
+			if (mvControlled->TrainType == dt_EZT)
+			{
+				if ((mvControlled->Signalling == false))
+				{
+					dsbSwitch->Play(0, 0, 0);
+					mvControlled->Signalling = true;
+				}
+			}
+		}
+		else if (cKey == Global::Keys[k_Sand])
+		{
+			if (mvControlled->TrainType == dt_EZT)
+			{
+				if (ggDoorSignallingButton.SubModel != NULL)
+				{
+					if (!mvControlled->DoorSignalling)
+					{
+						mvOccupied->DoorBlocked = true;
+						dsbSwitch->Play(0, 0, 0);
+						mvControlled->DoorSignalling = true;
+					}
+				}
+			}
+			else if (mvControlled->TrainType != dt_EZT)
+			{
+				if (ggSandButton.SubModel != NULL)
+				{
+					ggSandButton.PutValue(1);
+					// dsbPneumaticRelay->SetVolume(-80);
+					// dsbPneumaticRelay->Play(0, 0, 0);
+				}
+			}
+		}
+		if (cKey == Global::Keys[k_Main])
+		{
+			if (fabs(ggMainOnButton.GetValue()) < 0.001)
+				if (dsbSwitch)
+				{
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+				}
+		}
+		else if (cKey == Global::Keys[k_BrakeProfile]) // McZapkie-240302-B:
+			//-----------
 
 
-            // przelacznik opoznienia
-            // hamowania
-        { // yB://ABu: male poprawki, zeby bylo mozna ustawic dowolny wagon
-            int CouplNr = -2;
-            if (!FreeFlyModeFlag)
-            {
-                if (GetAsyncKeyState(VK_CONTROL) < 0)
-                    if (mvOccupied->BrakeDelaySwitch(bdelay_R + bdelay_M))
-                    {
-                        dsbPneumaticRelay->SetVolume(DSBVOLUME_MAX);
-                        dsbPneumaticRelay->Play(0, 0, 0);
-                    }
-                    else
-                        ;
-                else if (mvOccupied->BrakeDelaySwitch(bdelay_P))
-                {
-                    dsbPneumaticRelay->SetVolume(DSBVOLUME_MAX);
-                    dsbPneumaticRelay->Play(0, 0, 0);
-                }
-            }
-            else
-            {
-                TDynamicObject *temp;
-                temp = (DynamicObject->ABuScanNearestObject(DynamicObject->GetTrack(), -1, 1500,
-                                                            CouplNr));
-                if (temp == NULL)
-                {
-                    CouplNr = -2;
-                    temp = (DynamicObject->ABuScanNearestObject(DynamicObject->GetTrack(), 1, 1500,
-                                                                CouplNr));
-                }
-                if (temp)
-                {
-                    if (GetAsyncKeyState(VK_CONTROL) < 0)
-                        if (temp->MoverParameters->BrakeDelaySwitch(bdelay_R + bdelay_M))
-                        {
-                            dsbPneumaticRelay->SetVolume(DSBVOLUME_MAX);
-                            dsbPneumaticRelay->Play(0, 0, 0);
-                        }
-                        else
-                            ;
-                    else if (temp->MoverParameters->BrakeDelaySwitch(bdelay_P))
-                    {
-                        dsbPneumaticRelay->SetVolume(DSBVOLUME_MAX);
-                        dsbPneumaticRelay->Play(0, 0, 0);
-                    }
-                }
-            }
-        }
-        //-----------
-        // hunter-261211: przetwornica i sprzezarka przeniesione do
-        // TTrain::Update()
-        /* if (cKey==Global::Keys[k_Converter])   //NBMX 14-09-2003:
-        przetwornica wl
-                {
-        if ((mvControlled->PantFrontVolt) || (mvControlled->PantRearVolt) ||
-        (mvControlled->EnginePowerSource.SourceType!=CurrentCollector) ||
-        (!Global::bLiveTraction))
-                         if (mvControlled->ConverterSwitch(true))
-                         {
-                                 dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                                 dsbSwitch->Play(0,0,0);
-                         }
-                }
-                else
-                if (cKey==Global::Keys[k_Compressor])   //NBMX 14-09-2003: sprezarka wl
-                {
-                  if ((mvControlled->ConverterFlag) ||
-        (mvControlled->CompressorPower<2))
-                         if (mvControlled->CompressorSwitch(true))
-                         {
-                                 dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                                 dsbSwitch->Play(0,0,0);
-                         }
-                }
-                else */
+		// przelacznik opoznienia
+		// hamowania
+		{ // yB://ABu: male poprawki, zeby bylo mozna ustawic dowolny wagon
+			int CouplNr = -2;
+			if (!FreeFlyModeFlag)
+			{
+				if (GetAsyncKeyState(VK_CONTROL) < 0)
+					if (mvOccupied->BrakeDelaySwitch(bdelay_R + bdelay_M))
+					{
+						dsbPneumaticRelay->SetVolume(DSBVOLUME_MAX);
+						dsbPneumaticRelay->Play(0, 0, 0);
+					}
+					else
+						;
+				else if (mvOccupied->BrakeDelaySwitch(bdelay_P))
+				{
+					dsbPneumaticRelay->SetVolume(DSBVOLUME_MAX);
+					dsbPneumaticRelay->Play(0, 0, 0);
+				}
+			}
+			else
+			{
+				TDynamicObject *temp;
+				temp = (DynamicObject->ABuScanNearestObject(DynamicObject->GetTrack(), -1, 1500,
+					CouplNr));
+				if (temp == NULL)
+				{
+					CouplNr = -2;
+					temp = (DynamicObject->ABuScanNearestObject(DynamicObject->GetTrack(), 1, 1500,
+						CouplNr));
+				}
+				if (temp)
+				{
+					if (GetAsyncKeyState(VK_CONTROL) < 0)
+						if (temp->MoverParameters->BrakeDelaySwitch(bdelay_R + bdelay_M))
+						{
+							dsbPneumaticRelay->SetVolume(DSBVOLUME_MAX);
+							dsbPneumaticRelay->Play(0, 0, 0);
+						}
+						else
+							;
+					else if (temp->MoverParameters->BrakeDelaySwitch(bdelay_P))
+					{
+						dsbPneumaticRelay->SetVolume(DSBVOLUME_MAX);
+						dsbPneumaticRelay->Play(0, 0, 0);
+					}
+				}
+			}
+		}
+		//-----------
+		// hunter-261211: przetwornica i sprzezarka przeniesione do
+		// TTrain::Update()
+		/* if (cKey==Global::Keys[k_Converter])   //NBMX 14-09-2003:
+	przetwornica wl
+		{
+	if ((mvControlled->PantFrontVolt) || (mvControlled->PantRearVolt) ||
+	(mvControlled->EnginePowerSource.SourceType!=CurrentCollector) ||
+	(!Global::bLiveTraction))
+			 if (mvControlled->ConverterSwitch(true))
+			 {
+				 dsbSwitch->SetVolume(DSBVOLUME_MAX);
+				 dsbSwitch->Play(0,0,0);
+			 }
+		}
+		else
+		if (cKey==Global::Keys[k_Compressor])   //NBMX 14-09-2003: sprezarka wl
+		{
+		  if ((mvControlled->ConverterFlag) ||
+	(mvControlled->CompressorPower<2))
+			 if (mvControlled->CompressorSwitch(true))
+			 {
+				 dsbSwitch->SetVolume(DSBVOLUME_MAX);
+				 dsbSwitch->Play(0,0,0);
+			 }
+		}
+		else */
 
-        else if (cKey == Global::Keys[k_Converter])
-        {
-            if (ggConverterButton.GetValue() == 0)
-            {
-                dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                dsbSwitch->Play(0, 0, 0);
-            }
-        }
-        else if ((cKey == Global::Keys[k_Compressor]) &&
-                 (mvControlled->CompressorPower < 2)) // hunter-091012: tak jest poprawnie
-            // if
-            // ((cKey==Global::Keys[k_Compressor])&&((mvControlled->EngineType==ElectricSeriesMotor)||(mvControlled->TrainType==dt_EZT)))
-            // //hunter-110212: poprawka dla EZT
+		else if (cKey == Global::Keys[k_Converter])
+		{
+			if (ggConverterButton.GetValue() == 0)
+			{
+				dsbSwitch->SetVolume(DSBVOLUME_MAX);
+				dsbSwitch->Play(0, 0, 0);
+			}
+		}
+		else if ((cKey == Global::Keys[k_Compressor]) &&
+			(mvControlled->CompressorPower < 2)) // hunter-091012: tak jest poprawnie
+		// if
+		// ((cKey==Global::Keys[k_Compressor])&&((mvControlled->EngineType==ElectricSeriesMotor)||(mvControlled->TrainType==dt_EZT)))
+		// //hunter-110212: poprawka dla EZT
 
-        {
-            if (ggCompressorButton.GetValue() == 0)
-            {
-                dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                dsbSwitch->Play(0, 0, 0);
-            }
-        }
-        else if (cKey == Global::Keys[k_SmallCompressor]) // Winger 160404: mala
-            // sprezarka wl
-        { // Ra: dŸwiêk, gdy razem z [Shift]
-            if ((mvControlled->TrainType & dt_EZT) ? mvControlled == mvOccupied :
-                    !mvOccupied->ActiveCab) // tylko w maszynowym
-                if (Console::Pressed(VK_CONTROL)) // z [Ctrl]
-                    mvControlled->bPantKurek3 = true; // zbiornik pantografu po³¹czony
-            // jest ze zbiornikiem g³ównym
-            // (pompowanie nie ma sensu)
-                else if (!mvControlled->PantCompFlag) // jeœli wy³¹czona
-                    if (mvControlled->Battery) // jeszcze musi byæ za³¹czona bateria
-                        if (mvControlled->PantPress < 4.8) // pisz¹, ¿e to tak nie dzia³a
-                        {
-                            mvControlled->PantCompFlag = true;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0); // dŸwiêk tylko po naciœniêciu klawisza
-                        }
-        }
-        else if (cKey == VkKeyScan('q')) // ze Shiftem - w³¹czenie AI
-        { // McZapkie-240302 - wlaczanie automatycznego pilota (zadziala tylko w
-            // trybie debugmode)
-            if (DynamicObject->Mechanik)
-            {
-                if (DebugModeFlag)
-                    if (DynamicObject->Mechanik->AIControllFlag) //¿eby nie trzeba by³o
-                        // roz³¹czaæ dla
-                        // zresetowania
-                        DynamicObject->Mechanik->TakeControl(false);
-                DynamicObject->Mechanik->TakeControl(true);
-            }
-        }
-        else if (cKey == Global::Keys[k_MaxCurrent]) // McZapkie-160502: F -
-            // wysoki rozruch
-        {
-            if ((mvControlled->EngineType == DieselElectric) && (mvControlled->ShuntModeAllow) &&
-                    (mvControlled->MainCtrlPos == 0))
-            {
-                mvControlled->ShuntMode = true;
-            }
-            if (mvControlled->CurrentSwitch(true))
-            {
-                dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                dsbSwitch->Play(0, 0, 0);
-            }
-            /* Ra: przeniesione do Mover.cpp
-                                   if (mvControlled->TrainType!=dt_EZT) //to powinno byæ w fizyce, a
-                           nie w kabinie!
-                                        if (mvControlled->MinCurrentSwitch(true))
-                                        {
-                                         dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                                         dsbSwitch->Play(0,0,0);
-                                        }
-                        */
-        }
-        else if (cKey == Global::Keys[k_CurrentAutoRelay]) // McZapkie-241002: G -
-            // wlaczanie PSR
-        {
-            if (mvControlled->AutoRelaySwitch(true))
-            {
-                dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                dsbSwitch->Play(0, 0, 0);
-            }
-        }
-        else if (cKey == Global::Keys[k_FailedEngineCutOff]) // McZapkie-060103: E
-            // - wylaczanie
-            // sekcji silnikow
-        {
-            if (mvControlled->CutOffEngine())
-            {
-                dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                dsbSwitch->Play(0, 0, 0);
-            }
-        }
-        else if (cKey == Global::Keys[k_OpenLeft]) // NBMX 17-09-2003: otwieranie drzwi
-        {
-            if (mvOccupied->DoorOpenCtrl == 1)
-                if (mvOccupied->CabNo < 0 ? mvOccupied->DoorRight(true) :
-                        mvOccupied->DoorLeft(true))
-                {
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                    if (dsbDoorOpen)
-                    {
-                        dsbDoorOpen->SetCurrentPosition(0);
-                        dsbDoorOpen->Play(0, 0, 0);
-                    }
-                }
-        }
-        else if (cKey == Global::Keys[k_OpenRight]) // NBMX 17-09-2003: otwieranie drzwi
-        {
-            if (mvOccupied->DoorCloseCtrl == 1)
-                if (mvOccupied->CabNo < 0 ? mvOccupied->DoorLeft(true) :
-                        mvOccupied->DoorRight(true))
-                {
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                    if (dsbDoorOpen)
-                    {
-                        dsbDoorOpen->SetCurrentPosition(0);
-                        dsbDoorOpen->Play(0, 0, 0);
-                    }
-                }
-        }
-        //-----------
-        // hunter-131211: dzwiek dla przelacznika universala podniesionego
-        // hunter-091012: ubajerowanie swiatla w kabinie (wyrzucenie
-        // przyciemnienia pod Univ4)
-        else if (cKey == Global::Keys[k_Univ3])
-        {
-            if (Console::Pressed(VK_CONTROL))
-            {
-                if (bCabLight == false) //(ggCabLightButton.GetValue()==0)
-                {
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                }
-            }
-            else
-            {
-                if (ggUniversal3Button.GetValue() == 0)
-                {
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                }
-                /*
-                                 if (Console::Pressed(VK_CONTROL))
-                                  {//z [Ctrl] zapalamy albo gasimy œwiate³ko w kabinie
-                                   if (iCabLightFlag<2) ++iCabLightFlag; //zapalenie
-                                  }
-                                */
-            }
-        }
+		{
+			if (ggCompressorButton.GetValue() == 0)
+			{
+				dsbSwitch->SetVolume(DSBVOLUME_MAX);
+				dsbSwitch->Play(0, 0, 0);
+			}
+		}
+		else if (cKey == Global::Keys[k_SmallCompressor]) // Winger 160404: mala
+		// sprezarka wl
+		{ // Ra: dŸwiêk, gdy razem z [Shift]
+			if ((mvControlled->TrainType & dt_EZT) ? mvControlled == mvOccupied :
+				!mvOccupied->ActiveCab) // tylko w maszynowym
+				if (Console::Pressed(VK_CONTROL)) // z [Ctrl]
+					mvControlled->bPantKurek3 = true; // zbiornik pantografu po³¹czony
+				// jest ze zbiornikiem g³ównym
+				// (pompowanie nie ma sensu)
+				else if (!mvControlled->PantCompFlag) // jeœli wy³¹czona
+					if (mvControlled->Battery) // jeszcze musi byæ za³¹czona bateria
+						if (mvControlled->PantPress < 4.8) // pisz¹, ¿e to tak nie dzia³a
+						{
+							mvControlled->PantCompFlag = true;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0); // dŸwiêk tylko po naciœniêciu klawisza
+						}
+		}
+		else if (cKey == VkKeyScan('q')) // ze Shiftem - w³¹czenie AI
+		{ // McZapkie-240302 - wlaczanie automatycznego pilota (zadziala tylko w
+			// trybie debugmode)
+			if (DynamicObject->Mechanik)
+			{
+				if (DebugModeFlag)
+					if (DynamicObject->Mechanik->AIControllFlag) //¿eby nie trzeba by³o
+						// roz³¹czaæ dla
+						// zresetowania
+						DynamicObject->Mechanik->TakeControl(false);
+				DynamicObject->Mechanik->TakeControl(true);
+			}
+		}
+		else if (cKey == Global::Keys[k_MaxCurrent]) // McZapkie-160502: F -
+		// wysoki rozruch
+		{
+			if ((mvControlled->EngineType == DieselElectric) && (mvControlled->ShuntModeAllow) &&
+				(mvControlled->MainCtrlPos == 0))
+			{
+				mvControlled->ShuntMode = true;
+			}
+			if (mvControlled->CurrentSwitch(true))
+			{
+				dsbSwitch->SetVolume(DSBVOLUME_MAX);
+				dsbSwitch->Play(0, 0, 0);
+			}
+			/* Ra: przeniesione do Mover.cpp
+				   if (mvControlled->TrainType!=dt_EZT) //to powinno byæ w fizyce, a
+			   nie w kabinie!
+					if (mvControlled->MinCurrentSwitch(true))
+					{
+					 dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					 dsbSwitch->Play(0,0,0);
+					}
+			*/
+		}
+		else if (cKey == Global::Keys[k_CurrentAutoRelay]) // McZapkie-241002: G -
+		// wlaczanie PSR
+		{
+			if (mvControlled->AutoRelaySwitch(true))
+			{
+				dsbSwitch->SetVolume(DSBVOLUME_MAX);
+				dsbSwitch->Play(0, 0, 0);
+			}
+		}
+		else if (cKey == Global::Keys[k_FailedEngineCutOff]) // McZapkie-060103: E
+		// - wylaczanie
+		// sekcji silnikow
+		{
+			if (mvControlled->CutOffEngine())
+			{
+				dsbSwitch->SetVolume(DSBVOLUME_MAX);
+				dsbSwitch->Play(0, 0, 0);
+			}
+		}
+		else if (cKey == Global::Keys[k_OpenLeft]) // NBMX 17-09-2003: otwieranie drzwi
+		{
+			if (mvOccupied->DoorOpenCtrl == 1)
+				if (mvOccupied->CabNo < 0 ? mvOccupied->DoorRight(true) :
+					mvOccupied->DoorLeft(true))
+				{
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+					if (dsbDoorOpen)
+					{
+						dsbDoorOpen->SetCurrentPosition(0);
+						dsbDoorOpen->Play(0, 0, 0);
+					}
+				}
+		}
+		else if (cKey == Global::Keys[k_OpenRight]) // NBMX 17-09-2003: otwieranie drzwi
+		{
+			if (mvOccupied->DoorCloseCtrl == 1)
+				if (mvOccupied->CabNo < 0 ? mvOccupied->DoorLeft(true) :
+					mvOccupied->DoorRight(true))
+				{
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+					if (dsbDoorOpen)
+					{
+						dsbDoorOpen->SetCurrentPosition(0);
+						dsbDoorOpen->Play(0, 0, 0);
+					}
+				}
+		}
+		//-----------
+		// hunter-131211: dzwiek dla przelacznika universala podniesionego
+		// hunter-091012: ubajerowanie swiatla w kabinie (wyrzucenie
+		// przyciemnienia pod Univ4)
+		else if (cKey == Global::Keys[k_Univ3])
+		{
+			if (Console::Pressed(VK_CONTROL))
+			{
+				if (bCabLight == false) //(ggCabLightButton.GetValue()==0)
+				{
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+				}
+			}
+			else
+			{
+				if (ggUniversal3Button.GetValue() == 0)
+				{
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+				}
+				/*
+				 if (Console::Pressed(VK_CONTROL))
+				  {//z [Ctrl] zapalamy albo gasimy œwiate³ko w kabinie
+				   if (iCabLightFlag<2) ++iCabLightFlag; //zapalenie
+				  }
+				*/
+			}
+		}
 
-        //-----------
-        // hunter-091012: dzwiek dla przyciemnienia swiatelka w kabinie
-        else if (cKey == Global::Keys[k_Univ4])
-        {
-            if (Console::Pressed(VK_CONTROL))
-            {
-                if (bCabLightDim == false) //(ggCabLightDimButton.GetValue()==0)
-                {
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                }
-            }
-        }
+		//-----------
+		// hunter-091012: dzwiek dla przyciemnienia swiatelka w kabinie
+		else if (cKey == Global::Keys[k_Univ4])
+		{
+			if (Console::Pressed(VK_CONTROL))
+			{
+				if (bCabLightDim == false) //(ggCabLightDimButton.GetValue()==0)
+				{
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+				}
+			}
+		}
 
-        //-----------
-        else if (cKey == Global::Keys[k_PantFrontUp])
-        { // Winger 160204: podn.
-            // przedn. pantografu
-            if (mvOccupied->ActiveCab ==
-                    1) //||((mvOccupied->ActiveCab<1)&&((mvControlled->TrainType&(dt_ET40|dt_ET41|dt_ET42|dt_EZT))==0)))
-            { // przedni gdy w kabinie 1 lub (z wyj¹tkiem ET40, ET41, ET42 i EZT) gdy
-                // w kabinie -1
-                mvControlled->PantFrontSP = false;
-                if (mvControlled->PantFront(true))
-                    if (mvControlled->PantFrontStart != 1)
-                    {
-                        dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                        dsbSwitch->Play(0, 0, 0);
-                    }
-            }
-            else
-                // if
-                // ((mvOccupied->ActiveCab<1)&&(mvControlled->TrainType&(dt_ET40|dt_ET41|dt_ET42|dt_EZT)))
-            { // w kabinie -1 dla ET40, ET41, ET42 i EZT
-                mvControlled->PantRearSP = false;
-                if (mvControlled->PantRear(true))
-                    if (mvControlled->PantRearStart != 1)
-                    {
-                        dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                        dsbSwitch->Play(0, 0, 0);
-                    }
-            }
-        }
-        else if (cKey == Global::Keys[k_PantRearUp])
-        { // Winger 160204: podn.
-            // tyln. pantografu
-            // wzglêdem kierunku jazdy
-            if (mvOccupied->ActiveCab ==
-                    1) //||((mvOccupied->ActiveCab<1)&&((mvControlled->TrainType&(dt_ET40|dt_ET41|dt_ET42|dt_EZT))==0)))
-            { // tylny gdy w kabinie 1 lub (z wyj¹tkiem ET40, ET41, ET42 i EZT) gdy w
-                // kabinie -1
-                mvControlled->PantRearSP = false;
-                if (mvControlled->PantRear(true))
-                    if (mvControlled->PantRearStart != 1)
-                    {
-                        dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                        dsbSwitch->Play(0, 0, 0);
-                    }
-            }
-            else
-                // if
-                // ((mvOccupied->ActiveCab<1)&&(mvControlled->TrainType&(dt_ET40|dt_ET41|dt_ET42|dt_EZT)))
-            { // przedni w kabinie -1 dla ET40, ET41, ET42 i EZT
-                mvControlled->PantFrontSP = false;
-                if (mvControlled->PantFront(true))
-                    if (mvControlled->PantFrontStart != 1)
-                    {
-                        dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                        dsbSwitch->Play(0, 0, 0);
-                    }
-            }
-        }
-        else if (cKey == Global::Keys[k_Active]) // yB 300407: przelacznik rozrzadu
-        { // Ra 2014-06: uruchomi³em to, aby aktywowaæ czuwak w zajmowanym cz³onie,
-            // a wy³¹czyæ w innych
-            // Ra 2014-03: aktywacja czuwaka przepiêta na ustawienie kierunku w
-            // mvOccupied
-            // if (mvControlled->Battery) //jeœli bateria jest ju¿ za³¹czona
-            // mvOccupied->BatterySwitch(true); //to w ten oto durny sposób aktywuje
-            // siê CA/SHP
-            //        if (mvControlled->CabActivisation())
-            //           {
-            //            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-            //            dsbSwitch->Play(0,0,0);
-            //           }
-        }
-        else if (cKey == Global::Keys[k_Heating]) // Winger 020304: ogrzewanie
-            // skladu - wlaczenie
-        { // Ra 2014-09: w trybie latania obs³uga jest w World.cpp
-            if (!FreeFlyModeFlag)
-            {
-                if ((mvControlled->Heating == false) &&
-                        ((mvControlled->EngineType == ElectricSeriesMotor) &&
-                         (mvControlled->Mains == true) ||
-                         (mvControlled->ConverterFlag)))
-                {
-                    mvControlled->Heating = true;
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                }
-            }
-        }
-        else if (cKey == Global::Keys[k_LeftSign]) // lewe swiatlo - w³¹czenie
-            // ABu 060205: dzielo Wingera po malutkim liftingu:
-        {
-            if (!mvOccupied->LightsPosNo > 0)
-            {
-                if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
-                        (ggRearLeftLightButton.SubModel)) // hunter-230112 - z controlem zapala z tylu
-                {
-                    //------------------------------
-                    if (mvOccupied->ActiveCab == 1)
-                    { // kabina 1
-                        if (((DynamicObject->iLights[1]) & 3) == 0)
-                        {
-                            DynamicObject->iLights[1] |= 1;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRearLeftLightButton.PutValue(1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 3) == 2)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 2);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRearLeftEndLightButton.SubModel)
-                            {
-                                ggRearLeftEndLightButton.PutValue(0);
-                                ggRearLeftLightButton.PutValue(0);
-                            }
-                            else
-                                ggRearLeftLightButton.PutValue(0);
-                        }
-                    }
-                    else
-                    { // kabina -1
-                        if (((DynamicObject->iLights[0]) & 3) == 0)
-                        {
-                            DynamicObject->iLights[0] |= 1;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRearLeftLightButton.PutValue(1);
-                        }
-                        if (((DynamicObject->iLights[0]) & 3) == 2)
-                        {
-                            DynamicObject->iLights[0] &= (255 - 2);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRearLeftEndLightButton.SubModel)
-                            {
-                                ggRearLeftEndLightButton.PutValue(0);
-                                ggRearLeftLightButton.PutValue(0);
-                            }
-                            else
-                                ggRearLeftLightButton.PutValue(0);
-                        }
-                    }
-                    //----------------------
-                }
-                else
-                {
-                    if (mvOccupied->ActiveCab == 1)
-                    { // kabina 1
-                        if (((DynamicObject->iLights[0]) & 3) == 0)
-                        {
-                            DynamicObject->iLights[0] |= 1;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggLeftLightButton.PutValue(1);
-                        }
-                        if (((DynamicObject->iLights[0]) & 3) == 2)
-                        {
-                            DynamicObject->iLights[0] &= (255 - 2);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggLeftEndLightButton.SubModel)
-                            {
-                                ggLeftEndLightButton.PutValue(0);
-                                ggLeftLightButton.PutValue(0);
-                            }
-                            else
-                                ggLeftLightButton.PutValue(0);
-                        }
-                    }
-                    else
-                    { // kabina -1
-                        if (((DynamicObject->iLights[1]) & 3) == 0)
-                        {
-                            DynamicObject->iLights[1] |= 1;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggLeftLightButton.PutValue(1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 3) == 2)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 2);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggLeftEndLightButton.SubModel)
-                            {
-                                ggLeftEndLightButton.PutValue(0);
-                                ggLeftLightButton.PutValue(0);
-                            }
-                            else
-                                ggLeftLightButton.PutValue(0);
-                        }
-                    }
-                } //-----------
-            }
-        }
-        else if (cKey == Global::Keys[k_UpperSign]) // ABu 060205: œwiat³o górne -
-            // w³¹czenie
-        {
-            if (mvOccupied->LightsPosNo > 0) //krêciolek od swiatel
-            {
-                if ((mvOccupied->LightsPos < mvOccupied->LightsPosNo) || (mvOccupied->LightsWrap))
-                {
-                    mvOccupied->LightsPos++;
-                    if (mvOccupied->LightsPos > mvOccupied->LightsPosNo)
-                    {
-                        mvOccupied->LightsPos = 1;
-                    }
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                    SetLights();
-                }
+		//-----------
+		else if (cKey == Global::Keys[k_PantFrontUp])
+		{ // Winger 160204: podn.
+			// przedn. pantografu
+			if (mvOccupied->ActiveCab ==
+				1) //||((mvOccupied->ActiveCab<1)&&((mvControlled->TrainType&(dt_ET40|dt_ET41|dt_ET42|dt_EZT))==0)))
+			{ // przedni gdy w kabinie 1 lub (z wyj¹tkiem ET40, ET41, ET42 i EZT) gdy
+				// w kabinie -1
+				mvControlled->PantFrontSP = false;
+				if (mvControlled->PantFront(true))
+					if (mvControlled->PantFrontStart != 1)
+					{
+						dsbSwitch->SetVolume(DSBVOLUME_MAX);
+						dsbSwitch->Play(0, 0, 0);
+					}
+			}
+			else
+				// if
+				// ((mvOccupied->ActiveCab<1)&&(mvControlled->TrainType&(dt_ET40|dt_ET41|dt_ET42|dt_EZT)))
+			{ // w kabinie -1 dla ET40, ET41, ET42 i EZT
+				mvControlled->PantRearSP = false;
+				if (mvControlled->PantRear(true))
+					if (mvControlled->PantRearStart != 1)
+					{
+						dsbSwitch->SetVolume(DSBVOLUME_MAX);
+						dsbSwitch->Play(0, 0, 0);
+					}
+			}
+		}
+		else if (cKey == Global::Keys[k_PantRearUp])
+		{ // Winger 160204: podn.
+			// tyln. pantografu
+			// wzglêdem kierunku jazdy
+			if (mvOccupied->ActiveCab ==
+				1) //||((mvOccupied->ActiveCab<1)&&((mvControlled->TrainType&(dt_ET40|dt_ET41|dt_ET42|dt_EZT))==0)))
+			{ // tylny gdy w kabinie 1 lub (z wyj¹tkiem ET40, ET41, ET42 i EZT) gdy w
+				// kabinie -1
+				mvControlled->PantRearSP = false;
+				if (mvControlled->PantRear(true))
+					if (mvControlled->PantRearStart != 1)
+					{
+						dsbSwitch->SetVolume(DSBVOLUME_MAX);
+						dsbSwitch->Play(0, 0, 0);
+					}
+			}
+			else
+				// if
+				// ((mvOccupied->ActiveCab<1)&&(mvControlled->TrainType&(dt_ET40|dt_ET41|dt_ET42|dt_EZT)))
+			{ // przedni w kabinie -1 dla ET40, ET41, ET42 i EZT
+				mvControlled->PantFrontSP = false;
+				if (mvControlled->PantFront(true))
+					if (mvControlled->PantFrontStart != 1)
+					{
+						dsbSwitch->SetVolume(DSBVOLUME_MAX);
+						dsbSwitch->Play(0, 0, 0);
+					}
+			}
+		}
+		else if (cKey == Global::Keys[k_Active]) // yB 300407: przelacznik rozrzadu
+		{ // Ra 2014-06: uruchomi³em to, aby aktywowaæ czuwak w zajmowanym cz³onie,
+			// a wy³¹czyæ w innych
+			// Ra 2014-03: aktywacja czuwaka przepiêta na ustawienie kierunku w
+			// mvOccupied
+			// if (mvControlled->Battery) //jeœli bateria jest ju¿ za³¹czona
+			// mvOccupied->BatterySwitch(true); //to w ten oto durny sposób aktywuje
+			// siê CA/SHP
+			//        if (mvControlled->CabActivisation())
+			//           {
+			//            dsbSwitch->SetVolume(DSBVOLUME_MAX);
+			//            dsbSwitch->Play(0,0,0);
+			//           }
+		}
+		else if (cKey == Global::Keys[k_Heating]) // Winger 020304: ogrzewanie
+		// skladu - wlaczenie
+		{ // Ra 2014-09: w trybie latania obs³uga jest w World.cpp
+			if (!FreeFlyModeFlag)
+			{
+				if ((mvControlled->Heating == false) &&
+					((mvControlled->EngineType == ElectricSeriesMotor) &&
+						(mvControlled->Mains == true) ||
+						(mvControlled->ConverterFlag)))
+				{
+					mvControlled->Heating = true;
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+				}
+			}
+		}
+		else if (cKey == Global::Keys[k_LeftSign]) // lewe swiatlo - w³¹czenie
+		// ABu 060205: dzielo Wingera po malutkim liftingu:
+		{
+			if (!mvOccupied->LightsPosNo > 0)
+			{
+				if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
+					(ggRearLeftLightButton.SubModel)) // hunter-230112 - z controlem zapala z tylu
+				{
+					//------------------------------
+					if (mvOccupied->ActiveCab == 1)
+					{ // kabina 1
+						if (((DynamicObject->iLights[1]) & 3) == 0)
+						{
+							DynamicObject->iLights[1] |= 1;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRearLeftLightButton.PutValue(1);
+						}
+						if (((DynamicObject->iLights[1]) & 3) == 2)
+						{
+							DynamicObject->iLights[1] &= (255 - 2);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRearLeftEndLightButton.SubModel)
+							{
+								ggRearLeftEndLightButton.PutValue(0);
+								ggRearLeftLightButton.PutValue(0);
+							}
+							else
+								ggRearLeftLightButton.PutValue(0);
+						}
+					}
+					else
+					{ // kabina -1
+						if (((DynamicObject->iLights[0]) & 3) == 0)
+						{
+							DynamicObject->iLights[0] |= 1;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRearLeftLightButton.PutValue(1);
+						}
+						if (((DynamicObject->iLights[0]) & 3) == 2)
+						{
+							DynamicObject->iLights[0] &= (255 - 2);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRearLeftEndLightButton.SubModel)
+							{
+								ggRearLeftEndLightButton.PutValue(0);
+								ggRearLeftLightButton.PutValue(0);
+							}
+							else
+								ggRearLeftLightButton.PutValue(0);
+						}
+					}
+					//----------------------
+				}
+				else
+				{
+					if (mvOccupied->ActiveCab == 1)
+					{ // kabina 1
+						if (((DynamicObject->iLights[0]) & 3) == 0)
+						{
+							DynamicObject->iLights[0] |= 1;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggLeftLightButton.PutValue(1);
+						}
+						if (((DynamicObject->iLights[0]) & 3) == 2)
+						{
+							DynamicObject->iLights[0] &= (255 - 2);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggLeftEndLightButton.SubModel)
+							{
+								ggLeftEndLightButton.PutValue(0);
+								ggLeftLightButton.PutValue(0);
+							}
+							else
+								ggLeftLightButton.PutValue(0);
+						}
+					}
+					else
+					{ // kabina -1
+						if (((DynamicObject->iLights[1]) & 3) == 0)
+						{
+							DynamicObject->iLights[1] |= 1;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggLeftLightButton.PutValue(1);
+						}
+						if (((DynamicObject->iLights[1]) & 3) == 2)
+						{
+							DynamicObject->iLights[1] &= (255 - 2);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggLeftEndLightButton.SubModel)
+							{
+								ggLeftEndLightButton.PutValue(0);
+								ggLeftLightButton.PutValue(0);
+							}
+							else
+								ggLeftLightButton.PutValue(0);
+						}
+					}
+				} //-----------
+			}
+		}
+		else if (cKey == Global::Keys[k_UpperSign]) // ABu 060205: œwiat³o górne -
+		// w³¹czenie
+		{
+			if (mvOccupied->LightsPosNo > 0) //krêciolek od swiatel
+			{
+				if ((mvOccupied->LightsPos < mvOccupied->LightsPosNo) || (mvOccupied->LightsWrap))
+				{
+					mvOccupied->LightsPos++;
+					if (mvOccupied->LightsPos > mvOccupied->LightsPosNo)
+					{
+						mvOccupied->LightsPos = 1;
+					}
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+					SetLights();
+				}
 
-            }
-            else if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
-                     (ggRearUpperLightButton.SubModel)) // hunter-230112 - z controlem zapala z tylu
-            {
-                //------------------------------
-                if ((mvOccupied->ActiveCab) == 1)
-                { // kabina 1
-                    if (((DynamicObject->iLights[1]) & 12) == 0)
-                    {
-                        DynamicObject->iLights[1] |= 4;
-                        dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                        dsbSwitch->Play(0, 0, 0);
-                        ggRearUpperLightButton.PutValue(1);
-                    }
-                }
-                else
-                { // kabina -1
-                    if (((DynamicObject->iLights[0]) & 12) == 0)
-                    {
-                        DynamicObject->iLights[0] |= 4;
-                        dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                        dsbSwitch->Play(0, 0, 0);
-                        ggRearUpperLightButton.PutValue(1);
-                    }
-                }
-            } //------------------------------
-            else
-            {
-                if ((mvOccupied->ActiveCab) == 1)
-                { // kabina 1
-                    if (((DynamicObject->iLights[0]) & 12) == 0)
-                    {
-                        DynamicObject->iLights[0] |= 4;
-                        dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                        dsbSwitch->Play(0, 0, 0);
-                        ggUpperLightButton.PutValue(1);
-                    }
-                }
-                else
-                { // kabina -1
-                    if (((DynamicObject->iLights[1]) & 12) == 0)
-                    {
-                        DynamicObject->iLights[1] |= 4;
-                        dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                        dsbSwitch->Play(0, 0, 0);
-                        ggUpperLightButton.PutValue(1);
-                    }
-                }
-            }
-        }
-        else if (cKey == Global::Keys[k_RightSign]) // Winger 070304: swiatla
-            // tylne (koncowki) -
-            // wlaczenie
-        {
-            if (!mvOccupied->LightsPosNo > 0)
-            {
-                if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
-                        (ggRearRightLightButton.SubModel)) // hunter-230112 - z controlem zapala z tylu
-                {
-                    //------------------------------
-                    if (mvOccupied->ActiveCab == 1)
-                    { // kabina 1
-                        if (((DynamicObject->iLights[1]) & 48) == 0)
-                        {
-                            DynamicObject->iLights[1] |= 16;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRearRightLightButton.PutValue(1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 48) == 32)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 32);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRearRightEndLightButton.SubModel)
-                            {
-                                ggRearRightEndLightButton.PutValue(0);
-                                ggRearRightLightButton.PutValue(0);
-                            }
-                            else
-                                ggRearRightLightButton.PutValue(0);
-                        }
-                    }
-                    else
-                    { // kabina -1
-                        if (((DynamicObject->iLights[0]) & 48) == 0)
-                        {
-                            DynamicObject->iLights[0] |= 16;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRearRightLightButton.PutValue(1);
-                        }
-                        if (((DynamicObject->iLights[0]) & 48) == 32)
-                        {
-                            DynamicObject->iLights[0] &= (255 - 32);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRearRightEndLightButton.SubModel)
-                            {
-                                ggRearRightEndLightButton.PutValue(0);
-                                ggRearRightLightButton.PutValue(0);
-                            }
-                            else
-                                ggRearRightLightButton.PutValue(0);
-                        }
-                    }
-                } //------------------------------
-                else
-                {
-                    if (mvOccupied->ActiveCab == 1)
-                    { // kabina 1
-                        if (((DynamicObject->iLights[0]) & 48) == 0)
-                        {
-                            DynamicObject->iLights[0] |= 16;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRightLightButton.PutValue(1);
-                        }
-                        if (((DynamicObject->iLights[0]) & 48) == 32)
-                        {
-                            DynamicObject->iLights[0] &= (255 - 32);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRightEndLightButton.SubModel)
-                            {
-                                ggRightEndLightButton.PutValue(0);
-                                ggRightLightButton.PutValue(0);
-                            }
-                            else
-                                ggRightLightButton.PutValue(0);
-                        }
-                    }
-                    else
-                    { // kabina -1
-                        if (((DynamicObject->iLights[1]) & 48) == 0)
-                        {
-                            DynamicObject->iLights[1] |= 16;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRightLightButton.PutValue(1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 48) == 32)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 32);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRightEndLightButton.SubModel)
-                            {
-                                ggRightEndLightButton.PutValue(0);
-                                ggRightLightButton.PutValue(0);
-                            }
-                            else
-                                ggRightLightButton.PutValue(0);
-                        }
-                    }
-                }
-            }
-        }
-    }
+			}
+			else if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
+				(ggRearUpperLightButton.SubModel)) // hunter-230112 - z controlem zapala z tylu
+			{
+				//------------------------------
+				if ((mvOccupied->ActiveCab) == 1)
+				{ // kabina 1
+					if (((DynamicObject->iLights[1]) & 12) == 0)
+					{
+						DynamicObject->iLights[1] |= 4;
+						dsbSwitch->SetVolume(DSBVOLUME_MAX);
+						dsbSwitch->Play(0, 0, 0);
+						ggRearUpperLightButton.PutValue(1);
+					}
+				}
+				else
+				{ // kabina -1
+					if (((DynamicObject->iLights[0]) & 12) == 0)
+					{
+						DynamicObject->iLights[0] |= 4;
+						dsbSwitch->SetVolume(DSBVOLUME_MAX);
+						dsbSwitch->Play(0, 0, 0);
+						ggRearUpperLightButton.PutValue(1);
+					}
+				}
+			} //------------------------------
+			else
+			{
+				if ((mvOccupied->ActiveCab) == 1)
+				{ // kabina 1
+					if (((DynamicObject->iLights[0]) & 12) == 0)
+					{
+						DynamicObject->iLights[0] |= 4;
+						dsbSwitch->SetVolume(DSBVOLUME_MAX);
+						dsbSwitch->Play(0, 0, 0);
+						ggUpperLightButton.PutValue(1);
+					}
+				}
+				else
+				{ // kabina -1
+					if (((DynamicObject->iLights[1]) & 12) == 0)
+					{
+						DynamicObject->iLights[1] |= 4;
+						dsbSwitch->SetVolume(DSBVOLUME_MAX);
+						dsbSwitch->Play(0, 0, 0);
+						ggUpperLightButton.PutValue(1);
+					}
+				}
+			}
+		}
+		else if (cKey == Global::Keys[k_RightSign]) // Winger 070304: swiatla
+		// tylne (koncowki) -
+		// wlaczenie
+		{
+			if (!mvOccupied->LightsPosNo > 0)
+			{
+				if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
+					(ggRearRightLightButton.SubModel)) // hunter-230112 - z controlem zapala z tylu
+				{
+					//------------------------------
+					if (mvOccupied->ActiveCab == 1)
+					{ // kabina 1
+						if (((DynamicObject->iLights[1]) & 48) == 0)
+						{
+							DynamicObject->iLights[1] |= 16;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRearRightLightButton.PutValue(1);
+						}
+						if (((DynamicObject->iLights[1]) & 48) == 32)
+						{
+							DynamicObject->iLights[1] &= (255 - 32);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRearRightEndLightButton.SubModel)
+							{
+								ggRearRightEndLightButton.PutValue(0);
+								ggRearRightLightButton.PutValue(0);
+							}
+							else
+								ggRearRightLightButton.PutValue(0);
+						}
+					}
+					else
+					{ // kabina -1
+						if (((DynamicObject->iLights[0]) & 48) == 0)
+						{
+							DynamicObject->iLights[0] |= 16;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRearRightLightButton.PutValue(1);
+						}
+						if (((DynamicObject->iLights[0]) & 48) == 32)
+						{
+							DynamicObject->iLights[0] &= (255 - 32);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRearRightEndLightButton.SubModel)
+							{
+								ggRearRightEndLightButton.PutValue(0);
+								ggRearRightLightButton.PutValue(0);
+							}
+							else
+								ggRearRightLightButton.PutValue(0);
+						}
+					}
+				} //------------------------------
+				else
+				{
+					if (mvOccupied->ActiveCab == 1)
+					{ // kabina 1
+						if (((DynamicObject->iLights[0]) & 48) == 0)
+						{
+							DynamicObject->iLights[0] |= 16;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRightLightButton.PutValue(1);
+						}
+						if (((DynamicObject->iLights[0]) & 48) == 32)
+						{
+							DynamicObject->iLights[0] &= (255 - 32);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRightEndLightButton.SubModel)
+							{
+								ggRightEndLightButton.PutValue(0);
+								ggRightLightButton.PutValue(0);
+							}
+							else
+								ggRightLightButton.PutValue(0);
+						}
+					}
+					else
+					{ // kabina -1
+						if (((DynamicObject->iLights[1]) & 48) == 0)
+						{
+							DynamicObject->iLights[1] |= 16;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRightLightButton.PutValue(1);
+						}
+						if (((DynamicObject->iLights[1]) & 48) == 32)
+						{
+							DynamicObject->iLights[1] &= (255 - 32);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRightEndLightButton.SubModel)
+							{
+								ggRightEndLightButton.PutValue(0);
+								ggRightLightButton.PutValue(0);
+							}
+							else
+								ggRightLightButton.PutValue(0);
+						}
+					}
+				}
+			}
+		}
+	}
     else // McZapkie-240302 - klawisze bez shifta
     {
         if (cKey == Global::Keys[k_IncMainCtrl])
@@ -1191,21 +1191,21 @@ void TTrain::OnKeyDown(int cKey)
             else
 
                 if (mvControlled->DecScndCtrl(1))
-                    //        if (MoverParameters->ScndCtrlPos>0)
+            //        if (MoverParameters->ScndCtrlPos>0)
+            {
+                if (dsbNastawnikBocz) // hunter-081211
                 {
-                    if (dsbNastawnikBocz) // hunter-081211
-                    {
-                        dsbNastawnikBocz->SetCurrentPosition(0);
-                        dsbNastawnikBocz->Play(0, 0, 0);
-                    }
-                    else if (!dsbNastawnikBocz)
-                    {
-                        dsbNastawnikJazdy->SetCurrentPosition(0);
-                        dsbNastawnikJazdy->Play(0, 0, 0);
-                    }
+                    dsbNastawnikBocz->SetCurrentPosition(0);
+                    dsbNastawnikBocz->Play(0, 0, 0);
                 }
-                else
-                    ;
+                else if (!dsbNastawnikBocz)
+                {
+                    dsbNastawnikJazdy->SetCurrentPosition(0);
+                    dsbNastawnikJazdy->Play(0, 0, 0);
+                }
+            }
+            else
+                ;
         else if (cKey == Global::Keys[k_IncLocalBrakeLevel])
         { // Ra 2014-09: w
             // trybie latania
@@ -1239,14 +1239,14 @@ void TTrain::OnKeyDown(int cKey)
                 else // Ra 1014-06: AI potrafi zahamowaæ pomocniczym mimo jego braku -
                     // odhamowaæ jakoœ trzeba
                     if ((mvOccupied->LocalBrake != ManualBrake) || mvOccupied->LocalBrakePos)
-                        mvOccupied->DecLocalBrakeLevel(1);
+                    mvOccupied->DecLocalBrakeLevel(1);
             }
         }
         else if ((cKey == Global::Keys[k_IncBrakeLevel]) && (mvOccupied->BrakeHandle != FV4a))
             // if (mvOccupied->IncBrakeLevel())
             if (mvOccupied->BrakeLevelAdd(Global::fBrakeStep)) // nieodpowiedni
-                // warunek; true, jeœli
-                // mo¿na dalej krêciæ
+            // warunek; true, jeœli
+            // mo¿na dalej krêciæ
             {
                 keybrakecount = 0;
                 if ((isEztOer) && (mvOccupied->BrakeCtrlPos < 3))
@@ -1327,7 +1327,7 @@ void TTrain::OnKeyDown(int cKey)
                                       (mvOccupied->BrakeHandle == FV4a ? 1 : 0));
             if (GetAsyncKeyState(VK_CONTROL) < 0)
                 mvOccupied->BrakeLevelSet(
-                            mvOccupied->Handle->GetPos(bh_NP)); // yB: czy ten stos funkcji nie
+                    mvOccupied->Handle->GetPos(bh_NP)); // yB: czy ten stos funkcji nie
             // powinien byæ jako oddzielna
             // funkcja movera?
         }
@@ -1351,7 +1351,7 @@ void TTrain::OnKeyDown(int cKey)
             else
             {
                 if ((isEztOer) &&
-                        ((mvOccupied->BrakeCtrlPos == 1) || (mvOccupied->BrakeCtrlPos == -1)))
+                    ((mvOccupied->BrakeCtrlPos == 1) || (mvOccupied->BrakeCtrlPos == -1)))
                 {
                     dsbPneumaticSwitch->SetVolume(-10);
                     dsbPneumaticSwitch->Play(0, 0, 0);
@@ -1410,7 +1410,7 @@ void TTrain::OnKeyDown(int cKey)
             {
                 ggConverterFuseButton.PutValue(1); // hunter-261211
                 if ((mvControlled->Mains == false) && (ggConverterButton.GetValue() == 0) &&
-                        (mvControlled->TrainType != dt_EZT))
+                    (mvControlled->TrainType != dt_EZT))
                     mvControlled->ConvOvldFlag = false;
             }
             else
@@ -1442,7 +1442,7 @@ void TTrain::OnKeyDown(int cKey)
                 if (mvOccupied->ActiveDir) // jeœli kierunek niezerowy
                     if (DynamicObject->Mechanik) // na wszelki wypadek
                         DynamicObject->Mechanik->CheckVehicles(
-                                    Change_direction); // aktualizacja skrajnych pojazdów w sk³adzie
+                            Change_direction); // aktualizacja skrajnych pojazdów w sk³adzie
             }
         }
         else if (cKey == Global::Keys[k_DirectionBackward]) // r
@@ -1453,7 +1453,7 @@ void TTrain::OnKeyDown(int cKey)
                 {
                     dsbSwitch->SetVolume(DSBVOLUME_MAX);
                     dsbSwitch->Play(0, 0, 0);
-                    mvOccupied->Radio = false;
+					mvOccupied->Radio = false;
                 }
             }
             else if (mvOccupied->DirectionBackward())
@@ -1476,7 +1476,7 @@ void TTrain::OnKeyDown(int cKey)
                 if (mvOccupied->ActiveDir) // jeœli kierunek niezerowy
                     if (DynamicObject->Mechanik) // na wszelki wypadek
                         DynamicObject->Mechanik->CheckVehicles(
-                                    Change_direction); // aktualizacja skrajnych pojazdów w sk³adzie
+                            Change_direction); // aktualizacja skrajnych pojazdów w sk³adzie
             }
         }
         else if (cKey == Global::Keys[k_Main])
@@ -1579,11 +1579,11 @@ void TTrain::OnKeyDown(int cKey)
                 dsbSwitch->Play(0, 0, 0);
             }
         }
-        // if
-        // ((cKey==Global::Keys[k_Compressor])&&((mvControlled->EngineType==ElectricSeriesMotor)||(mvControlled->TrainType==dt_EZT)))
-        // //hunter-110212: poprawka dla EZT
+            // if
+            // ((cKey==Global::Keys[k_Compressor])&&((mvControlled->EngineType==ElectricSeriesMotor)||(mvControlled->TrainType==dt_EZT)))
+            // //hunter-110212: poprawka dla EZT
         else if ((cKey == Global::Keys[k_Compressor]) &&
-                 (mvControlled->CompressorPower < 2)) // hunter-091012: tak jest poprawnie
+                (mvControlled->CompressorPower < 2)) // hunter-091012: tak jest poprawnie
         {
             if (ggCompressorButton.GetValue() != 0)
             {
@@ -1591,36 +1591,36 @@ void TTrain::OnKeyDown(int cKey)
                 dsbSwitch->Play(0, 0, 0);
             }
         }
-        //-----------
+            //-----------
         else if (cKey == Global::Keys[k_Releaser]) // odluzniacz
         {
             if (!FreeFlyModeFlag)
             {
                 if ((mvControlled->EngineType == ElectricSeriesMotor) ||
-                        (mvControlled->EngineType == DieselElectric) ||
-                        (mvControlled->EngineType == ElectricInductionMotor))
+                    (mvControlled->EngineType == DieselElectric) ||
+                    (mvControlled->EngineType == ElectricInductionMotor))
                     if (mvControlled->TrainType != dt_EZT)
                         if (mvOccupied->BrakeCtrlPosNo > 0)
                         {
                             ggReleaserButton.PutValue(1);
-                            mvOccupied->BrakeReleaser(1);
+							mvOccupied->BrakeReleaser(1);
                             // if (mvOccupied->BrakeReleaser(1))
                             // {
-                            // dsbPneumaticRelay->SetVolume(-80);
-                            // dsbPneumaticRelay->Play(0, 0, 0);
+                                // dsbPneumaticRelay->SetVolume(-80);
+                                // dsbPneumaticRelay->Play(0, 0, 0);
                             // }
                         }
             }
         }
         else if (cKey == Global::Keys[k_SmallCompressor]) // Winger 160404: mala
-            // sprezarka wl
+        // sprezarka wl
         { // Ra: bez [Shift] te¿ daæ dŸwiêk
             if ((mvControlled->TrainType & dt_EZT) ? mvControlled == mvOccupied :
-                    !mvOccupied->ActiveCab) // tylko w maszynowym
+                                                     !mvOccupied->ActiveCab) // tylko w maszynowym
                 if (Console::Pressed(VK_CONTROL)) // z [Ctrl]
                     mvControlled->bPantKurek3 =
-                            false; // zbiornik pantografu po³¹czony jest z ma³¹ sprê¿ark¹
-            // (pompowanie ma sens, ale potem trzeba prze³¹czyæ)
+                        false; // zbiornik pantografu po³¹czony jest z ma³¹ sprê¿ark¹
+                // (pompowanie ma sens, ale potem trzeba prze³¹czyæ)
                 else if (!mvControlled->PantCompFlag) // jeœli wy³¹czona
                     if (mvControlled->Battery) // jeszcze musi byæ za³¹czona bateria
                         if (mvControlled->PantPress < 4.8) // pisz¹, ¿e to tak nie dzia³a
@@ -1640,7 +1640,7 @@ void TTrain::OnKeyDown(int cKey)
         else if (cKey == Global::Keys[k_MaxCurrent]) // McZapkie-160502: f - niski rozruch
         {
             if ((mvControlled->EngineType == DieselElectric) && (mvControlled->ShuntModeAllow) &&
-                    (mvControlled->MainCtrlPos == 0))
+                (mvControlled->MainCtrlPos == 0))
             {
                 mvControlled->ShuntMode = false;
             }
@@ -1659,7 +1659,7 @@ void TTrain::OnKeyDown(int cKey)
             */
         }
         else if (cKey == Global::Keys[k_CurrentAutoRelay]) // McZapkie-241002: g -
-            // wylaczanie PSR
+        // wylaczanie PSR
         {
             if (mvControlled->AutoRelaySwitch(false))
             {
@@ -1668,8 +1668,8 @@ void TTrain::OnKeyDown(int cKey)
             }
         }
         
-        // hunter-201211: piasecznica poprawiona oraz przeniesiona do
-        // TTrain::Update()
+            // hunter-201211: piasecznica poprawiona oraz przeniesiona do
+            // TTrain::Update()
         else if (cKey == Global::Keys[k_Sand])
         {
             /*
@@ -1685,15 +1685,15 @@ void TTrain::OnKeyDown(int cKey)
             */
             if (mvControlled->TrainType == dt_EZT)
             {
-                if (ggDoorSignallingButton.SubModel != NULL)
-                {
-                    if (mvControlled->DoorSignalling)
-                    {
-                        mvOccupied->DoorBlocked = false;
-                        dsbSwitch->Play(0, 0, 0);
-                        mvControlled->DoorSignalling = false;
-                    }
-                }
+				if (ggDoorSignallingButton.SubModel != NULL)
+				{
+					if (mvControlled->DoorSignalling)
+					{
+						mvOccupied->DoorBlocked = false;
+						dsbSwitch->Play(0, 0, 0);
+						mvControlled->DoorSignalling = false;
+					}
+				}
             }
         }
         else if (cKey == Global::Keys[k_CabForward])
@@ -1704,7 +1704,7 @@ void TTrain::OnKeyDown(int cKey)
                 { // przejscie do nastepnego pojazdu
                     Global::changeDynObj = DynamicObject->PrevConnected;
                     Global::changeDynObj->MoverParameters->ActiveCab =
-                            DynamicObject->PrevConnectedNo ? -1 : 1;
+                        DynamicObject->PrevConnectedNo ? -1 : 1;
                 }
             if (DynamicObject->MoverParameters->ActiveCab)
                 mvControlled->PantCompFlag = false; // wyjœcie z maszynowego wy³¹cza sprê¿arkê
@@ -1717,11 +1717,11 @@ void TTrain::OnKeyDown(int cKey)
                 { // przejscie do poprzedniego
                     Global::changeDynObj = DynamicObject->NextConnected;
                     Global::changeDynObj->MoverParameters->ActiveCab =
-                            DynamicObject->NextConnectedNo ? -1 : 1;
+                        DynamicObject->NextConnectedNo ? -1 : 1;
                 }
             if (DynamicObject->MoverParameters->ActiveCab)
                 mvControlled->PantCompFlag =
-                        false; // wyjœcie z maszynowego wy³¹cza sprê¿arkê pomocnicz¹
+                    false; // wyjœcie z maszynowego wy³¹cza sprê¿arkê pomocnicz¹
         }
         else if (cKey == Global::Keys[k_Couple])
         { // ABu051104: male zmiany, zeby
@@ -1771,23 +1771,23 @@ if
                     if (tmp && (CouplNr != -1))
                     {
                         if (tmp->MoverParameters->Couplers[CouplNr].CouplingFlag ==
-                                0) // najpierw hak
+                            0) // najpierw hak
                         {
                             if ((tmp->MoverParameters->Couplers[CouplNr]
-                                 .Connected->Couplers[CouplNr]
-                                 .AllowedFlag &
+                                     .Connected->Couplers[CouplNr]
+                                     .AllowedFlag &
                                  tmp->MoverParameters->Couplers[CouplNr].AllowedFlag &
                                  ctrain_coupler) == ctrain_coupler)
                                 if (tmp->MoverParameters->Attach(
-                                            CouplNr, 2,
-                                            tmp->MoverParameters->Couplers[CouplNr].Connected,
-                                            ctrain_coupler))
+                                        CouplNr, 2,
+                                        tmp->MoverParameters->Couplers[CouplNr].Connected,
+                                        ctrain_coupler))
                                 {
                                     // tmp->MoverParameters->Couplers[CouplNr].Render=true;
                                     // //pod³¹czony sprzêg bêdzie widoczny
                                     if (DynamicObject->Mechanik) // na wszelki wypadek
                                         DynamicObject->Mechanik->CheckVehicles(
-                                                    Connect); // aktualizacja flag kierunku w sk³adzie
+                                            Connect); // aktualizacja flag kierunku w sk³adzie
                                     dsbCouplerAttach->SetVolume(DSBVOLUME_MAX);
                                     dsbCouplerAttach->Play(0, 0, 0);
                                 }
@@ -1798,14 +1798,14 @@ if
                                            ctrain_pneumatic)) // pneumatyka
                         {
                             if ((tmp->MoverParameters->Couplers[CouplNr]
-                                 .Connected->Couplers[CouplNr]
-                                 .AllowedFlag &
+                                     .Connected->Couplers[CouplNr]
+                                     .AllowedFlag &
                                  tmp->MoverParameters->Couplers[CouplNr].AllowedFlag &
                                  ctrain_pneumatic) == ctrain_pneumatic)
                                 if (tmp->MoverParameters->Attach(
-                                            CouplNr, 2,
-                                            tmp->MoverParameters->Couplers[CouplNr].Connected,
-                                            tmp->MoverParameters->Couplers[CouplNr].CouplingFlag +
+                                        CouplNr, 2,
+                                        tmp->MoverParameters->Couplers[CouplNr].Connected,
+                                        tmp->MoverParameters->Couplers[CouplNr].CouplingFlag +
                                             ctrain_pneumatic))
                                 {
                                     rsHiss.Play(1, DSBPLAY_LOOPING, true, tmp->GetPosition());
@@ -1818,14 +1818,14 @@ if
                                            ctrain_scndpneumatic)) // zasilajacy
                         {
                             if ((tmp->MoverParameters->Couplers[CouplNr]
-                                 .Connected->Couplers[CouplNr]
-                                 .AllowedFlag &
+                                     .Connected->Couplers[CouplNr]
+                                     .AllowedFlag &
                                  tmp->MoverParameters->Couplers[CouplNr].AllowedFlag &
                                  ctrain_scndpneumatic) == ctrain_scndpneumatic)
                                 if (tmp->MoverParameters->Attach(
-                                            CouplNr, 2,
-                                            tmp->MoverParameters->Couplers[CouplNr].Connected,
-                                            tmp->MoverParameters->Couplers[CouplNr].CouplingFlag +
+                                        CouplNr, 2,
+                                        tmp->MoverParameters->Couplers[CouplNr].Connected,
+                                        tmp->MoverParameters->Couplers[CouplNr].CouplingFlag +
                                             ctrain_scndpneumatic))
                                 {
                                     //              rsHiss.Play(1,DSBPLAY_LOOPING,true,tmp->GetPosition());
@@ -1840,14 +1840,14 @@ if
                                            ctrain_controll)) // ukrotnionko
                         {
                             if ((tmp->MoverParameters->Couplers[CouplNr]
-                                 .Connected->Couplers[CouplNr]
-                                 .AllowedFlag &
+                                     .Connected->Couplers[CouplNr]
+                                     .AllowedFlag &
                                  tmp->MoverParameters->Couplers[CouplNr].AllowedFlag &
                                  ctrain_controll) == ctrain_controll)
                                 if (tmp->MoverParameters->Attach(
-                                            CouplNr, 2,
-                                            tmp->MoverParameters->Couplers[CouplNr].Connected,
-                                            tmp->MoverParameters->Couplers[CouplNr].CouplingFlag +
+                                        CouplNr, 2,
+                                        tmp->MoverParameters->Couplers[CouplNr].Connected,
+                                        tmp->MoverParameters->Couplers[CouplNr].CouplingFlag +
                                             ctrain_controll))
                                 {
                                     dsbCouplerAttach->SetVolume(DSBVOLUME_MAX);
@@ -1858,14 +1858,14 @@ if
                                            ctrain_passenger)) // mostek
                         {
                             if ((tmp->MoverParameters->Couplers[CouplNr]
-                                 .Connected->Couplers[CouplNr]
-                                 .AllowedFlag &
+                                     .Connected->Couplers[CouplNr]
+                                     .AllowedFlag &
                                  tmp->MoverParameters->Couplers[CouplNr].AllowedFlag &
                                  ctrain_passenger) == ctrain_passenger)
                                 if (tmp->MoverParameters->Attach(
-                                            CouplNr, 2,
-                                            tmp->MoverParameters->Couplers[CouplNr].Connected,
-                                            tmp->MoverParameters->Couplers[CouplNr].CouplingFlag +
+                                        CouplNr, 2,
+                                        tmp->MoverParameters->Couplers[CouplNr].Connected,
+                                        tmp->MoverParameters->Couplers[CouplNr].CouplingFlag +
                                             ctrain_passenger))
                                 {
                                     //                  rsHiss.Play(1,DSBPLAY_LOOPING,true,tmp->GetPosition());
@@ -1886,7 +1886,7 @@ if
             if (iCabn > 0)
             {
                 if (!FreeFlyModeFlag) // tryb 'kabinowy' (pozwala równie¿ roz³¹czyæ
-                    // sprzêgi zablokowane)
+                // sprzêgi zablokowane)
                 {
                     if (DynamicObject->DettachStatus(iCabn - 1) < 0) // jeœli jest co odczepiæ
                         if (DynamicObject->Dettach(iCabn - 1)) // iCab==1:przód,iCab==2:ty³
@@ -1907,7 +1907,7 @@ if
                     if (tmp && (CouplNr != -1))
                     {
                         if ((tmp->MoverParameters->Couplers[CouplNr].CouplingFlag & ctrain_depot) ==
-                                0) // je¿eli sprzêg niezablokowany
+                            0) // je¿eli sprzêg niezablokowany
                             if (tmp->DettachStatus(CouplNr) < 0) // jeœli jest co odczepiæ i siê da
                                 if (!tmp->Dettach(CouplNr))
                                 { // dŸwiêk odczepiania
@@ -1918,7 +1918,7 @@ if
                 }
                 if (DynamicObject->Mechanik) // na wszelki wypadek
                     DynamicObject->Mechanik->CheckVehicles(
-                                Disconnect); // aktualizacja skrajnych pojazdów w sk³adzie
+                        Disconnect); // aktualizacja skrajnych pojazdów w sk³adzie
             }
         }
         else if (cKey == Global::Keys[k_CloseLeft]) // NBMX 17-09-2003: zamykanie drzwi
@@ -1948,10 +1948,10 @@ if
             }
         }
         
-        //-----------
-        // hunter-131211: dzwiek dla przelacznika universala
-        // hunter-091012: ubajerowanie swiatla w kabinie (wyrzucenie
-        // przyciemnienia pod Univ4)
+            //-----------
+            // hunter-131211: dzwiek dla przelacznika universala
+            // hunter-091012: ubajerowanie swiatla w kabinie (wyrzucenie
+            // przyciemnienia pod Univ4)
         else if (cKey == Global::Keys[k_Univ3])
         {
             if (Console::Pressed(VK_CONTROL))
@@ -1977,8 +1977,8 @@ if
             }
         }
         
-        //-----------
-        // hunter-091012: dzwiek dla przyciemnienia swiatelka w kabinie
+            //-----------
+            // hunter-091012: dzwiek dla przyciemnienia swiatelka w kabinie
         else if (cKey == Global::Keys[k_Univ4])
         {
             if (Console::Pressed(VK_CONTROL))
@@ -1992,10 +1992,10 @@ if
         }
         //-----------
         else if (cKey == Global::Keys[k_PantFrontDown]) // Winger 160204:
-            // opuszczanie prz. patyka
+        // opuszczanie prz. patyka
         {
             if (mvOccupied->ActiveCab ==
-                    1) //||((mvOccupied->ActiveCab<1)&&(mvControlled->TrainType!=dt_ET40)&&(mvControlled->TrainType!=dt_ET41)&&(mvControlled->TrainType!=dt_ET42)&&(mvControlled->TrainType!=dt_EZT)))
+                1) //||((mvOccupied->ActiveCab<1)&&(mvControlled->TrainType!=dt_ET40)&&(mvControlled->TrainType!=dt_ET41)&&(mvControlled->TrainType!=dt_ET42)&&(mvControlled->TrainType!=dt_EZT)))
             {
                 // if (!mvControlled->PantFrontUp) //jeœli by³ opuszczony
                 // if () //jeœli po³amany
@@ -2007,8 +2007,8 @@ if
                 }
             }
             else
-                // if
-                // ((mvOccupied->ActiveCab<1)&&((mvControlled->TrainType==dt_ET40)||(mvControlled->TrainType==dt_ET41)||(mvControlled->TrainType==dt_ET42)||(mvControlled->TrainType==dt_EZT)))
+            // if
+            // ((mvOccupied->ActiveCab<1)&&((mvControlled->TrainType==dt_ET40)||(mvControlled->TrainType==dt_ET41)||(mvControlled->TrainType==dt_ET42)||(mvControlled->TrainType==dt_EZT)))
             {
                 if (mvControlled->PantRear(false))
                 {
@@ -2018,10 +2018,10 @@ if
             }
         }
         else if (cKey == Global::Keys[k_PantRearDown]) // Winger 160204:
-            // opuszczanie tyl. patyka
+        // opuszczanie tyl. patyka
         {
             if (mvOccupied->ActiveCab ==
-                    1) //||((mvOccupied->ActiveCab<1)&&(mvControlled->TrainType!=dt_ET40)&&(mvControlled->TrainType!=dt_ET41)&&(mvControlled->TrainType!=dt_ET42)&&(mvControlled->TrainType!=dt_EZT)))
+                1) //||((mvOccupied->ActiveCab<1)&&(mvControlled->TrainType!=dt_ET40)&&(mvControlled->TrainType!=dt_ET41)&&(mvControlled->TrainType!=dt_ET42)&&(mvControlled->TrainType!=dt_EZT)))
             {
                 if (mvControlled->PantSwitchType == "impulse")
                     ggPantFrontButtonOff.PutValue(1);
@@ -2032,8 +2032,8 @@ if
                 }
             }
             else
-                // if
-                // ((mvOccupied->ActiveCab<1)&&((mvControlled->TrainType==dt_ET40)||(mvControlled->TrainType==dt_ET41)||(mvControlled->TrainType==dt_ET42)||(mvControlled->TrainType==dt_EZT)))
+            // if
+            // ((mvOccupied->ActiveCab<1)&&((mvControlled->TrainType==dt_ET40)||(mvControlled->TrainType==dt_ET41)||(mvControlled->TrainType==dt_ET42)||(mvControlled->TrainType==dt_EZT)))
             {
                 /* if (mvControlled->PantSwitchType=="impulse")
                 ggPantRearButtonOff.PutValue(1);  */
@@ -2045,7 +2045,7 @@ if
             }
         }
         else if (cKey == Global::Keys[k_Heating]) // Winger 020304: ogrzewanie -
-            // wylaczenie
+        // wylaczenie
         { // Ra 2014-09: w trybie latania obs³uga jest w World.cpp
             if (!FreeFlyModeFlag)
             {
@@ -2057,132 +2057,132 @@ if
                 }
             }
         }
-        else if (cKey == Global::Keys[k_LeftSign]) // ABu 060205: lewe swiatlo -
-            // wylaczenie
-        {
-            if (!mvOccupied->LightsPosNo > 0)
-            {
-                if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
-                        (ggRearLeftLightButton.SubModel)) // hunter-230112 - z controlem gasi z tylu
-                {
-                    //------------------------------
-                    if (mvOccupied->ActiveCab == 1)
-                    { // kabina 1
-                        if (((DynamicObject->iLights[1]) & 3) == 0)
-                        {
-                            DynamicObject->iLights[1] |= 2;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRearLeftEndLightButton.SubModel)
-                            {
-                                ggRearLeftEndLightButton.PutValue(1);
-                                ggRearLeftLightButton.PutValue(0);
-                            }
-                            else
-                                ggRearLeftLightButton.PutValue(-1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 3) == 1)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 1);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRearLeftLightButton.PutValue(0);
-                        }
-                    }
-                    else
-                    { // kabina -1
-                        if (((DynamicObject->iLights[0]) & 3) == 0)
-                        {
-                            DynamicObject->iLights[0] |= 2;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRearLeftEndLightButton.SubModel)
-                            {
-                                ggRearLeftEndLightButton.PutValue(1);
-                                ggRearLeftLightButton.PutValue(0);
-                            }
-                            else
-                                ggRearLeftLightButton.PutValue(-1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 3) == 1)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 1);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggLeftLightButton.PutValue(0);
-                        }
-                    }
-                } //------------------------------
-                else
-                {
-                    if (mvOccupied->ActiveCab == 1)
-                    { // kabina 1
-                        if (((DynamicObject->iLights[0]) & 3) == 0)
-                        {
-                            DynamicObject->iLights[0] |= 2;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggLeftEndLightButton.SubModel)
-                            {
-                                ggLeftEndLightButton.PutValue(1);
-                                ggLeftLightButton.PutValue(0);
-                            }
-                            else
-                                ggLeftLightButton.PutValue(-1);
-                        }
-                        if (((DynamicObject->iLights[0]) & 3) == 1)
-                        {
-                            DynamicObject->iLights[0] &= (255 - 1);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggLeftLightButton.PutValue(0);
-                        }
-                    }
-                    else
-                    { // kabina -1
-                        if (((DynamicObject->iLights[1]) & 3) == 0)
-                        {
-                            DynamicObject->iLights[1] |= 2;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggLeftEndLightButton.SubModel)
-                            {
-                                ggLeftEndLightButton.PutValue(1);
-                                ggLeftLightButton.PutValue(0);
-                            }
-                            else
-                                ggLeftLightButton.PutValue(-1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 3) == 1)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 1);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggLeftLightButton.PutValue(0);
-                        }
-                    }
-                }
-            }
-        }
+		else if (cKey == Global::Keys[k_LeftSign]) // ABu 060205: lewe swiatlo -
+		// wylaczenie
+		{
+			if (!mvOccupied->LightsPosNo > 0)
+			{
+				if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
+					(ggRearLeftLightButton.SubModel)) // hunter-230112 - z controlem gasi z tylu
+				{
+					//------------------------------
+					if (mvOccupied->ActiveCab == 1)
+					{ // kabina 1
+						if (((DynamicObject->iLights[1]) & 3) == 0)
+						{
+							DynamicObject->iLights[1] |= 2;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRearLeftEndLightButton.SubModel)
+							{
+								ggRearLeftEndLightButton.PutValue(1);
+								ggRearLeftLightButton.PutValue(0);
+							}
+							else
+								ggRearLeftLightButton.PutValue(-1);
+						}
+						if (((DynamicObject->iLights[1]) & 3) == 1)
+						{
+							DynamicObject->iLights[1] &= (255 - 1);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRearLeftLightButton.PutValue(0);
+						}
+					}
+					else
+					{ // kabina -1
+						if (((DynamicObject->iLights[0]) & 3) == 0)
+						{
+							DynamicObject->iLights[0] |= 2;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRearLeftEndLightButton.SubModel)
+							{
+								ggRearLeftEndLightButton.PutValue(1);
+								ggRearLeftLightButton.PutValue(0);
+							}
+							else
+								ggRearLeftLightButton.PutValue(-1);
+						}
+						if (((DynamicObject->iLights[1]) & 3) == 1)
+						{
+							DynamicObject->iLights[1] &= (255 - 1);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggLeftLightButton.PutValue(0);
+						}
+					}
+				} //------------------------------
+				else
+				{
+					if (mvOccupied->ActiveCab == 1)
+					{ // kabina 1
+						if (((DynamicObject->iLights[0]) & 3) == 0)
+						{
+							DynamicObject->iLights[0] |= 2;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggLeftEndLightButton.SubModel)
+							{
+								ggLeftEndLightButton.PutValue(1);
+								ggLeftLightButton.PutValue(0);
+							}
+							else
+								ggLeftLightButton.PutValue(-1);
+						}
+						if (((DynamicObject->iLights[0]) & 3) == 1)
+						{
+							DynamicObject->iLights[0] &= (255 - 1);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggLeftLightButton.PutValue(0);
+						}
+					}
+					else
+					{ // kabina -1
+						if (((DynamicObject->iLights[1]) & 3) == 0)
+						{
+							DynamicObject->iLights[1] |= 2;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggLeftEndLightButton.SubModel)
+							{
+								ggLeftEndLightButton.PutValue(1);
+								ggLeftLightButton.PutValue(0);
+							}
+							else
+								ggLeftLightButton.PutValue(-1);
+						}
+						if (((DynamicObject->iLights[1]) & 3) == 1)
+						{
+							DynamicObject->iLights[1] &= (255 - 1);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggLeftLightButton.PutValue(0);
+						}
+					}
+				}
+			}
+		}
         else if (cKey == Global::Keys[k_UpperSign]) // ABu 060205: œwiat³o górne -
-            // wy³¹czenie
+        // wy³¹czenie
         {
-            if (mvOccupied->LightsPosNo > 0) //krêciolek od swiatel
-            {
-                if ((mvOccupied->LightsPos > 1) || (mvOccupied->LightsWrap))
-                {
-                    mvOccupied->LightsPos--;
-                    if (mvOccupied->LightsPos < 1)
-                    {
-                        mvOccupied->LightsPos = mvOccupied->LightsPosNo;
-                    }
-                    dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                    dsbSwitch->Play(0, 0, 0);
-                    SetLights();
-                }
-            }
-            else if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
-                     (ggRearUpperLightButton.SubModel)) // hunter-230112 - z controlem gasi z tylu
+			if (mvOccupied->LightsPosNo > 0) //krêciolek od swiatel
+			{
+				if ((mvOccupied->LightsPos > 1) || (mvOccupied->LightsWrap))
+				{
+					mvOccupied->LightsPos--;
+					if (mvOccupied->LightsPos < 1)
+					{
+						mvOccupied->LightsPos = mvOccupied->LightsPosNo;
+					}
+					dsbSwitch->SetVolume(DSBVOLUME_MAX);
+					dsbSwitch->Play(0, 0, 0);
+					SetLights();
+				}
+			}
+			else if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
+				(ggRearUpperLightButton.SubModel)) // hunter-230112 - z controlem gasi z tylu
             {
                 //------------------------------
                 if (mvOccupied->ActiveCab == 1)
@@ -2230,118 +2230,118 @@ if
                 }
             }
         }
-        if (cKey == Global::Keys[k_RightSign]) // Winger 070304: swiatla tylne
-            // (koncowki) - wlaczenie
-        {
-            if (!mvOccupied->LightsPosNo > 0)
-            {
-                if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
-                        (ggRearRightLightButton.SubModel)) // hunter-230112 - z controlem gasi z tylu
-                {
-                    //------------------------------
-                    if (mvOccupied->ActiveCab == 1)
-                    { // kabina 1 (od strony 0)
-                        if (((DynamicObject->iLights[1]) & 48) == 0)
-                        {
-                            DynamicObject->iLights[1] |= 32;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRearRightEndLightButton.SubModel)
-                            {
-                                ggRearRightEndLightButton.PutValue(1);
-                                ggRearRightLightButton.PutValue(0);
-                            }
-                            else
-                                ggRearRightLightButton.PutValue(-1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 48) == 16)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 16);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRearRightLightButton.PutValue(0);
-                        }
-                    }
-                    else
-                    { // kabina -1
-                        if (((DynamicObject->iLights[0]) & 48) == 0)
-                        {
-                            DynamicObject->iLights[0] |= 32;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRearRightEndLightButton.SubModel)
-                            {
-                                ggRearRightEndLightButton.PutValue(1);
-                                ggRearRightLightButton.PutValue(0);
-                            }
-                            else
-                                ggRearRightLightButton.PutValue(-1);
-                        }
-                        if (((DynamicObject->iLights[0]) & 48) == 16)
-                        {
-                            DynamicObject->iLights[0] &= (255 - 16);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRearRightLightButton.PutValue(0);
-                        }
-                    }
-                } //------------------------------
-                else
-                {
-                    if (mvOccupied->ActiveCab == 1)
-                    { // kabina 0
-                        if (((DynamicObject->iLights[0]) & 48) == 0)
-                        {
-                            DynamicObject->iLights[0] |= 32;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRightEndLightButton.SubModel)
-                            {
-                                ggRightEndLightButton.PutValue(1);
-                                ggRightLightButton.PutValue(0);
-                            }
-                            else
-                                ggRightLightButton.PutValue(-1);
-                        }
-                        if (((DynamicObject->iLights[0]) & 48) == 16)
-                        {
-                            DynamicObject->iLights[0] &= (255 - 16);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRightLightButton.PutValue(0);
-                        }
-                    }
-                    else
-                    { // kabina -1
-                        if (((DynamicObject->iLights[1]) & 48) == 0)
-                        {
-                            DynamicObject->iLights[1] |= 32;
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            if (ggRightEndLightButton.SubModel)
-                            {
-                                ggRightEndLightButton.PutValue(1);
-                                ggRightLightButton.PutValue(0);
-                            }
-                            else
-                                ggRightLightButton.PutValue(-1);
-                        }
-                        if (((DynamicObject->iLights[1]) & 48) == 16)
-                        {
-                            DynamicObject->iLights[1] &= (255 - 16);
-                            dsbSwitch->SetVolume(DSBVOLUME_MAX);
-                            dsbSwitch->Play(0, 0, 0);
-                            ggRightLightButton.PutValue(0);
-                        }
-                    }
-                }
-            }
-        }
+		if (cKey == Global::Keys[k_RightSign]) // Winger 070304: swiatla tylne
+		// (koncowki) - wlaczenie
+		{
+			if (!mvOccupied->LightsPosNo > 0)
+			{
+				if ((GetAsyncKeyState(VK_CONTROL) < 0) &&
+					(ggRearRightLightButton.SubModel)) // hunter-230112 - z controlem gasi z tylu
+				{
+					//------------------------------
+					if (mvOccupied->ActiveCab == 1)
+					{ // kabina 1 (od strony 0)
+						if (((DynamicObject->iLights[1]) & 48) == 0)
+						{
+							DynamicObject->iLights[1] |= 32;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRearRightEndLightButton.SubModel)
+							{
+								ggRearRightEndLightButton.PutValue(1);
+								ggRearRightLightButton.PutValue(0);
+							}
+							else
+								ggRearRightLightButton.PutValue(-1);
+						}
+						if (((DynamicObject->iLights[1]) & 48) == 16)
+						{
+							DynamicObject->iLights[1] &= (255 - 16);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRearRightLightButton.PutValue(0);
+						}
+					}
+					else
+					{ // kabina -1
+						if (((DynamicObject->iLights[0]) & 48) == 0)
+						{
+							DynamicObject->iLights[0] |= 32;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRearRightEndLightButton.SubModel)
+							{
+								ggRearRightEndLightButton.PutValue(1);
+								ggRearRightLightButton.PutValue(0);
+							}
+							else
+								ggRearRightLightButton.PutValue(-1);
+						}
+						if (((DynamicObject->iLights[0]) & 48) == 16)
+						{
+							DynamicObject->iLights[0] &= (255 - 16);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRearRightLightButton.PutValue(0);
+						}
+					}
+				} //------------------------------
+				else
+				{
+					if (mvOccupied->ActiveCab == 1)
+					{ // kabina 0
+						if (((DynamicObject->iLights[0]) & 48) == 0)
+						{
+							DynamicObject->iLights[0] |= 32;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRightEndLightButton.SubModel)
+							{
+								ggRightEndLightButton.PutValue(1);
+								ggRightLightButton.PutValue(0);
+							}
+							else
+								ggRightLightButton.PutValue(-1);
+						}
+						if (((DynamicObject->iLights[0]) & 48) == 16)
+						{
+							DynamicObject->iLights[0] &= (255 - 16);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRightLightButton.PutValue(0);
+						}
+					}
+					else
+					{ // kabina -1
+						if (((DynamicObject->iLights[1]) & 48) == 0)
+						{
+							DynamicObject->iLights[1] |= 32;
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							if (ggRightEndLightButton.SubModel)
+							{
+								ggRightEndLightButton.PutValue(1);
+								ggRightLightButton.PutValue(0);
+							}
+							else
+								ggRightLightButton.PutValue(-1);
+						}
+						if (((DynamicObject->iLights[1]) & 48) == 16)
+						{
+							DynamicObject->iLights[1] &= (255 - 16);
+							dsbSwitch->SetVolume(DSBVOLUME_MAX);
+							dsbSwitch->Play(0, 0, 0);
+							ggRightLightButton.PutValue(0);
+						}
+					}
+				}
+			}
+		}
         else if (cKey == Global::Keys[k_StLinOff]) // Winger 110904: wylacznik st.
-            // liniowych
+        // liniowych
         {
             if ((mvControlled->TrainType != dt_EZT) && (mvControlled->TrainType != dt_EP05) &&
-                    (mvControlled->TrainType != dt_ET40))
+                (mvControlled->TrainType != dt_ET40))
             {
                 ggStLinOffButton.PutValue(1); // Ra: by³o Fuse...
                 dsbSwitch->SetVolume(DSBVOLUME_MAX);
@@ -2349,7 +2349,7 @@ if
                 if (mvControlled->MainCtrlPosNo > 0)
                 {
                     mvControlled->StLinFlag =
-                            false; // yBARC - zmienione na przeciwne, bo true to zalaczone
+                        false; // yBARC - zmienione na przeciwne, bo true to zalaczone
                     dsbRelay->SetVolume(DSBVOLUME_MAX);
                     dsbRelay->Play(0, 0, 0);
                 }
@@ -2381,7 +2381,7 @@ if
                     if (DynamicObject->Mechanik)
                         if (!FreeFlyModeFlag) //¿eby nie mieszaæ obserwuj¹c z zewn¹trz
                             DynamicObject->Mechanik->RouteSwitch(
-                                        1); // na skrzy¿owaniu skrêci w lewo
+                                1); // na skrzy¿owaniu skrêci w lewo
                 }
                 else if (cKey == Global::Keys[k_MechRight])
                 {
@@ -2389,7 +2389,7 @@ if
                     if (DynamicObject->Mechanik)
                         if (!FreeFlyModeFlag) //¿eby nie mieszaæ obserwuj¹c z zewn¹trz
                             DynamicObject->Mechanik->RouteSwitch(
-                                        2); // na skrzy¿owaniu skrêci w prawo
+                                2); // na skrzy¿owaniu skrêci w prawo
                 }
                 else if (cKey == Global::Keys[k_MechBackward])
                 {
@@ -2405,7 +2405,7 @@ if
                     if (DynamicObject->Mechanik)
                         if (!FreeFlyModeFlag) //¿eby nie mieszaæ obserwuj¹c z zewn¹trz
                             DynamicObject->Mechanik->RouteSwitch(
-                                        3); // na skrzy¿owaniu pojedzie prosto
+                                3); // na skrzy¿owaniu pojedzie prosto
                 }
                 else if (cKey == Global::Keys[k_MechUp])
                     pMechOffset.y += 0.2; // McZapkie-120302 - wstawanie
@@ -2470,7 +2470,7 @@ void TTrain::OnKeyUp(int cKey)
         if (cKey == Global::Keys[k_StLinOff]) // Winger 110904: wylacznik st. liniowych
         { // zwolnienie klawisza daje powrót przycisku do zwyk³ego stanu
             if ((mvControlled->TrainType != dt_EZT) && (mvControlled->TrainType != dt_EP05) &&
-                    (mvControlled->TrainType != dt_ET40))
+                (mvControlled->TrainType != dt_ET40))
                 ggStLinOffButton.PutValue(0);
         }
     }
@@ -2500,7 +2500,7 @@ void TTrain::UpdateMechPosition(double dt)
     if (iVel > 150)
         iVel = 150;
     if (!Global::iSlowMotion // musi byæ pe³na prêdkoœæ
-            && (pMechOffset.y < 4.0)) // Ra 15-01: przy ogl¹daniu pantografu bujanie przeszkadza
+        && (pMechOffset.y < 4.0)) // Ra 15-01: przy ogl¹daniu pantografu bujanie przeszkadza
     {
         if (!(random((GetFPS() + 1) / 15) > 0))
         {
@@ -2519,7 +2519,7 @@ void TTrain::UpdateMechPosition(double dt)
                                            pMechShake);
         }
         vMechVelocity -= (MechSpring.vForce2 + vMechVelocity * 100) *
-                (fMechSpringX + fMechSpringY + fMechSpringZ) / (200);
+                         (fMechSpringX + fMechSpringY + fMechSpringZ) / (200);
 
         // McZapkie:
         pMechShake += vMechVelocity * dt;
@@ -2546,11 +2546,11 @@ void TTrain::UpdateMechPosition(double dt)
         if (DynamicObject->Mechanik->AIControllFlag) // jeœli prowadzi AI
         { // Ra: przesiadka, jeœli AI zmieni³o kabinê (a cz³on?)...
             if (iCabn != (DynamicObject->MoverParameters->ActiveCab == -1 ?
-                          2 :
-                          DynamicObject->MoverParameters->ActiveCab))
+                              2 :
+                              DynamicObject->MoverParameters->ActiveCab))
                 InitializeCab(DynamicObject->MoverParameters->ActiveCab,
                               DynamicObject->asBaseDir + DynamicObject->MoverParameters->TypeName +
-                              ".mmd");
+                                  ".mmd");
         }
     iCabn = (DynamicObject->MoverParameters->ActiveCab == -1 ?
                  2 :
@@ -2584,7 +2584,7 @@ void TTrain::UpdateMechPosition(double dt)
             pMechOffset.y = Cabine[iCabn].CabPos2.y + 0.5;
     }
     pMechPosition = DynamicObject->mMatrix *
-            pNewMechPosition; // po³o¿enie wzglêdem œrodka pojazdu w uk³adzie scenerii
+                    pNewMechPosition; // po³o¿enie wzglêdem œrodka pojazdu w uk³adzie scenerii
     pMechPosition += DynamicObject->GetPosition();
 };
 
@@ -2648,9 +2648,9 @@ bool TTrain::Update()
         // Ra 2014-09: napiêcia i pr¹dy musz¹ byæ ustalone najpierw, bo wysy³ane s¹
         // ewentualnie na
         // PoKeys
-        if ((mvControlled->EngineType != DieselElectric) && (mvControlled->EngineType != ElectricInductionMotor)) // Ra 2014-09: czy taki rozdzia? ma sens?
-            fHVoltage = mvControlled->RunningTraction.TractionVoltage; // Winger czy to nie jest zle?
-        // *mvControlled->Mains);
+		if ((mvControlled->EngineType != DieselElectric) && (mvControlled->EngineType != ElectricInductionMotor)) // Ra 2014-09: czy taki rozdzia? ma sens?
+			fHVoltage = mvControlled->RunningTraction.TractionVoltage; // Winger czy to nie jest zle?
+		// *mvControlled->Mains);
         else
             fHVoltage = mvControlled->Voltage;
         if (ShowNextCurrent)
@@ -2664,7 +2664,7 @@ bool TTrain::Update()
             }
             else
                 fHCurrent[0] = fHCurrent[1] = fHCurrent[2] = fHCurrent[3] =
-                        0.0; // gdy nie ma cz³ona
+                    0.0; // gdy nie ma cz³ona
         }
         else
         { // normalne pokazywanie
@@ -2674,96 +2674,96 @@ bool TTrain::Update()
             fHCurrent[3] = mvControlled->ShowCurrent(3);
         }
 
-        bool kier = (DynamicObject->DirectionGet()*mvOccupied->ActiveCab > 0);
-        TDynamicObject *p = DynamicObject->GetFirstDynamic(mvOccupied->ActiveCab < 0 ? 1 : 0, 4);
+		bool kier = (DynamicObject->DirectionGet()*mvOccupied->ActiveCab > 0);
+		TDynamicObject *p = DynamicObject->GetFirstDynamic(mvOccupied->ActiveCab < 0 ? 1 : 0, 4);
         int in = 0;
         fEIMParams[0][6] = 0;
-        iCarNo = 0;
-        iPowerNo = 0;
-        iUnitNo = 1;
+		iCarNo = 0;
+		iPowerNo = 0;
+		iUnitNo = 1;
 
-        for (int i = 0; i < 8; i++)
-        {
-            bMains[i] = false;
-            fCntVol[i] = 0.0f;
-            bPants[i][0] = false;
-            bPants[i][1] = false;
-            bFuse[i] = false;
-            bBatt[i] = false;
-            bConv[i] = false;
-            bComp[i][0] = false;
-            bComp[i][1] = false;
-            bHeat[i] = false;
-        }
-        for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 8; i++)
+		{
+			bMains[i] = false;
+			fCntVol[i] = 0.0f;
+			bPants[i][0] = false;
+			bPants[i][1] = false;
+			bFuse[i] = false;
+			bBatt[i] = false;
+			bConv[i] = false;
+			bComp[i][0] = false;
+			bComp[i][1] = false;
+			bHeat[i] = false;
+		}
+		for (int i = 0; i < 20; i++)
         {
             if (p)
             {
                 fPress[i][0] = p->MoverParameters->BrakePress;
                 fPress[i][1] = p->MoverParameters->PipePress;
                 fPress[i][2] = p->MoverParameters->ScndPipePress;
-                bDoors[i][0] = (p->dDoorMoveL > 0.001) || (p->dDoorMoveR > 0.001);
-                bDoors[i][1] = (p->dDoorMoveR > 0.001);
-                bDoors[i][2] = (p->dDoorMoveL > 0.001);
-                iDoorNo[i] = p->iAnimType[ANIM_DOORS];
-                iUnits[i] = iUnitNo;
-                cCode[i] = p->MoverParameters->TypeName[p->MoverParameters->TypeName.Length()];
-                asCarName[i] = p->GetName();
-                bPants[iUnitNo - 1][0] = (bPants[iUnitNo - 1][0] || p->MoverParameters->PantFrontUp);
-                bPants[iUnitNo - 1][1] = (bPants[iUnitNo - 1][1] || p->MoverParameters->PantRearUp);
-                bComp[iUnitNo - 1][0] = (bComp[iUnitNo - 1][0] || p->MoverParameters->CompressorAllow);
-                if (p->MoverParameters->CompressorSpeed>0.00001)
-                {
-                    bComp[iUnitNo - 1][1] = (bComp[iUnitNo - 1][1] || p->MoverParameters->CompressorFlag);
-                }
-                if ((in < 8) && (p->MoverParameters->eimc[eimc_p_Pmax] > 1))
+				bDoors[i][0] = (p->dDoorMoveL > 0.001) || (p->dDoorMoveR > 0.001);
+				bDoors[i][1] = (p->dDoorMoveR > 0.001);
+				bDoors[i][2] = (p->dDoorMoveL > 0.001);
+				iDoorNo[i] = p->iAnimType[ANIM_DOORS];
+				iUnits[i] = iUnitNo;
+				cCode[i] = p->MoverParameters->TypeName[p->MoverParameters->TypeName.Length()];
+				asCarName[i] = p->GetName();
+				bPants[iUnitNo - 1][0] = (bPants[iUnitNo - 1][0] || p->MoverParameters->PantFrontUp);
+				bPants[iUnitNo - 1][1] = (bPants[iUnitNo - 1][1] || p->MoverParameters->PantRearUp);
+				bComp[iUnitNo - 1][0] = (bComp[iUnitNo - 1][0] || p->MoverParameters->CompressorAllow);
+				if (p->MoverParameters->CompressorSpeed>0.00001)
+				{
+					bComp[iUnitNo - 1][1] = (bComp[iUnitNo - 1][1] || p->MoverParameters->CompressorFlag);
+				}
+				if ((in < 8) && (p->MoverParameters->eimc[eimc_p_Pmax] > 1))
                 {
                     fEIMParams[1 + in][0] = p->MoverParameters->eimv[eimv_Fr];
                     fEIMParams[1 + in][1] = Max0R(fEIMParams[1 + in][0], 0);
                     fEIMParams[1 + in][2] = -Min0R(fEIMParams[1 + in][0], 0);
                     fEIMParams[1 + in][3] = p->MoverParameters->eimv[eimv_Fr] /
-                            Max0R(p->MoverParameters->eimv[eimv_Fful], 1);
+                                            Max0R(p->MoverParameters->eimv[eimv_Fful], 1);
                     fEIMParams[1 + in][4] = Max0R(fEIMParams[1 + in][3], 0);
                     fEIMParams[1 + in][5] = -Min0R(fEIMParams[1 + in][3], 0);
                     fEIMParams[1 + in][6] = p->MoverParameters->eimv[eimv_If];
                     fEIMParams[1 + in][7] = p->MoverParameters->eimv[eimv_U];
-                    fEIMParams[1 + in][8] = p->MoverParameters->Itot;//p->MoverParameters->eimv[eimv_Ipoj];
-                    fEIMParams[1 + in][9] = p->MoverParameters->Voltage;
+					fEIMParams[1 + in][8] = p->MoverParameters->Itot;//p->MoverParameters->eimv[eimv_Ipoj];
+					fEIMParams[1 + in][9] = p->MoverParameters->Voltage;
                     fEIMParams[0][6] += fEIMParams[1 + in][8];
-                    bMains[in] = p->MoverParameters->Mains;
-                    fCntVol[in] = p->MoverParameters->BatteryVoltage;
-                    bFuse[in] = p->MoverParameters->FuseFlag;
-                    bBatt[in] = p->MoverParameters->Battery;
-                    bConv[in] = p->MoverParameters->ConverterFlag;
-                    bHeat[in] = p->MoverParameters->Heating;
-                    in++;
-                    iPowerNo = in;
+					bMains[in] = p->MoverParameters->Mains;
+					fCntVol[in] = p->MoverParameters->BatteryVoltage;
+					bFuse[in] = p->MoverParameters->FuseFlag;
+					bBatt[in] = p->MoverParameters->Battery;
+					bConv[in] = p->MoverParameters->ConverterFlag;
+					bHeat[in] = p->MoverParameters->Heating;
+					in++;
+					iPowerNo = in;
                 }
-                //                p = p->NextC(4);                                       //prev
-                if ((kier ? p->NextC(128) : p->PrevC(128)) != (kier ? p->NextC(4) : p->PrevC(4)))
-                    iUnitNo++;
-                p = (kier ? p->NextC(4) : p->PrevC(4));
-                iCarNo = i + 1;
-            }
+				//                p = p->NextC(4);                                       //prev
+				if ((kier ? p->NextC(128) : p->PrevC(128)) != (kier ? p->NextC(4) : p->PrevC(4)))
+					iUnitNo++;
+				p = (kier ? p->NextC(4) : p->PrevC(4));
+				iCarNo = i + 1;
+			}
             else
             {
                 fPress[i][0] = 0;
                 fPress[i][1] = 0;
                 fPress[i][2] = 0;
-                bDoors[i][0] = false;
-                bDoors[i][1] = false;
-                bDoors[i][2] = false;
-                iUnits[i] = 0;
-                cCode[i] = 0;//'0';
-                asCarName[i] = "";
-            }
+				bDoors[i][0] = false;
+				bDoors[i][1] = false;
+				bDoors[i][2] = false;
+				iUnits[i] = 0;
+				cCode[i] = 0;//'0';
+				asCarName[i] = "";
+			}
         }
 
         if (mvControlled == mvOccupied)
             fEIMParams[0][3] = mvControlled->eimv[eimv_Fzad]; // procent zadany
         else
             fEIMParams[0][3] =
-                    mvControlled->eimv[eimv_Fzad] - mvOccupied->LocalBrakeRatio(); // procent zadany
+                mvControlled->eimv[eimv_Fzad] - mvOccupied->LocalBrakeRatio(); // procent zadany
         fEIMParams[0][4] = Max0R(fEIMParams[0][3], 0);
         fEIMParams[0][5] = -Min0R(fEIMParams[0][3], 0);
         fEIMParams[0][1] = fEIMParams[0][4] * mvControlled->eimv[eimv_Fful];
@@ -2797,29 +2797,29 @@ bool TTrain::Update()
             Console::ValueSet(3, fHVoltage); // woltomierz wysokiego napiêcia
             Console::ValueSet(4, fHCurrent[2]); // Ra: sterowanie miernikiem: drugi amperomierz
             Console::ValueSet(5,
-                              fHCurrent[(mvControlled->TrainType & dt_EZT) ? 0 : 1]); // pierwszy amperomierz; dla
+                fHCurrent[(mvControlled->TrainType & dt_EZT) ? 0 : 1]); // pierwszy amperomierz; dla
             // EZT pr¹d ca³kowity
             Console::ValueSet(6, fTachoVelocity); ////Ra: prêdkoœæ na pin 43 - wyjœcie
-            /// analogowe (to nie jest PWM);
+			/// analogowe (to nie jest PWM);
             /// skakanie zapewnia mechanika
             /// napêdu
         }
 
         if (Global::iFeedbackMode == 5)	// maciek001:   OK
         {
-            Console::ValueSet(0, mvOccupied->Compressor); 	// zbiornik g³ówny
-            Console::ValueSet(1, mvOccupied->PipePress); 	// przewód g³ówny
+            Console::ValueSet(0, mvOccupied->Compressor); 	// zbiornik g??wny
+            Console::ValueSet(1, mvOccupied->PipePress); 	// przew?d g??wny
             Console::ValueSet(2, mvOccupied->BrakePress); 	// cylinder hamulcowy
-            Console::ValueSet(3, fHVoltage); 			// woltomierz wysokiego napiêcia
-            Console::ValueSet(4, fHCurrent[3]);			// amperomierz 3 WN
-            Console::ValueSet(5, fHCurrent[2]); 		// amperomierz 2 WN
+            Console::ValueSet(3, fHVoltage); 				// woltomierz wysokiego napi?cia
+            Console::ValueSet(4, fHCurrent[3]);				// amperomierz 3 WN
+            Console::ValueSet(5, fHCurrent[2]); 			// amperomierz 2 WN
             Console::ValueSet(6, fHCurrent[(mvControlled->TrainType & dt_EZT) ? 0 : 1]); // amperomierz 1 WN; dla
-            // EZT pr¹d ca³kowity
-            Console::ValueSet(7, fTachoVelocity); ////prêdkoœæ
+            // EZT pr?d ca?kowity
+            Console::ValueSet(7, fTachoVelocity); ////pr?dko??
             //Console::ValueSet(7, mvControlled->MainCtrlActualPos + mvControlled->ScndCtrlActualPos);   //nbmx: Wal kulakowy
             /// analogowe (to nie jest PWM);
             /// skakanie zapewnia mechanika
-            /// napêdu
+            /// nap?du
         }
 
         // hunter-080812: wyrzucanie szybkiego na elektrykach gdy nie ma napiecia
@@ -2828,9 +2828,9 @@ bool TTrain::Update()
         // kierunku
         if (mvControlled->EngineType == ElectricSeriesMotor)
             if (fabs(mvControlled->RunningTraction.TractionVoltage) <
-                    0.5 *
+                0.5 *
                     mvControlled->EnginePowerSource
-                    .MaxVoltage) // minimalne napiêcie pobieraæ z FIZ?
+                        .MaxVoltage) // minimalne napiêcie pobieraæ z FIZ?
                 mvControlled->MainSwitch(false);
 
         // hunter-091012: swiatlo
@@ -2851,17 +2851,17 @@ bool TTrain::Update()
         {
             fConverterTimer += dt;
             if ((mvControlled->CompressorFlag == true) && (mvControlled->CompressorPower == 1) &&
-                    ((mvControlled->EngineType == ElectricSeriesMotor) ||
-                     (mvControlled->TrainType == dt_EZT)) &&
-                    (DynamicObject->Controller == Humandriver)) // hunter-110212: poprawka dla EZT
+                ((mvControlled->EngineType == ElectricSeriesMotor) ||
+                 (mvControlled->TrainType == dt_EZT)) &&
+                (DynamicObject->Controller == Humandriver)) // hunter-110212: poprawka dla EZT
             { // hunter-091012: poprawka (zmiana warunku z CompressorPower /rozne od
                 // 0/ na /rowne 1/)
                 if (fConverterTimer < fConverterPrzekaznik)
                 {
                     mvControlled->ConvOvldFlag = true;
-                    if (mvControlled->TrainType != dt_EZT)
-                        mvControlled->MainSwitch(false);
-                }
+					if (mvControlled->TrainType != dt_EZT)
+						mvControlled->MainSwitch(false);
+				}
                 else if (fConverterTimer >= fConverterPrzekaznik)
                     mvControlled->CompressorSwitch(true);
             }
@@ -2952,7 +2952,7 @@ bool TTrain::Update()
             if (rsHiss.AM != 0) // upuszczanie z PG
             {
                 fPPress = (4 * fPPress + Max0R(mvOccupied->dpLocalValve, mvOccupied->dpMainValve)) /
-                        (4 + 1);
+                          (4 + 1);
                 if (fPPress > 0)
                 {
                     vol = 2 * rsHiss.AM * fPPress * 0.01;
@@ -2969,7 +2969,7 @@ bool TTrain::Update()
             if (rsHissU.AM != 0) // napelnianie PG
             {
                 fNPress = (4 * fNPress + Min0R(mvOccupied->dpLocalValve, mvOccupied->dpMainValve)) /
-                        (4 + 1);
+                          (4 + 1);
                 if (fNPress < 0)
                 {
                     vol = -2 * rsHissU.AM * fNPress * 0.004;
@@ -3022,48 +3022,48 @@ bool TTrain::Update()
                         vol *= 3;
                         dfreq *= 0.95;
                     }
-                        break;
+                    break;
                     case e_canyon:
                     {
                         vol *= 1.1;
                     }
-                        break;
+                    break;
                     case e_bridge:
                     {
                         vol *= 2;
                         dfreq *= 0.98;
                     }
-                        break;
+                    break;
                     }
                 }
                 else // uszkodzone kolo (podkucie)
                     if (fabs(mvOccupied->nrot) > 0.01)
+                {
+                    dfreq = rsRunningNoise.FM * mvOccupied->Vel + rsRunningNoise.FA;
+                    vol = rsRunningNoise.AM * mvOccupied->Vel + rsRunningNoise.AA;
+                    switch (tor->eEnvironment)
                     {
-                        dfreq = rsRunningNoise.FM * mvOccupied->Vel + rsRunningNoise.FA;
-                        vol = rsRunningNoise.AM * mvOccupied->Vel + rsRunningNoise.AA;
-                        switch (tor->eEnvironment)
-                        {
-                        case e_tunnel:
-                        {
-                            vol *= 2;
-                        }
-                            break;
-                        case e_canyon:
-                        {
-                            vol *= 1.1;
-                        }
-                            break;
-                        case e_bridge:
-                        {
-                            vol *= 1.5;
-                        }
-                            break;
-                        }
+                    case e_tunnel:
+                    {
+                        vol *= 2;
                     }
+                    break;
+                    case e_canyon:
+                    {
+                        vol *= 1.1;
+                    }
+                    break;
+                    case e_bridge:
+                    {
+                        vol *= 1.5;
+                    }
+                    break;
+                    }
+                }
                 if (fabs(mvOccupied->nrot) > 0.01)
                     vol *= 1 +
-                            mvOccupied->UnitBrakeForce /
-                            (1 + mvOccupied->MaxBrakeForce); // hamulce wzmagaja halas
+                           mvOccupied->UnitBrakeForce /
+                               (1 + mvOccupied->MaxBrakeForce); // hamulce wzmagaja halas
                 vol = vol * (20.0 + tor->iDamageFlag) / 21;
                 rsRunningNoise.AdjFreq(dfreq, 0);
                 rsRunningNoise.Play(vol, DSBPLAY_LOOPING, true, DynamicObject->GetPosition());
@@ -3075,11 +3075,11 @@ bool TTrain::Update()
         if (rsBrake.AM != 0)
         {
             if ((!mvOccupied->SlippingWheels) && (mvOccupied->UnitBrakeForce > 10.0) &&
-                    (DynamicObject->GetVelocity() > 0.01))
+                (DynamicObject->GetVelocity() > 0.01))
             {
                 //        vol=rsBrake.AA+rsBrake.AM*(DynamicObject->GetVelocity()*100+mvOccupied->UnitBrakeForce);
                 vol =
-                        rsBrake.AM * sqrt((DynamicObject->GetVelocity() * mvOccupied->UnitBrakeForce));
+                    rsBrake.AM * sqrt((DynamicObject->GetVelocity() * mvOccupied->UnitBrakeForce));
                 dfreq = rsBrake.FA + rsBrake.FM * DynamicObject->GetVelocity();
                 rsBrake.AdjFreq(dfreq, 0);
                 rsBrake.Play(vol, DSBPLAY_LOOPING, true, DynamicObject->GetPosition());
@@ -3093,7 +3093,7 @@ bool TTrain::Update()
         if (rsEngageSlippery.AM != 0)
         {
             if /*((fabs(mvControlled->dizel_engagedeltaomega)>0.2) && */ (
-            mvControlled->dizel_engage > 0.1)
+                mvControlled->dizel_engage > 0.1)
             {
                 if (fabs(mvControlled->dizel_engagedeltaomega) > 0.2)
                 {
@@ -3104,11 +3104,11 @@ bool TTrain::Update()
                 else
                 {
                     dfreq =
-                            1; // rsEngageSlippery.FA+0.7*rsEngageSlippery.FM*(fabs(mvControlled->enrot)+mvControlled->nmax);
+                        1; // rsEngageSlippery.FA+0.7*rsEngageSlippery.FM*(fabs(mvControlled->enrot)+mvControlled->nmax);
                     if (mvControlled->dizel_engage > 0.2)
                         vol =
-                                rsEngageSlippery.AA +
-                                0.2 * rsEngageSlippery.AM * (mvControlled->enrot / mvControlled->nmax);
+                            rsEngageSlippery.AA +
+                            0.2 * rsEngageSlippery.AM * (mvControlled->enrot / mvControlled->nmax);
                     else
                         vol = 0;
                 }
@@ -3133,9 +3133,9 @@ bool TTrain::Update()
         // 10ms.
 
         if (TestFlag(mvOccupied->SoundFlag, sound_relay)) // przekaznik - gdy
-            // bezpiecznik,
-            // automatyczny rozruch
-            // itp
+        // bezpiecznik,
+        // automatyczny rozruch
+        // itp
         {
             if (mvOccupied->EventFlag || TestFlag(mvOccupied->SoundFlag, sound_loud))
             {
@@ -3214,11 +3214,11 @@ bool TTrain::Update()
             tmp = NULL;
             if (DynamicObject->NextConnected)
                 if ((TestFlag(mvControlled->Couplers[1].CouplingFlag, ctrain_controll)) &&
-                        (mvOccupied->ActiveCab == 1))
+                    (mvOccupied->ActiveCab == 1))
                     tmp = DynamicObject->NextConnected;
             if (DynamicObject->PrevConnected)
                 if ((TestFlag(mvControlled->Couplers[0].CouplingFlag, ctrain_controll)) &&
-                        (mvOccupied->ActiveCab == -1))
+                    (mvOccupied->ActiveCab == -1))
                     tmp = DynamicObject->PrevConnected;
             if (tmp)
                 if (tmp->MoverParameters->Power > 0)
@@ -3310,18 +3310,18 @@ bool TTrain::Update()
             {
                 int x;
                 if ((mvControlled->TrainType == dt_ET42) &&
-                        (mvControlled->Imax == mvControlled->ImaxHi))
+                    (mvControlled->Imax == mvControlled->ImaxHi))
                     x = 1;
                 else
                     x = 2;
                 if ((mvControlled->RList[mvControlled->MainCtrlActualPos].Mn > 0) &&
-                        (abs(mvControlled->Im) > 0))
+                    (abs(mvControlled->Im) > 0))
                 {
                     ggEngineVoltage.UpdateValue(
-                                (x * (mvControlled->RunningTraction.TractionVoltage -
-                                      mvControlled->RList[mvControlled->MainCtrlActualPos].R *
-                                 abs(mvControlled->Im)) /
-                                mvControlled->RList[mvControlled->MainCtrlActualPos].Mn));
+                        (x * (mvControlled->RunningTraction.TractionVoltage -
+                              mvControlled->RList[mvControlled->MainCtrlActualPos].R *
+                                  abs(mvControlled->Im)) /
+                         mvControlled->RList[mvControlled->MainCtrlActualPos].Mn));
                 }
                 else
                 {
@@ -3405,14 +3405,14 @@ bool TTrain::Update()
             // powy¿ej 2.85 bara i bucza³y
             double veldiff = (DynamicObject->GetVelocity() - fTachoVelocity) / mvControlled->Vmax;
             if (veldiff < -0.01) // 1% Vmax rezerwy, ¿eby 181/182 nie bucza³y po
-                // zahamowaniu, ale to proteza
+            // zahamowaniu, ale to proteza
             {
                 if (fabs(mvControlled->Im) > 10.0)
                     btLampkaPoslizg.TurnOn();
                 rsSlippery.Play(-rsSlippery.AM * veldiff + rsSlippery.AA, DSBPLAY_LOOPING, true,
                                 DynamicObject->GetPosition());
                 if (mvControlled->TrainType ==
-                        dt_181) // alarm przy poslizgu dla 181/182 - BOMBARDIER
+                    dt_181) // alarm przy poslizgu dla 181/182 - BOMBARDIER
                     if (dsbSlipAlarm)
                         dsbSlipAlarm->Play(0, 0, DSBPLAY_LOOPING);
             }
@@ -3437,14 +3437,14 @@ bool TTrain::Update()
                     dsbSlipAlarm->Stop();
         }
 
-        if ((mvControlled->Mains) || (mvControlled->TrainType == dt_EZT))
-        {
-            btLampkaNadmSil.Turn(mvControlled->FuseFlagCheck());
-        }
-        else
-        {
-            btLampkaNadmSil.TurnOff();
-        }
+		if ((mvControlled->Mains) || (mvControlled->TrainType == dt_EZT))
+		{
+			btLampkaNadmSil.Turn(mvControlled->FuseFlagCheck());
+		}
+		else
+		{
+			btLampkaNadmSil.TurnOff();
+		}
 
         if (mvControlled->Mains)
         {
@@ -3454,15 +3454,15 @@ bool TTrain::Update()
             btLampkaBezoporowa.Turn(mvControlled->ResistorsFlagCheck() ||
                                     (mvControlled->MainCtrlActualPos == 0)); // do EU04
             if ((mvControlled->Itot != 0) || (mvOccupied->BrakePress > 2) ||
-                    (mvOccupied->PipePress < 3.6))
+                (mvOccupied->PipePress < 3.6))
                 btLampkaStyczn.TurnOff(); // Ra: czy to jest udawanie dzia³ania
             // styczników liniowych?
             else if (mvOccupied->BrakePress < 1)
                 btLampkaStyczn.TurnOn(); // mozna prowadzic rozruch
             if (((TestFlag(mvControlled->Couplers[1].CouplingFlag, ctrain_controll)) &&
                  (mvControlled->CabNo == 1)) ||
-                    ((TestFlag(mvControlled->Couplers[0].CouplingFlag, ctrain_controll)) &&
-                     (mvControlled->CabNo == -1)))
+                ((TestFlag(mvControlled->Couplers[0].CouplingFlag, ctrain_controll)) &&
+                 (mvControlled->CabNo == -1)))
                 btLampkaUkrotnienie.TurnOn();
             else
                 btLampkaUkrotnienie.TurnOff();
@@ -3492,13 +3492,13 @@ bool TTrain::Update()
             if (((mvControlled->ScndCtrlActualPos > 0) ||
                  ((mvControlled->RList[mvControlled->MainCtrlActualPos].ScndAct != 0) &&
                   (mvControlled->RList[mvControlled->MainCtrlActualPos].ScndAct != 255))) &&
-                    (!mvControlled->DelayCtrlFlag))
+                (!mvControlled->DelayCtrlFlag))
                 btLampkaBoczniki.TurnOn();
             else
                 btLampkaBoczniki.TurnOff();
 
             btLampkaNapNastHam.Turn(mvControlled->ActiveDir !=
-                    0); // napiecie na nastawniku hamulcowym
+                                    0); // napiecie na nastawniku hamulcowym
             btLampkaSprezarka.Turn(mvControlled->CompressorFlag); // mutopsitka dziala
             // boczniki
             unsigned char scp; // Ra: dopisa³em "unsigned"
@@ -3550,7 +3550,7 @@ bool TTrain::Update()
         {
 
             if ((mvOccupied->BrakePress >= 0.145f) && (mvControlled->Battery == true) &&
-                    (mvControlled->Signalling == true))
+                (mvControlled->Signalling == true))
             {
                 btLampkaHamowanie1zes.TurnOn();
             }
@@ -3573,10 +3573,10 @@ bool TTrain::Update()
             // Ra 2014-07: no nie ma potrzeby szukaæ tego w ka¿dej klatce
             tmp = NULL;
             if ((TestFlag(mvControlled->Couplers[1].CouplingFlag, ctrain_controll)) &&
-                    (mvOccupied->ActiveCab > 0))
+                (mvOccupied->ActiveCab > 0))
                 tmp = DynamicObject->NextConnected;
             if ((TestFlag(mvControlled->Couplers[0].CouplingFlag, ctrain_controll)) &&
-                    (mvOccupied->ActiveCab < 0))
+                (mvOccupied->ActiveCab < 0))
                 tmp = DynamicObject->PrevConnected;
 
             if (tmp)
@@ -3585,11 +3585,11 @@ bool TTrain::Update()
                     btLampkaWylSzybkiB.TurnOn();
                     btLampkaOporyB.Turn(tmp->MoverParameters->ResistorsFlagCheck());
                     btLampkaBezoporowaB.Turn(
-                                tmp->MoverParameters->ResistorsFlagCheck() ||
-                                (tmp->MoverParameters->MainCtrlActualPos == 0)); // do EU04
+                        tmp->MoverParameters->ResistorsFlagCheck() ||
+                        (tmp->MoverParameters->MainCtrlActualPos == 0)); // do EU04
                     if ((tmp->MoverParameters->Itot != 0) ||
-                            (tmp->MoverParameters->BrakePress > 0.2) ||
-                            (tmp->MoverParameters->PipePress < 0.36))
+                        (tmp->MoverParameters->BrakePress > 0.2) ||
+                        (tmp->MoverParameters->PipePress < 0.36))
                         btLampkaStycznB.TurnOff(); //
                     else if (tmp->MoverParameters->BrakePress < 0.1)
                         btLampkaStycznB.TurnOn(); // mozna prowadzic rozruch
@@ -3618,21 +3618,21 @@ bool TTrain::Update()
                     //-----------------
 
                     btLampkaSprezarkaB.Turn(
-                                tmp->MoverParameters->CompressorFlag); // mutopsitka dziala
+                        tmp->MoverParameters->CompressorFlag); // mutopsitka dziala
                     if ((tmp->MoverParameters->BrakePress >= 0.145f * 10) &&
-                            (mvControlled->Battery == true) && (mvControlled->Signalling == true))
+                        (mvControlled->Battery == true) && (mvControlled->Signalling == true))
                     {
                         btLampkaHamowanie2zes.TurnOn();
                     }
                     if ((tmp->MoverParameters->BrakePress < 0.075f * 10) ||
-                            (mvControlled->Battery == false) || (mvControlled->Signalling == false))
+                        (mvControlled->Battery == false) || (mvControlled->Signalling == false))
                     {
                         btLampkaHamowanie2zes.TurnOff();
                     }
                     btLampkaNadmPrzetwB.Turn(
-                                tmp->MoverParameters->ConvOvldFlag); // nadmiarowy przetwornicy?
+                        tmp->MoverParameters->ConvOvldFlag); // nadmiarowy przetwornicy?
                     btLampkaPrzetwB.Turn(
-                                !tmp->MoverParameters->ConverterFlag); // zalaczenie przetwornicy
+                        !tmp->MoverParameters->ConverterFlag); // zalaczenie przetwornicy
                 }
                 else // wylaczone
                 {
@@ -3701,7 +3701,7 @@ bool TTrain::Update()
         {
             if (mvControlled->CoupledCtrl)
                 ggMainCtrl.UpdateValue(
-                            double(mvControlled->MainCtrlPos + mvControlled->ScndCtrlPos));
+                    double(mvControlled->MainCtrlPos + mvControlled->ScndCtrlPos));
             else
                 ggMainCtrl.UpdateValue(double(mvControlled->MainCtrlPos));
             ggMainCtrl.Update();
@@ -3710,7 +3710,7 @@ bool TTrain::Update()
         {
             if (mvControlled->CoupledCtrl)
                 ggMainCtrlAct.UpdateValue(
-                            double(mvControlled->MainCtrlActualPos + mvControlled->ScndCtrlActualPos));
+                    double(mvControlled->MainCtrlActualPos + mvControlled->ScndCtrlActualPos));
             else
                 ggMainCtrlAct.UpdateValue(double(mvControlled->MainCtrlActualPos));
             ggMainCtrlAct.Update();
@@ -3719,8 +3719,8 @@ bool TTrain::Update()
         { // Ra: od byte odejmowane boolean i konwertowane
             // potem na double?
             ggScndCtrl.UpdateValue(
-                        double(mvControlled->ScndCtrlPos -
-                               ((mvControlled->TrainType == dt_ET42) && mvControlled->DynamicBrakeFlag)));
+                double(mvControlled->ScndCtrlPos -
+                       ((mvControlled->TrainType == dt_ET42) && mvControlled->DynamicBrakeFlag)));
             ggScndCtrl.Update();
         }
         if (ggDirKey.SubModel)
@@ -3734,16 +3734,17 @@ bool TTrain::Update()
         }
         if (ggBrakeCtrl.SubModel)
         {
-            if (DynamicObject->Mechanik ? (DynamicObject->Mechanik->AIControllFlag ? false :
-                                           (Global::iFeedbackMode == 4 || (Global::iFeedbackMode == 5 && Global::bMWDBreakEnable))) :
+            if (DynamicObject->Mechanik ?
+                    (DynamicObject->Mechanik->AIControllFlag ? false : 
+                                                (Global::iFeedbackMode == 4 || (Global::iFeedbackMode == 5 && Global::bMWDBreakEnable))) :
                     false) // nie blokujemy AI
             { // Ra: nie najlepsze miejsce, ale na pocz¹tek gdzieœ to daæ trzeba
-                // Firleju: dlatego kasujemy i zastepujemy funkcj¹ w Console
+				// Firleju: dlatego kasujemy i zastepujemy funkcj¹ w Console
                 if (((mvOccupied->BrakeHandle == FV4a) ||
-                     (mvOccupied->BrakeHandle == FVel6))) // mo¿e mo¿na usun¹æ ograniczenie do FV4a i FVel6?
+                                   (mvOccupied->BrakeHandle == FVel6))) // mo¿e mo¿na usun¹æ ograniczenie do FV4a i FVel6?
                 {
-                    double b = Console::AnalogCalibrateGet(0);
-                    b = Global::CutValueToRange(-2.0, b, mvOccupied->BrakeCtrlPosNo); // przyciêcie zmiennej do granic
+					double b = Console::AnalogCalibrateGet(0);
+					b = Global::CutValueToRange(-2.0, b, mvOccupied->BrakeCtrlPosNo); // przyciêcie zmiennej do granic
 
                     ggBrakeCtrl.UpdateValue(b); // przesów bez zaokr¹glenia
                     mvOccupied->BrakeLevelSet(b);
@@ -3758,18 +3759,18 @@ bool TTrain::Update()
         }
         if (ggLocalBrake.SubModel)
         {
-            if (DynamicObject->Mechanik ? DynamicObject->Mechanik->AIControllFlag ? false :
-                    (Global::iFeedbackMode == 4 || (Global::iFeedbackMode == 5 && Global::bMWDBreakEnable))) :
-                false) // nie blokujemy AI
+            if (DynamicObject->Mechanik ?
+                    (DynamicObject->Mechanik->AIControllFlag ? false : (Global::iFeedbackMode == 4Global::iFeedbackMode == 4 || (Global::iFeedbackMode == 5 && Global::bMWDBreakEnable))) :
+                    false) // nie blokujemy AI
             { // Ra: nie najlepsze miejsce, ale na pocz¹tek gdzieœ to daæ trzeba
-                // Firleju: dlatego kasujemy i zastepujemy funkcj¹ w Console
+			  // Firleju: dlatego kasujemy i zastepujemy funkcj¹ w Console
                 if ((mvOccupied->BrakeLocHandle == FD1))
                 {
-                    double b = Console::AnalogCalibrateGet(1);
-                    b = Global::CutValueToRange(0.0, b, Hamulce::LocalBrakePosNo); // przyciêcie zmiennej do granic
+					double b = Console::AnalogCalibrateGet(1);
+					b = Global::CutValueToRange(0.0, b, Hamulce::LocalBrakePosNo); // przyciêcie zmiennej do granic
                     ggLocalBrake.UpdateValue(b); // przesów bez zaokr¹glenia
                     mvOccupied->LocalBrakePos =
-                            int(1.09 * b); // sposób zaokr¹glania jest do ustalenia
+                        int(1.09 * b); // sposób zaokr¹glania jest do ustalenia
                 }
                 else // standardowa prodedura z kranem powi¹zanym z klawiatur¹
                     ggLocalBrake.UpdateValue(double(mvOccupied->LocalBrakePos));
@@ -3786,7 +3787,7 @@ bool TTrain::Update()
         if (ggBrakeProfileCtrl.SubModel)
         {
             ggBrakeProfileCtrl.UpdateValue(
-                        double(mvOccupied->BrakeDelayFlag == 4 ? 2 : mvOccupied->BrakeDelayFlag - 1));
+                double(mvOccupied->BrakeDelayFlag == 4 ? 2 : mvOccupied->BrakeDelayFlag - 1));
             ggBrakeProfileCtrl.Update();
         }
         if (ggBrakeProfileG.SubModel)
@@ -4014,11 +4015,11 @@ bool TTrain::Update()
                 else
                     ggRearRightLightButton.PutValue(-1);
             }
-        if (ggLightsButton.SubModel)
-        {
-            ggLightsButton.PutValue(mvOccupied->LightsPos - 1);
-            ggLightsButton.Update();
-        }
+		if (ggLightsButton.SubModel)
+		{
+			ggLightsButton.PutValue(mvOccupied->LightsPos - 1);
+			ggLightsButton.Update();
+		}
 
         //---------
         // Winger 010304 - pantografy
@@ -4076,7 +4077,7 @@ bool TTrain::Update()
         if ((((mvControlled->EngineType == ElectricSeriesMotor) && (mvControlled->Mains == true) &&
               (mvControlled->ConvOvldFlag == false)) ||
              (mvControlled->ConverterFlag)) &&
-                (mvControlled->Heating == true))
+            (mvControlled->Heating == true))
             btLampkaOgrzewanieSkladu.TurnOn();
         else
             btLampkaOgrzewanieSkladu.TurnOff();
@@ -4099,7 +4100,7 @@ bool TTrain::Update()
 
             // hunter-091012: dodanie testu czuwaka
             if ((TestFlag(mvOccupied->SecuritySystem.Status, s_aware)) ||
-                    (TestFlag(mvOccupied->SecuritySystem.Status, s_CAtest)))
+                (TestFlag(mvOccupied->SecuritySystem.Status, s_CAtest)))
             {
                 btLampkaCzuwaka.Turn(fBlinkTimer > 0);
             }
@@ -4110,44 +4111,44 @@ bool TTrain::Update()
             // hunter-091012: rozdzielenie alarmow
             // if (TestFlag(mvOccupied->SecuritySystem.Status,s_alarm))
             if (TestFlag(mvOccupied->SecuritySystem.Status, s_CAalarm) ||
-                    TestFlag(mvOccupied->SecuritySystem.Status, s_SHPalarm))
+                TestFlag(mvOccupied->SecuritySystem.Status, s_SHPalarm))
             {
-                if(dsbBuzzer)
-                {
-                    dsbBuzzer->GetStatus(&stat);
-                    if (!(stat & DSBSTATUS_PLAYING))
-                    {
-                        dsbBuzzer->Play(0, 0, DSBPLAY_LOOPING);
-                        Console::BitsSet(1 << 14); // ustawienie bitu 16 na PoKeys
-                    }
-                }
+				if(dsbBuzzer)
+				{
+                dsbBuzzer->GetStatus(&stat);
+				if (!(stat & DSBSTATUS_PLAYING))
+				{
+                    dsbBuzzer->Play(0, 0, DSBPLAY_LOOPING);
+					Console::BitsSet(1 << 14); // ustawienie bitu 16 na PoKeys
+				}
+				}
             }
             else
             {
-                if(dsbBuzzer)
-                {
-                    dsbBuzzer->GetStatus(&stat);
-                    if (stat & DSBSTATUS_PLAYING)
-                    {
-                        dsbBuzzer->Stop();
-                        Console::BitsClear(1 << 14); // ustawienie bitu 16 na PoKeys
-                    }
-                }
+				if(dsbBuzzer)
+				{
+                dsbBuzzer->GetStatus(&stat);
+				if (stat & DSBSTATUS_PLAYING)
+				{
+                    dsbBuzzer->Stop();
+					Console::BitsClear(1 << 14); // ustawienie bitu 16 na PoKeys
+				}
+				}
             }
         }
         else // wylaczone
         {
             btLampkaCzuwaka.TurnOff();
             btLampkaSHP.TurnOff();
-            if(dsbBuzzer)
-            {
-                dsbBuzzer->GetStatus(&stat);
-                if (stat & DSBSTATUS_PLAYING)
-                {
-                    dsbBuzzer->Stop();
-                    Console::BitsClear(1 << 14); // ustawienie bitu 16 na PoKeys
-                }
-            }
+			if(dsbBuzzer)
+			{
+            dsbBuzzer->GetStatus(&stat);
+			if (stat & DSBSTATUS_PLAYING)
+			{
+                dsbBuzzer->Stop();
+				Console::BitsClear(1 << 14); // ustawienie bitu 16 na PoKeys
+			}
+			}
         }
 
         //******************************************
@@ -4206,7 +4207,7 @@ bool TTrain::Update()
         else
         {
             if (ggConverterButton.GetValue() !=
-                    0) // po puszczeniu przycisku od WSa odpalanie potwora
+                0) // po puszczeniu przycisku od WSa odpalanie potwora
                 mvControlled->ConverterSwitch(true);
             // hunter-091012: przeniesione z mover.pas, zeby dzwiek sie nie zapetlal,
             // drugi warunek zeby nie odtwarzalo w nieskonczonosc i przeniesienie
@@ -4328,14 +4329,14 @@ bool TTrain::Update()
 
         if (Console::Pressed(Global::Keys[k_Sand]))
         {
-            if (mvControlled->TrainType != dt_EZT && ggSandButton.SubModel != NULL)
-            {
-                // dsbPneumaticRelay->SetVolume(-30);
-                // dsbPneumaticRelay->Play(0,0,0);
-                ggSandButton.PutValue(1);
-                mvControlled->SandDose = true;
-                // mvControlled->SandDoseOn(true);
-            }
+			if (mvControlled->TrainType != dt_EZT && ggSandButton.SubModel != NULL)
+			{
+				// dsbPneumaticRelay->SetVolume(-30);
+				// dsbPneumaticRelay->Play(0,0,0);
+				ggSandButton.PutValue(1);
+				mvControlled->SandDose = true;
+				// mvControlled->SandDoseOn(true);
+			}
         }
         else
         {
@@ -4360,12 +4361,12 @@ bool TTrain::Update()
         //-----------------
         // hunter-261211: przetwornica i sprezarka
         if (Console::Pressed(VK_SHIFT) &&
-                Console::Pressed(Global::Keys[k_Converter])) // NBMX 14-09-2003: przetwornica wl
+            Console::Pressed(Global::Keys[k_Converter])) // NBMX 14-09-2003: przetwornica wl
         { //(mvControlled->CompressorPower<2)
             ggConverterButton.PutValue(1);
             if ((mvControlled->PantFrontVolt != 0.0) || (mvControlled->PantRearVolt != 0.0) ||
-                    (mvControlled->EnginePowerSource.SourceType !=
-                     CurrentCollector) /*||(!Global::bLiveTraction)*/)
+                (mvControlled->EnginePowerSource.SourceType !=
+                 CurrentCollector) /*||(!Global::bLiveTraction)*/)
                 mvControlled->ConverterSwitch(true);
             // if
             // ((mvControlled->EngineType!=ElectricSeriesMotor)&&(mvControlled->TrainType!=dt_EZT))
@@ -4386,27 +4387,27 @@ bool TTrain::Update()
         //     Console::Pressed(VK_SHIFT)&&Console::Pressed(Global::Keys[k_Compressor])&&((mvControlled->EngineType==ElectricSeriesMotor)||(mvControlled->TrainType==dt_EZT))
         //     )   //NBMX 14-09-2003: sprezarka wl
         if (Console::Pressed(VK_SHIFT) && Console::Pressed(Global::Keys[k_Compressor]) &&
-                (mvControlled->CompressorPower < 2)) // hunter-091012: tak jest poprawnie
+            (mvControlled->CompressorPower < 2)) // hunter-091012: tak jest poprawnie
         { // hunter-110212: poprawka dla EZT
             ggCompressorButton.PutValue(1);
             mvControlled->CompressorSwitch(true);
         }
 
         if (!Console::Pressed(VK_SHIFT) &&
-                Console::Pressed(Global::Keys[k_Converter])) // NBMX 14-09-2003: przetwornica wl
+            Console::Pressed(Global::Keys[k_Converter])) // NBMX 14-09-2003: przetwornica wl
         {
             ggConverterButton.PutValue(0);
             ggConverterOffButton.PutValue(1);
             mvControlled->ConverterSwitch(false);
-            if ((mvControlled->TrainType == dt_EZT) && (!TestFlag(mvControlled->EngDmgFlag, 4)))
-                mvControlled->ConvOvldFlag = false;
-        }
+			if ((mvControlled->TrainType == dt_EZT) && (!TestFlag(mvControlled->EngDmgFlag, 4)))
+				mvControlled->ConvOvldFlag = false;
+		}
 
         //     if (
         //     !Console::Pressed(VK_SHIFT)&&Console::Pressed(Global::Keys[k_Compressor])&&((mvControlled->EngineType==ElectricSeriesMotor)||(mvControlled->TrainType==dt_EZT))
         //     )   //NBMX 14-09-2003: sprezarka wl
         if (!Console::Pressed(VK_SHIFT) && Console::Pressed(Global::Keys[k_Compressor]) &&
-                (mvControlled->CompressorPower < 2)) // hunter-091012: tak jest poprawnie
+            (mvControlled->CompressorPower < 2)) // hunter-091012: tak jest poprawnie
         { // hunter-110212: poprawka dla EZT
             ggCompressorButton.PutValue(0);
             mvControlled->CompressorSwitch(false);
@@ -4436,18 +4437,18 @@ bool TTrain::Update()
         //-----------------
 
         if ((!FreeFlyModeFlag) &&
-                (!(DynamicObject->Mechanik ? DynamicObject->Mechanik->AIControllFlag : false)))
+            (!(DynamicObject->Mechanik ? DynamicObject->Mechanik->AIControllFlag : false)))
         {
             if (Console::Pressed(Global::Keys[k_Releaser])) // yB: odluzniacz caly
-                // czas trzymany, warunki
-                // powinny byc takie same,
-                // jak przy naciskaniu.
-                // Wlasciwie stamtad mozna
-                // wyrzucic sprawdzanie
-                // nacisniecia.
+            // czas trzymany, warunki
+            // powinny byc takie same,
+            // jak przy naciskaniu.
+            // Wlasciwie stamtad mozna
+            // wyrzucic sprawdzanie
+            // nacisniecia.
             {
                 if ((mvControlled->EngineType == ElectricSeriesMotor) ||
-                        (mvControlled->EngineType == DieselElectric))
+                    (mvControlled->EngineType == DieselElectric))
                     if (mvControlled->TrainType != dt_EZT)
                         if ((mvOccupied->BrakeCtrlPosNo > 0) && (mvControlled->ActiveDir != 0))
                         {
@@ -4473,7 +4474,7 @@ bool TTrain::Update()
         if (!Console::Pressed(Global::Keys[k_SmallCompressor]))
             // Ra: przecieœæ to na zwolnienie klawisza
             if (DynamicObject->Mechanik ? !DynamicObject->Mechanik->AIControllFlag :
-                    false) // nie wy³¹czaæ, gdy AI
+                                          false) // nie wy³¹czaæ, gdy AI
                 mvControlled->PantCompFlag = false; // wy³¹czona, gdy nie trzymamy klawisza
         if (Console::Pressed(Global::Keys[k_Univ2]))
         {
@@ -4656,16 +4657,16 @@ bool TTrain::Update()
         }
         // Odskakiwanie hamulce EP
         if ((!Console::Pressed(Global::Keys[k_DecBrakeLevel])) &&
-                (!Console::Pressed(Global::Keys[k_WaveBrake])) && (mvOccupied->BrakeCtrlPos == -1) &&
-                (mvOccupied->BrakeHandle == FVel6) && (DynamicObject->Controller != AIdriver) &&
-                (Global::iFeedbackMode != 4))
+            (!Console::Pressed(Global::Keys[k_WaveBrake])) && (mvOccupied->BrakeCtrlPos == -1) &&
+            (mvOccupied->BrakeHandle == FVel6) && (DynamicObject->Controller != AIdriver) &&
+            (Global::iFeedbackMode != 4))
         {
             // mvOccupied->BrakeCtrlPos=(mvOccupied->BrakeCtrlPos)+1;
             // mvOccupied->IncBrakeLevel();
             mvOccupied->BrakeLevelSet(mvOccupied->BrakeCtrlPos + 1);
             keybrakecount = 0;
             if ((mvOccupied->TrainType == dt_EZT) && (mvControlled->Mains) &&
-                    (mvControlled->ActiveDir != 0))
+                (mvControlled->ActiveDir != 0))
             {
                 dsbPneumaticSwitch->SetVolume(-10);
                 dsbPneumaticSwitch->Play(0, 0, 0);
@@ -4743,7 +4744,7 @@ bool TTrain::Update()
         //    bool kEP;
         //    kEP=(mvOccupied->BrakeSubsystem==Knorr)||(mvOccupied->BrakeSubsystem==Hik)||(mvOccupied->BrakeSubsystem==Kk);
         if ((mvOccupied->BrakeSystem == ElectroPneumatic) && ((mvOccupied->BrakeHandle == St113)) &&
-                (mvControlled->EpFuse == true))
+            (mvControlled->EpFuse == true))
             if (Console::Pressed(Global::Keys[k_AntiSlipping])) // kEP
             {
                 ggAntiSlipButton.UpdateValue(1);
@@ -4932,8 +4933,8 @@ bool TTrain::Update()
         ggSecurityResetButton.Update();
         ggReleaserButton.Update();
         ggAntiSlipButton.Update();
-        ggSandButton.Update();
-        ggFuseButton.Update();
+		ggSandButton.Update(); 
+		ggFuseButton.Update();
         ggConverterFuseButton.Update();
         ggStLinOffButton.Update();
         ggRadioButton.Update();
@@ -4975,8 +4976,8 @@ bool TTrain::Update()
         ggMainOnButton.UpdateValue(0);
         ggSecurityResetButton.UpdateValue(0);
         ggReleaserButton.UpdateValue(0);
-        ggSandButton.UpdateValue(0);
-        ggAntiSlipButton.UpdateValue(0);
+		ggSandButton.UpdateValue(0); 
+		ggAntiSlipButton.UpdateValue(0);
         ggDepartureSignalButton.UpdateValue(0);
         ggFuseButton.UpdateValue(0);
         ggConverterFuseButton.UpdateValue(0);
@@ -4992,12 +4993,12 @@ bool TTrain::Update()
 bool TTrain::CabChange(int iDirection)
 { // McZapkie-090902: zmiana kabiny 1->0->2 i z powrotem
     if (DynamicObject->Mechanik ? DynamicObject->Mechanik->AIControllFlag :
-            true) // jeœli prowadzi AI albo jest w innym cz³onie
+                                  true) // jeœli prowadzi AI albo jest w innym cz³onie
     { // jak AI prowadzi, to nie mo¿na mu mieszaæ
         if (abs(DynamicObject->MoverParameters->ActiveCab + iDirection) > 1)
             return false; // ewentualna zmiana pojazdu
         DynamicObject->MoverParameters->ActiveCab =
-                DynamicObject->MoverParameters->ActiveCab + iDirection;
+            DynamicObject->MoverParameters->ActiveCab + iDirection;
     }
     else
     { // jeœli pojazd prowadzony rêcznie albo wcale (wagon)
@@ -5005,10 +5006,10 @@ bool TTrain::CabChange(int iDirection)
         if (DynamicObject->MoverParameters->ChangeCab(iDirection))
             if (InitializeCab(DynamicObject->MoverParameters->ActiveCab,
                               DynamicObject->asBaseDir + DynamicObject->MoverParameters->TypeName +
-                              ".mmd"))
+                                  ".mmd"))
             { // zmiana kabiny w ramach tego samego pojazdu
                 DynamicObject->MoverParameters
-                        ->CabActivisation(); // za³¹czenie rozrz¹du (wirtualne kabiny)
+                    ->CabActivisation(); // za³¹czenie rozrz¹du (wirtualne kabiny)
                 return true; // uda³o siê zmieniæ kabinê
             }
         DynamicObject->MoverParameters->CabActivisation(); // aktywizacja
@@ -5039,12 +5040,12 @@ bool TTrain::LoadMMediaFile(AnsiString asFileName)
     //    Parser->LoadStringToParse(asFile);
     Parser->First();
     str = "";
-    //Wartoœci domyœlne by nie wysypywa³o przy wybrakowanych mmd @240816 Stele
+	//Wartoœci domyœlne by nie wysypywa³o przy wybrakowanych mmd @240816 Stele
     dsbPneumaticSwitch = TSoundsManager::GetFromName("silence1.wav", true);
-    dsbBufferClamp = TSoundsManager::GetFromName("en57_bufferclamp.wav", true);
-    dsbCouplerDetach = TSoundsManager::GetFromName("couplerdetach.wav", true);
-    dsbCouplerStretch = TSoundsManager::GetFromName("en57_couplerstretch.wav", true);
-    dsbCouplerAttach = TSoundsManager::GetFromName("couplerattach.wav", true);
+	dsbBufferClamp = TSoundsManager::GetFromName("en57_bufferclamp.wav", true);
+	dsbCouplerDetach = TSoundsManager::GetFromName("couplerdetach.wav", true);
+	dsbCouplerStretch = TSoundsManager::GetFromName("en57_couplerstretch.wav", true);
+	dsbCouplerAttach = TSoundsManager::GetFromName("couplerattach.wav", true);
     while ((!Parser->EndOfFile) && (str != AnsiString("internaldata:")))
     {
         str = Parser->GetNextSymbol().LowerCase();
@@ -5064,234 +5065,234 @@ bool TTrain::LoadMMediaFile(AnsiString asFileName)
                 //---------------
                 // hunter-081211: nastawnik bocznikowania
                 if (str == AnsiString("ctrlscnd:")) // nastawnik bocznikowania:
-                {
-                    str = Parser->GetNextSymbol().LowerCase();
-                    dsbNastawnikBocz = TSoundsManager::GetFromName(str.c_str(), true);
-                }
-                else
-                    //---------------
-                    // hunter-131211: dzwiek kierunkowego
-                    if (str == AnsiString("reverserkey:")) // nastawnik kierunkowy
-                    {
-                        str = Parser->GetNextSymbol().LowerCase();
-                        dsbReverserKey = TSoundsManager::GetFromName(str.c_str(), true);
-                    }
-                    else
-                        //---------------
-                        if (str == AnsiString("buzzer:")) // bzyczek shp:
-                        {
-                            str = Parser->GetNextSymbol().LowerCase();
-                            dsbBuzzer = TSoundsManager::GetFromName(str.c_str(), true);
-                        }
-                        else if (str == AnsiString("slipalarm:")) // Bombardier 011010: alarm przy poslizgu:
-                        {
-                            str = Parser->GetNextSymbol().LowerCase();
-                            dsbSlipAlarm = TSoundsManager::GetFromName(str.c_str(), true);
-                        }
-                        else if (str == AnsiString("tachoclock:")) // cykanie rejestratora:
-                        {
-                            str = Parser->GetNextSymbol().LowerCase();
-                            dsbHasler = TSoundsManager::GetFromName(str.c_str(), true);
-                        }
-                        else if (str == AnsiString("switch:")) // przelaczniki:
-                        {
-                            str = Parser->GetNextSymbol().LowerCase();
-                            dsbSwitch = TSoundsManager::GetFromName(str.c_str(), true);
-                        }
-                        else if (str == AnsiString("pneumaticswitch:")) // stycznik EP:
-                        {
-                            str = Parser->GetNextSymbol().LowerCase();
-                            dsbPneumaticSwitch = TSoundsManager::GetFromName(str.c_str(), true);
-                        }
-                        else
-                            //---------------
-                            // hunter-111211: wydzielenie wejscia na bezoporowa i na drugi uklad
-                            // do pliku
-                            if (str == AnsiString("wejscie_na_bezoporow:"))
-                            {
-                                str = Parser->GetNextSymbol().LowerCase();
-                                dsbWejscie_na_bezoporow = TSoundsManager::GetFromName(str.c_str(), true);
-                            }
-                            else if (str == AnsiString("wejscie_na_drugi_uklad:"))
-                            {
-                                str = Parser->GetNextSymbol().LowerCase();
-                                dsbWejscie_na_drugi_uklad = TSoundsManager::GetFromName(str.c_str(), true);
-                            }
-                            else
-                                //---------------
-                                if (str == AnsiString("relay:")) // styczniki itp:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbRelay = TSoundsManager::GetFromName(str.c_str(), true);
-                                    if (!dsbWejscie_na_bezoporow) // hunter-111211: domyslne, gdy brak
-                                        dsbWejscie_na_bezoporow =
-                                                TSoundsManager::GetFromName("wejscie_na_bezoporow.wav", true);
-                                    if (!dsbWejscie_na_drugi_uklad)
-                                        dsbWejscie_na_drugi_uklad =
-                                                TSoundsManager::GetFromName("wescie_na_drugi_uklad.wav", true);
-                                }
-                                else if (str == AnsiString("pneumaticrelay:")) // wylaczniki pneumatyczne:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbPneumaticRelay = TSoundsManager::GetFromName(str.c_str(), true);
-                                }
-                                else if (str == AnsiString("couplerattach:")) // laczenie:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbCouplerAttach = TSoundsManager::GetFromName(str.c_str(), true);
-                                }
-                                else if (str == AnsiString("couplerstretch:")) // laczenie:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbCouplerStretch = TSoundsManager::GetFromName(str.c_str(), true); // McZapkie-090503: PROWIZORKA!!! "en57_couplerstretch.wav"
-                                }
-                                else if (str == AnsiString("couplerdetach:")) // rozlaczanie:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbCouplerDetach = TSoundsManager::GetFromName(str.c_str(), true);
-
-                                }
-                                else if (str == AnsiString("bufferclamp:")) // laczenie:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbBufferClamp = TSoundsManager::GetFromName(str.c_str(), true); // McZapkie-090503: PROWIZORKA!!! "en57_bufferclamp.wav"
-                                }
-                                else if (str == AnsiString("ignition:"))
-                                { // odpalanie silnika
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbDieselIgnition = TSoundsManager::GetFromName(str.c_str(), true);
-                                }
-                                else if (str == AnsiString("brakesound:")) // hamowanie zwykle:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsBrake.Init(str.c_str(), -1, 0, 0, 0, true, true);
-                                    rsBrake.AM =
-                                            Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->MaxBrakeForce * 1000);
-                                    rsBrake.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsBrake.FM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->Vmax);
-                                    rsBrake.FA = Parser->GetNextSymbol().ToDouble();
-                                }
-                                else if (str == AnsiString("slipperysound:")) // sanie:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsSlippery.Init(str.c_str(), -1, 0, 0, 0, true);
-                                    rsSlippery.AM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->Vmax);
-                                    rsSlippery.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsSlippery.FM = 0.0;
-                                    rsSlippery.FA = 1.0;
-                                }
-                                else if (str == AnsiString("airsound:")) // syk:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsHiss.Init(str.c_str(), -1, 0, 0, 0, true);
-                                    rsHiss.AM = Parser->GetNextSymbol().ToDouble();
-                                    rsHiss.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsHiss.FM = 0.0;
-                                    rsHiss.FA = 1.0;
-                                }
-                                else if (str == AnsiString("airsound2:")) // syk:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsHissU.Init(str.c_str(), -1, 0, 0, 0, true);
-                                    rsHissU.AM = Parser->GetNextSymbol().ToDouble();
-                                    rsHissU.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsHissU.FM = 0.0;
-                                    rsHissU.FA = 1.0;
-                                }
-                                else if (str == AnsiString("airsound3:")) // syk:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsHissE.Init(str.c_str(), -1, 0, 0, 0, true);
-                                    rsHissE.AM = Parser->GetNextSymbol().ToDouble();
-                                    rsHissE.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsHissE.FM = 0.0;
-                                    rsHissE.FA = 1.0;
-                                }
-                                else if (str == AnsiString("airsound4:")) // syk:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsHissX.Init(str.c_str(), -1, 0, 0, 0, true);
-                                    rsHissX.AM = Parser->GetNextSymbol().ToDouble();
-                                    rsHissX.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsHissX.FM = 0.0;
-                                    rsHissX.FA = 1.0;
-                                }
-                                else if (str == AnsiString("airsound5:")) // syk:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsHissT.Init(str.c_str(), -1, 0, 0, 0, true);
-                                    rsHissT.AM = Parser->GetNextSymbol().ToDouble();
-                                    rsHissT.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsHissT.FM = 0.0;
-                                    rsHissT.FA = 1.0;
-                                }
-                                else if (str == AnsiString("fadesound:")) // syk:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsFadeSound.Init(str.c_str(), -1, 0, 0, 0, true);
-                                    rsFadeSound.AM = 1.0;
-                                    rsFadeSound.AA = 1.0;
-                                    rsFadeSound.FM = 1.0;
-                                    rsFadeSound.FA = 1.0;
-                                }
-                                else if (str == AnsiString("localbrakesound:")) // syk:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsSBHiss.Init(str.c_str(), -1, 0, 0, 0, true);
-                                    rsSBHiss.AM = Parser->GetNextSymbol().ToDouble();
-                                    rsSBHiss.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsSBHiss.FM = 0.0;
-                                    rsSBHiss.FA = 1.0;
-                                }
-                                else if (str == AnsiString("runningnoise:")) // szum podczas jazdy:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsRunningNoise.Init(str.c_str(), -1, 0, 0, 0, true, true);
-                                    rsRunningNoise.AM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->Vmax);
-                                    rsRunningNoise.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsRunningNoise.FM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->Vmax);
-                                    rsRunningNoise.FA = Parser->GetNextSymbol().ToDouble();
-                                }
-                                else if (str == AnsiString("engageslippery:")) // tarcie tarcz sprzegla:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    rsEngageSlippery.Init(str.c_str(), -1, 0, 0, 0, true, true);
-                                    rsEngageSlippery.AM = Parser->GetNextSymbol().ToDouble();
-                                    rsEngageSlippery.AA = Parser->GetNextSymbol().ToDouble();
-                                    rsEngageSlippery.FM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->nmax);
-                                    rsEngageSlippery.FA = Parser->GetNextSymbol().ToDouble();
-                                }
-                                else if (str == AnsiString("mechspring:")) // parametry bujania kamery:
-                                {
-                                    str = Parser->GetNextSymbol();
-                                    MechSpring.Init(0, str.ToDouble(), Parser->GetNextSymbol().ToDouble());
-                                    fMechSpringX = Parser->GetNextSymbol().ToDouble();
-                                    fMechSpringY = Parser->GetNextSymbol().ToDouble();
-                                    fMechSpringZ = Parser->GetNextSymbol().ToDouble();
-                                    fMechMaxSpring = Parser->GetNextSymbol().ToDouble();
-                                    fMechRoll = Parser->GetNextSymbol().ToDouble();
-                                    fMechPitch = Parser->GetNextSymbol().ToDouble();
-                                }
-                                else if (str == AnsiString("pantographup:")) // podniesienie patyka:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbPantUp = TSoundsManager::GetFromName(str.c_str(), true);
-                                }
-                                else if (str == AnsiString("pantographdown:")) // podniesienie patyka:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbPantDown = TSoundsManager::GetFromName(str.c_str(), true);
-                                }
-                                else if (str == AnsiString("doorclose:")) // zamkniecie drzwi:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbDoorClose = TSoundsManager::GetFromName(str.c_str(), true);
-                                }
-                                else if (str == AnsiString("dooropen:")) // otwarcie drzwi:
-                                {
-                                    str = Parser->GetNextSymbol().LowerCase();
-                                    dsbDoorOpen = TSoundsManager::GetFromName(str.c_str(), true);
-                                }
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbNastawnikBocz = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else
+                //---------------
+                // hunter-131211: dzwiek kierunkowego
+                if (str == AnsiString("reverserkey:")) // nastawnik kierunkowy
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbReverserKey = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else
+                //---------------
+                if (str == AnsiString("buzzer:")) // bzyczek shp:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbBuzzer = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("slipalarm:")) // Bombardier 011010: alarm przy poslizgu:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbSlipAlarm = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("tachoclock:")) // cykanie rejestratora:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbHasler = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("switch:")) // przelaczniki:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbSwitch = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("pneumaticswitch:")) // stycznik EP:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbPneumaticSwitch = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else
+                //---------------
+                // hunter-111211: wydzielenie wejscia na bezoporowa i na drugi uklad
+                // do pliku
+                if (str == AnsiString("wejscie_na_bezoporow:"))
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbWejscie_na_bezoporow = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("wejscie_na_drugi_uklad:"))
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbWejscie_na_drugi_uklad = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else
+                //---------------
+                if (str == AnsiString("relay:")) // styczniki itp:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbRelay = TSoundsManager::GetFromName(str.c_str(), true);
+                if (!dsbWejscie_na_bezoporow) // hunter-111211: domyslne, gdy brak
+                    dsbWejscie_na_bezoporow =
+                        TSoundsManager::GetFromName("wejscie_na_bezoporow.wav", true);
+                if (!dsbWejscie_na_drugi_uklad)
+                    dsbWejscie_na_drugi_uklad =
+                        TSoundsManager::GetFromName("wescie_na_drugi_uklad.wav", true);
+            }
+            else if (str == AnsiString("pneumaticrelay:")) // wylaczniki pneumatyczne:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbPneumaticRelay = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("couplerattach:")) // laczenie:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbCouplerAttach = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+			else if (str == AnsiString("couplerstretch:")) // laczenie:
+            {
+				str = Parser->GetNextSymbol().LowerCase();
+				dsbCouplerStretch = TSoundsManager::GetFromName(str.c_str(), true); // McZapkie-090503: PROWIZORKA!!! "en57_couplerstretch.wav"
+			}
+            else if (str == AnsiString("couplerdetach:")) // rozlaczanie:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbCouplerDetach = TSoundsManager::GetFromName(str.c_str(), true);
+                
+            }
+			else if (str == AnsiString("bufferclamp:")) // laczenie:
+            {
+				str = Parser->GetNextSymbol().LowerCase();
+				dsbBufferClamp = TSoundsManager::GetFromName(str.c_str(), true); // McZapkie-090503: PROWIZORKA!!! "en57_bufferclamp.wav"
+			}
+            else if (str == AnsiString("ignition:"))
+            { // odpalanie silnika
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbDieselIgnition = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("brakesound:")) // hamowanie zwykle:
+            {
+                str = Parser->GetNextSymbol();
+                rsBrake.Init(str.c_str(), -1, 0, 0, 0, true, true);
+                rsBrake.AM =
+                    Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->MaxBrakeForce * 1000);
+                rsBrake.AA = Parser->GetNextSymbol().ToDouble();
+                rsBrake.FM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->Vmax);
+                rsBrake.FA = Parser->GetNextSymbol().ToDouble();
+            }
+            else if (str == AnsiString("slipperysound:")) // sanie:
+            {
+                str = Parser->GetNextSymbol();
+                rsSlippery.Init(str.c_str(), -1, 0, 0, 0, true);
+                rsSlippery.AM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->Vmax);
+                rsSlippery.AA = Parser->GetNextSymbol().ToDouble();
+                rsSlippery.FM = 0.0;
+                rsSlippery.FA = 1.0;
+            }
+            else if (str == AnsiString("airsound:")) // syk:
+            {
+                str = Parser->GetNextSymbol();
+                rsHiss.Init(str.c_str(), -1, 0, 0, 0, true);
+                rsHiss.AM = Parser->GetNextSymbol().ToDouble();
+                rsHiss.AA = Parser->GetNextSymbol().ToDouble();
+                rsHiss.FM = 0.0;
+                rsHiss.FA = 1.0;
+            }
+            else if (str == AnsiString("airsound2:")) // syk:
+            {
+                str = Parser->GetNextSymbol();
+                rsHissU.Init(str.c_str(), -1, 0, 0, 0, true);
+                rsHissU.AM = Parser->GetNextSymbol().ToDouble();
+                rsHissU.AA = Parser->GetNextSymbol().ToDouble();
+                rsHissU.FM = 0.0;
+                rsHissU.FA = 1.0;
+            }
+            else if (str == AnsiString("airsound3:")) // syk:
+            {
+                str = Parser->GetNextSymbol();
+                rsHissE.Init(str.c_str(), -1, 0, 0, 0, true);
+                rsHissE.AM = Parser->GetNextSymbol().ToDouble();
+                rsHissE.AA = Parser->GetNextSymbol().ToDouble();
+                rsHissE.FM = 0.0;
+                rsHissE.FA = 1.0;
+            }
+            else if (str == AnsiString("airsound4:")) // syk:
+            {
+                str = Parser->GetNextSymbol();
+                rsHissX.Init(str.c_str(), -1, 0, 0, 0, true);
+                rsHissX.AM = Parser->GetNextSymbol().ToDouble();
+                rsHissX.AA = Parser->GetNextSymbol().ToDouble();
+                rsHissX.FM = 0.0;
+                rsHissX.FA = 1.0;
+            }
+            else if (str == AnsiString("airsound5:")) // syk:
+            {
+                str = Parser->GetNextSymbol();
+                rsHissT.Init(str.c_str(), -1, 0, 0, 0, true);
+                rsHissT.AM = Parser->GetNextSymbol().ToDouble();
+                rsHissT.AA = Parser->GetNextSymbol().ToDouble();
+                rsHissT.FM = 0.0;
+                rsHissT.FA = 1.0;
+            }
+            else if (str == AnsiString("fadesound:")) // syk:
+            {
+                str = Parser->GetNextSymbol();
+                rsFadeSound.Init(str.c_str(), -1, 0, 0, 0, true);
+                rsFadeSound.AM = 1.0;
+                rsFadeSound.AA = 1.0;
+                rsFadeSound.FM = 1.0;
+                rsFadeSound.FA = 1.0;
+            }
+            else if (str == AnsiString("localbrakesound:")) // syk:
+            {
+                str = Parser->GetNextSymbol();
+                rsSBHiss.Init(str.c_str(), -1, 0, 0, 0, true);
+                rsSBHiss.AM = Parser->GetNextSymbol().ToDouble();
+                rsSBHiss.AA = Parser->GetNextSymbol().ToDouble();
+                rsSBHiss.FM = 0.0;
+                rsSBHiss.FA = 1.0;
+            }
+            else if (str == AnsiString("runningnoise:")) // szum podczas jazdy:
+            {
+                str = Parser->GetNextSymbol();
+                rsRunningNoise.Init(str.c_str(), -1, 0, 0, 0, true, true);
+                rsRunningNoise.AM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->Vmax);
+                rsRunningNoise.AA = Parser->GetNextSymbol().ToDouble();
+                rsRunningNoise.FM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->Vmax);
+                rsRunningNoise.FA = Parser->GetNextSymbol().ToDouble();
+            }
+            else if (str == AnsiString("engageslippery:")) // tarcie tarcz sprzegla:
+            {
+                str = Parser->GetNextSymbol();
+                rsEngageSlippery.Init(str.c_str(), -1, 0, 0, 0, true, true);
+                rsEngageSlippery.AM = Parser->GetNextSymbol().ToDouble();
+                rsEngageSlippery.AA = Parser->GetNextSymbol().ToDouble();
+                rsEngageSlippery.FM = Parser->GetNextSymbol().ToDouble() / (1 + mvOccupied->nmax);
+                rsEngageSlippery.FA = Parser->GetNextSymbol().ToDouble();
+            }
+            else if (str == AnsiString("mechspring:")) // parametry bujania kamery:
+            {
+                str = Parser->GetNextSymbol();
+                MechSpring.Init(0, str.ToDouble(), Parser->GetNextSymbol().ToDouble());
+                fMechSpringX = Parser->GetNextSymbol().ToDouble();
+                fMechSpringY = Parser->GetNextSymbol().ToDouble();
+                fMechSpringZ = Parser->GetNextSymbol().ToDouble();
+                fMechMaxSpring = Parser->GetNextSymbol().ToDouble();
+                fMechRoll = Parser->GetNextSymbol().ToDouble();
+                fMechPitch = Parser->GetNextSymbol().ToDouble();
+            }
+            else if (str == AnsiString("pantographup:")) // podniesienie patyka:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbPantUp = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("pantographdown:")) // podniesienie patyka:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbPantDown = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("doorclose:")) // zamkniecie drzwi:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbDoorClose = TSoundsManager::GetFromName(str.c_str(), true);
+            }
+            else if (str == AnsiString("dooropen:")) // otwarcie drzwi:
+            {
+                str = Parser->GetNextSymbol().LowerCase();
+                dsbDoorOpen = TSoundsManager::GetFromName(str.c_str(), true);
+            }
         }
     }
     else
@@ -5402,11 +5403,11 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 {
                     str = DynamicObject->asBaseDir + str;
                     Global::asCurrentTexturePath =
-                            DynamicObject->asBaseDir; // bie¿¹ca sciezka do tekstur to dynamic/...
+                        DynamicObject->asBaseDir; // bie¿¹ca sciezka do tekstur to dynamic/...
                     TModel3d *k = TModelsManager::GetModel(
-                                str.c_str(), true); // szukaj kabinê jako oddzielny model
+                        str.c_str(), true); // szukaj kabinê jako oddzielny model
                     Global::asCurrentTexturePath =
-                            AnsiString(szTexturePath); // z powrotem defaultowa sciezka do tekstur
+                        AnsiString(szTexturePath); // z powrotem defaultowa sciezka do tekstur
                     // if (DynamicObject->mdKabina!=k)
                     if (k)
                         DynamicObject->mdKabina = k; // nowa kabina
@@ -5417,7 +5418,7 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 }
                 else if (cabindex == 1) // model tylko, gdy nie ma kabiny 1
                     DynamicObject->mdKabina =
-                            DynamicObject->mdModel; // McZapkie-170103: szukaj elementy kabiny
+                        DynamicObject->mdModel; // McZapkie-170103: szukaj elementy kabiny
                 // w glownym modelu
                 ActiveUniversal4 = false;
                 ggMainCtrl.Clear();
@@ -5435,8 +5436,8 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 ggMainOnButton.Clear();
                 ggSecurityResetButton.Clear();
                 ggReleaserButton.Clear();
-                ggSandButton.Clear();
-                ggAntiSlipButton.Clear();
+				ggSandButton.Clear();
+				ggAntiSlipButton.Clear();
                 ggHornButton.Clear();
                 ggNextCurrentButton.Clear();
                 ggUniversal1Button.Clear();
@@ -5477,12 +5478,12 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 // ggEngageRatio.Clear();
                 ggMainGearStatus.Clear();
                 ggIgnitionKey.Clear();
-                // Jeœli ustawiamy now¹ wartoœæ dla PoKeys wolna jest 15
-                // Numer 14 jest u¿ywany dla buczka SHP w innym miejscu
+				// Jeœli ustawiamy now¹ wartoœæ dla PoKeys wolna jest 15
+				// Numer 14 jest u¿ywany dla buczka SHP w innym miejscu
                 btLampkaPoslizg.Clear(6);
                 btLampkaStyczn.Clear(5);
                 btLampkaNadmPrzetw.Clear(
-                            (mvControlled->TrainType & (dt_EZT)) ? -1 : 7); // EN57 nie ma tej lampki
+                    (mvControlled->TrainType & (dt_EZT)) ? -1 : 7); // EN57 nie ma tej lampki
                 btLampkaPrzetw.Clear((mvControlled->TrainType & (dt_EZT)) ? 7 : -1); // za to ma tê
                 btLampkaPrzekRozn.Clear();
                 btLampkaPrzekRoznPom.Clear();
@@ -5494,7 +5495,7 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 btLampkaNadmSpr.Clear(8);
                 btLampkaOpory.Clear(2);
                 btLampkaWysRozr.Clear(
-                            (mvControlled->TrainType & (dt_ET22)) ? -1 : 10); // ET22 nie ma tej lampki
+                    (mvControlled->TrainType & (dt_ET22)) ? -1 : 10); // ET22 nie ma tej lampki
                 btLampkaBezoporowa.Clear();
                 btLampkaBezoporowaB.Clear();
                 btLampkaMaxSila.Clear();
@@ -5536,8 +5537,8 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 ggUpperLightButton.Clear();
                 ggLeftEndLightButton.Clear();
                 ggRightEndLightButton.Clear();
-                ggLightsButton.Clear();
-                // hunter-230112
+				ggLightsButton.Clear();                
+				// hunter-230112
                 ggRearLeftLightButton.Clear();
                 ggRearRightLightButton.Clear();
                 ggRearUpperLightButton.Clear();
@@ -5590,8 +5591,8 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 ggSecurityResetButton.Load(Parser, DynamicObject->mdKabina);
             else if (str == AnsiString("releaser_bt:")) // przycisk odluzniacza
                 ggReleaserButton.Load(Parser, DynamicObject->mdKabina);
-            else if (str == AnsiString("sand_bt:")) // przycisk piasecznicy
-                ggSandButton.Load(Parser, DynamicObject->mdKabina);
+			else if (str == AnsiString("sand_bt:")) // przycisk piasecznicy
+				ggSandButton.Load(Parser, DynamicObject->mdKabina);
             else if (str == AnsiString("antislip_bt:")) // przycisk antyposlizgowy
                 ggAntiSlipButton.Load(Parser, DynamicObject->mdKabina);
             else if (str == AnsiString("horn_bt:")) // dzwignia syreny
@@ -5621,9 +5622,9 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 ggLeftEndLightButton.Load(Parser, DynamicObject->mdKabina);
             else if (str == AnsiString("rightend_sw:")) // swiatlo
                 ggRightEndLightButton.Load(Parser, DynamicObject->mdKabina);
-            else if (str == AnsiString("lights_sw:")) // swiatla wszystkie
-                ggLightsButton.Load(Parser, DynamicObject->mdKabina);
-            //---------------------
+			else if (str == AnsiString("lights_sw:")) // swiatla wszystkie
+				ggLightsButton.Load(Parser, DynamicObject->mdKabina);
+			//---------------------
             // hunter-230112: przelaczniki swiatel tylnich
             else if (str == AnsiString("rearupperlight_sw:")) // swiatlo
                 ggRearUpperLightButton.Load(Parser, DynamicObject->mdKabina);
@@ -5666,8 +5667,8 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 ggCabLightButton.Load(Parser, DynamicObject->mdKabina);
             else if (str == AnsiString("cablightdim_sw:"))
                 ggCabLightDimButton.Load(
-                            Parser,
-                            DynamicObject->mdKabina); // hunter-091012: przyciemnienie swiatla w kabinie
+                    Parser,
+                    DynamicObject->mdKabina); // hunter-091012: przyciemnienie swiatla w kabinie
             // ABu 090305: uniwersalne przyciski lub inne rzeczy
             else if (str == AnsiString("universal1:"))
                 ggUniversal1Button.Load(Parser, DynamicObject->mdKabina, DynamicObject->mdModel);
@@ -5732,15 +5733,15 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 gg->Load(Parser, DynamicObject->mdKabina);
                 gg->AssignFloat(&fEIMParams[i][j]);
             }
-            else if (str == AnsiString("brakes:"))
-            { // amperomierz calkowitego pradu
-                int i = Parser->GetNextSymbol().ToInt();
-                int j = Parser->GetNextSymbol().ToInt();
-                gg = Cabine[cabindex].Gauge(-1); // pierwsza wolna ga³ka
-                gg->Load(Parser, DynamicObject->mdKabina);
-                gg->AssignFloat(&fPress[i - 1][j]);
-            }
-            else if ((str == AnsiString("brakepress:")) || (str == AnsiString("brakepressb:")))
+			else if (str == AnsiString("brakes:"))
+			{ // amperomierz calkowitego pradu
+				int i = Parser->GetNextSymbol().ToInt();
+				int j = Parser->GetNextSymbol().ToInt();
+				gg = Cabine[cabindex].Gauge(-1); // pierwsza wolna ga³ka
+				gg->Load(Parser, DynamicObject->mdKabina);
+				gg->AssignFloat(&fPress[i - 1][j]);
+			}
+			else if ((str == AnsiString("brakepress:")) || (str == AnsiString("brakepressb:")))
             { // manometr cylindrow
                 // hamulcowych //Ra
                 // 2014-08: przeniesione
@@ -5958,8 +5959,8 @@ bool TTrain::InitializeCab(int NewCabNo, AnsiString asFileName)
                 int i = Parser->GetNextSymbol().ToInt() - 1;
                 bt = Cabine[cabindex].Button(-1); // pierwsza wolna lampka
                 bt->Load(Parser, DynamicObject->mdKabina);
-                bt->AssignBool(bDoors[0] + 3 * i);
-            }
+				bt->AssignBool(bDoors[0] + 3 * i);
+			}
             else if (str == AnsiString("pyscreen:"))
                 pyScreens.init(Parser, DynamicObject->mdKabina, DynamicObject->GetName(), NewCabNo);
             // btLampkaUnknown.Init("unknown",mdKabina,false);
@@ -5997,12 +5998,12 @@ vector3 TTrain::MirrorPosition(bool lewe)
     {
     case 1: // przednia (1)
         return DynamicObject->mMatrix *
-                vector3(lewe ? Cabine[iCabn].CabPos2.x : Cabine[iCabn].CabPos1.x,
-                        1.5 + Cabine[iCabn].CabPos1.y, Cabine[iCabn].CabPos2.z);
+               vector3(lewe ? Cabine[iCabn].CabPos2.x : Cabine[iCabn].CabPos1.x,
+                       1.5 + Cabine[iCabn].CabPos1.y, Cabine[iCabn].CabPos2.z);
     case 2: // tylna (-1)
         return DynamicObject->mMatrix *
-                vector3(lewe ? Cabine[iCabn].CabPos1.x : Cabine[iCabn].CabPos2.x,
-                        1.5 + Cabine[iCabn].CabPos1.y, Cabine[iCabn].CabPos1.z);
+               vector3(lewe ? Cabine[iCabn].CabPos1.x : Cabine[iCabn].CabPos2.x,
+                       1.5 + Cabine[iCabn].CabPos1.y, Cabine[iCabn].CabPos1.z);
     }
     return DynamicObject->GetPosition(); // wspó³rzêdne œrodka pojazdu
 };
@@ -6028,23 +6029,23 @@ void TTrain::DynamicSet(TDynamicObject *d)
         return;
     if (mvControlled->TrainType & dt_EZT) // na razie dotyczy to EZT
         if (DynamicObject->NextConnected ? mvControlled->Couplers[1].AllowedFlag & ctrain_depot :
-                false)
+                                           false)
         { // gdy jest cz³on od sprzêgu 1, a sprzêg ³¹czony
             // warsztatowo (powiedzmy)
             if ((mvControlled->Power < 1.0) && (mvControlled->Couplers[1].Connected->Power >
                                                 1.0)) // my nie mamy mocy, ale ten drugi ma
                 mvControlled =
-                        DynamicObject->NextConnected->MoverParameters; // bêdziemy sterowaæ tym z moc¹
+                    DynamicObject->NextConnected->MoverParameters; // bêdziemy sterowaæ tym z moc¹
         }
         else if (DynamicObject->PrevConnected ?
-                 mvControlled->Couplers[0].AllowedFlag & ctrain_depot :
-                 false)
+                     mvControlled->Couplers[0].AllowedFlag & ctrain_depot :
+                     false)
         { // gdy jest cz³on od sprzêgu 0, a sprzêg ³¹czony
             // warsztatowo (powiedzmy)
             if ((mvControlled->Power < 1.0) && (mvControlled->Couplers[0].Connected->Power >
                                                 1.0)) // my nie mamy mocy, ale ten drugi ma
                 mvControlled =
-                        DynamicObject->PrevConnected->MoverParameters; // bêdziemy sterowaæ tym z moc¹
+                    DynamicObject->PrevConnected->MoverParameters; // bêdziemy sterowaæ tym z moc¹
         }
     mvSecond = NULL; // gdyby siê nic nie znalaz³o
     if (mvOccupied->Power > 1.0) // dwucz³onowe lub ukrotnienia, ¿eby nie szukaæ ka¿dorazowo
@@ -6055,16 +6056,16 @@ void TTrain::DynamicSet(TDynamicObject *d)
             // warsztatowo (powiedzmy)
             if (mvOccupied->Couplers[1].Connected->Power > 1.0) // ten drugi ma moc
                 mvSecond =
-                        (TMoverParameters *)mvOccupied->Couplers[1].Connected; // wskaŸnik na drugiego
+                    (TMoverParameters *)mvOccupied->Couplers[1].Connected; // wskaŸnik na drugiego
         }
         else if (mvOccupied->Couplers[0].Connected ?
-                 mvOccupied->Couplers[0].AllowedFlag & ctrain_controll :
-                 false)
+                     mvOccupied->Couplers[0].AllowedFlag & ctrain_controll :
+                     false)
         { // gdy jest cz³on od sprzêgu 0, a sprzêg ³¹czony
             // warsztatowo (powiedzmy)
             if (mvOccupied->Couplers[0].Connected->Power > 1.0) // ale ten drugi ma moc
                 mvSecond =
-                        (TMoverParameters *)mvOccupied->Couplers[0].Connected; // wskaŸnik na drugiego
+                    (TMoverParameters *)mvOccupied->Couplers[0].Connected; // wskaŸnik na drugiego
         }
 };
 
@@ -6137,7 +6138,7 @@ void TTrain::SetLights()
     if (kier ? p->NextC(1) : p->PrevC(1)) // jesli jest nastepny, to tylko przod
     {
         p->RaLightsSet(mvOccupied->Lights[xs][mvOccupied->LightsPos - 1] * (1 - xs),
-                mvOccupied->Lights[1 - xs][mvOccupied->LightsPos - 1] * xs);
+                       mvOccupied->Lights[1 - xs][mvOccupied->LightsPos - 1] * xs);
         p = (kier ? p->NextC(4) : p->PrevC(4));
         while (p)
         {
@@ -6148,7 +6149,7 @@ void TTrain::SetLights()
             else
             {
                 p->RaLightsSet(mvOccupied->Lights[xs][mvOccupied->LightsPos - 1] * xs,
-                        mvOccupied->Lights[1 - xs][mvOccupied->LightsPos - 1] * (1 - xs));
+                               mvOccupied->Lights[1 - xs][mvOccupied->LightsPos - 1] * (1 - xs));
             }
             p = (kier ? p->NextC(4) : p->PrevC(4));
         }
@@ -6156,6 +6157,6 @@ void TTrain::SetLights()
     else // calosc
     {
         p->RaLightsSet(mvOccupied->Lights[xs][mvOccupied->LightsPos - 1],
-                mvOccupied->Lights[1 - xs][mvOccupied->LightsPos - 1]);
+                       mvOccupied->Lights[1 - xs][mvOccupied->LightsPos - 1]);
     }
 };

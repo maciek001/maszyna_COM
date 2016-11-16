@@ -539,7 +539,7 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
             Background[1] = GetNextSymbol().ToDouble(); // g
             Background[2] = GetNextSymbol().ToDouble(); // b
         }
-        // maciek001: ustawienia MWD!
+        // maciek001: ustawienia MWD
         else if (str == AnsiString("comportname"))
         {
             sMWDPortId = GetNextSymbol().LowerCase();
@@ -558,8 +558,8 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
             }
         }
         else if(str == AnsiString("mwdzbiornikglowny")){
-            fMWDzg[0] = GetNextSymbol().ToDouble();         // ile max pokazuje
-            fMWDzg[1] = GetNextSymbol().ToDouble();         // jaka rozdzielczoœæ (2^rozdzielczoœæ - 1) np 255
+            fMWDzg[0] = GetNextSymbol().ToDouble();
+            fMWDzg[1] = GetNextSymbol().ToDouble();
         }
         else if(str == AnsiString("mwdprzewodglowny")){
             fMWDpg[0] = GetNextSymbol().ToDouble();
