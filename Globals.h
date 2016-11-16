@@ -131,7 +131,7 @@ class TTextSound;
 
 class TTranscript
 { // klasa obs³uguj¹ca linijkê napisu do dŸwiêku
-  public:
+public:
     float fShow; // czas pokazania
     float fHide; // czas ukrycia/usuniêcia
     AnsiString asText; // tekst gotowy do wyœwietlenia (usuniête znaczniki czasu)
@@ -147,7 +147,7 @@ class TTranscripts
     int iStart; // pierwsza istotna pozycja w tabeli, ¿eby sortowaæ przestawiaj¹c numerki
     float fRefreshTime;
 
-  public:
+public:
     TTranscripts();
     ~TTranscripts();
     void AddLine(char *txt, float show, float hide, bool it);
@@ -158,14 +158,14 @@ class TTranscripts
 
 class Global
 {
-  private:
+private:
     static GLuint iTextureId; // ostatnio u¿yta tekstura 2D
-  public:
+public:
     // double Global::tSinceStart;
     static int Keys[MaxKeys];
     static vector3 pCameraPosition; // pozycja kamery w œwiecie
     static double
-        pCameraRotation; // kierunek bezwzglêdny kamery w œwiecie: 0=pó³noc, 90°=zachód (-azymut)
+    pCameraRotation; // kierunek bezwzglêdny kamery w œwiecie: 0=pó³noc, 90°=zachód (-azymut)
     static double pCameraRotationDeg; // w stopniach, dla animacji billboard
     static vector3 pFreeCameraInit[10]; // pozycje kamery
     static vector3 pFreeCameraInitAngle[10];
@@ -215,8 +215,8 @@ class Global
     static void SetCameraRotation(double Yaw);
     static int iWriteLogEnabled; // maska bitowa: 1-zapis do pliku, 2-okienko
     // McZapkie-221002: definicja swiatla dziennego
-	static float Background[3];
-	static GLfloat AtmoColor[];
+    static float Background[3];
+    static GLfloat AtmoColor[];
     static GLfloat FogColor[];
     // static bool bTimeChange;
     static GLfloat ambientDayLight[];
@@ -253,7 +253,7 @@ class Global
     static AnsiString asRelease; // numer
     static AnsiString asVersion; // z opisem
     static int
-        iViewMode; // co aktualnie widaæ: 0-kabina, 1-latanie, 2-sprzêgi, 3-dokumenty, 4-obwody
+    iViewMode; // co aktualnie widaæ: 0-kabina, 1-latanie, 2-sprzêgi, 3-dokumenty, 4-obwody
     static GLint iMaxTextureSize; // maksymalny rozmiar tekstury
     static int iTextMode; // tryb pracy wyœwietlacza tekstowego
     static int iScreenMode[12]; // numer ekranu wyœwietlacza tekstowego
@@ -280,8 +280,8 @@ class Global
     static int iSlowMotionMask; // maska wy³¹czanych w³aœciwoœci
     static int iModifyTGA; // czy korygowaæ pliki TGA dla szybszego wczytywania
     static bool bHideConsole; // hunter-271211: ukrywanie konsoli
-	static bool bOldSmudge; // U¿ywanie starej smugi
-	
+    static bool bOldSmudge; // U¿ywanie starej smugi
+
     static TWorld *pWorld; // wskaŸnik na œwiat do usuwania pojazdów
     static TAnimModel *pTerrainCompact; // obiekt terenu do ewentualnego zapisania w pliku
     static AnsiString asTerrainModel; // nazwa obiektu terenu do zapisania w pliku
@@ -300,9 +300,9 @@ class Global
     static TDynamicObject *pUserDynamic; // pojazd u¿ytkownika, renderowany bez trzêsienia
     static double fCalibrateIn[6][6]; // parametry kalibracyjne wejœæ z pulpitu
     static double fCalibrateOut[7][6]; // parametry kalibracyjne wyjœæ dla pulpitu
-	static double fCalibrateOutMax[7]; // wartoœci maksymalne wyjœæ dla pulpitu
-	static int iCalibrateOutDebugInfo; // numer wyjœcia kalibrowanego dla którego wyœwietlaæ
-									   // informacje podczas kalibracji
+    static double fCalibrateOutMax[7]; // wartoœci maksymalne wyjœæ dla pulpitu
+    static int iCalibrateOutDebugInfo; // numer wyjœcia kalibrowanego dla którego wyœwietlaæ
+    // informacje podczas kalibracji
     static double fBrakeStep; // krok zmiany hamulca dla klawiszy [Num3] i [Num9]
     static bool bJoinEvents; // czy grupowaæ eventy o tych samych nazwach
     static bool bSmudge; // czy wyœwietlaæ smugê, a pojazd u¿ytkownika na koñcu
@@ -311,9 +311,9 @@ class Global
     static AnsiString asLang; // domyœlny jêzyk - http://tools.ietf.org/html/bcp47
     static int iHiddenEvents; // czy ³¹czyæ eventy z torami poprzez nazwê toru
     static TTextSound *tsRadioBusy[10]; // zajêtoœæ kana³ów radiowych (wskaŸnik na odgrywany dŸwiêk)
-	static int iPoKeysPWM[7]; // numery wejœæ dla PWM
+    static int iPoKeysPWM[7]; // numery wejœæ dla PWM
 
-	// metody
+    // metody
     static void TrainDelete(TDynamicObject *d);
     static void ConfigParse(Queryparsercomp::TQueryParserComp *qp, cParser *cp = NULL);
     static AnsiString GetNextSymbol();
@@ -322,9 +322,19 @@ class Global
     static bool AddToQuery(TEvent *event, TDynamicObject *who);
     static bool DoEvents();
     static AnsiString Bezogonkow(AnsiString str, bool _ = false);
-	static double Min0RSpeed(double vel1, double vel2);
-	static double CutValueToRange(double min, double value, double max);
+    static double Min0RSpeed(double vel1, double vel2);
+    static double CutValueToRange(double min, double value, double max);
 
+    // maciek001: zmienne dla MWD
+    static unsigned long int iMWDBaudrate;
+    static AnsiString sMWDPortId;
+    static bool bMWDBreakEnable;
+    static int iMWDAnalogCalib[4][3];
+    static double fMWDzg[2];
+    static double fMWDpg[2];
+    static double fMWDph[2];
+    static double fMWDvolt[2];
+    static double fMWDamp[2];
 };
 
 //---------------------------------------------------------------------------

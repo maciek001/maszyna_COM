@@ -38,7 +38,7 @@ AnsiString Global::asCurrentSceneryPath = "scenery/";
 AnsiString Global::asCurrentTexturePath = AnsiString(szTexturePath);
 AnsiString Global::asCurrentDynamicPath = "";
 int Global::iSlowMotion =
-    0; // info o malym FPS: 0-OK, 1-wy³¹czyæ multisampling, 3-promieñ 1.5km, 7-1km
+        0; // info o malym FPS: 0-OK, 1-wy³¹czyæ multisampling, 3-promieñ 1.5km, 7-1km
 TDynamicObject *Global::changeDynObj = NULL; // info o zmianie pojazdu
 bool Global::detonatoryOK; // info o nowych detonatorach
 double Global::ABuDebug = 0;
@@ -51,7 +51,7 @@ HWND Global::hWnd = NULL; // uchwyt okna
 int Global::iCameraLast = -1;
 AnsiString Global::asRelease = "16.0.1172.481";
 AnsiString Global::asVersion =
-    "Compilation 2016-08-24, release " + Global::asRelease + "."; // tutaj, bo wysy³any
+        "Compilation 2016-08-24, release " + Global::asRelease + "."; // tutaj, bo wysy³any
 int Global::iViewMode = 0; // co aktualnie widaæ: 0-kabina, 1-latanie, 2-sprzêgi, 3-dokumenty
 int Global::iTextMode = 0; // tryb pracy wyœwietlacza tekstowego
 int Global::iScreenMode[12] = {0, 0, 0, 0, 0, 0,
@@ -187,6 +187,16 @@ double Global::fTimeSpeed = 1.0; // przyspieszenie czasu, zmienna do testów
 bool Global::bHideConsole = false; // hunter-271211: ukrywanie konsoli
 int Global::iBpp = 32; // chyba ju¿ nie u¿ywa siê kart, na których 16bpp coœ poprawi
 
+// maciek001: konfiguracja wstêpna portu COM
+unsigned long int Global::iMWDBaudrate = 500000;
+AnsiString Global::sMWDPortId = "COM1";		// nazwa portu z którego korzystamy - na razie nie dzia³a
+bool Global::bMWDBreakEnable = false;		// zmieniæ na FALSE!!! jak ju¿ bêdzie dzia³aæ wczytywanie z *.ini
+int Global::iMWDAnalogCalib[4][3] = {{255, 0, 255},{255, 0, 255},{255, 0, 255},{255, 0, 255}};	// wartoœæ max potencjometru, wartoœæ min potencjometru, rozdzielczoœæ (max. wartoœæ jaka mo¿e byæ)
+double Global::fMWDzg[2] = {0.9,255};
+double Global::fMWDpg[2] = {0.8,255};
+double Global::fMWDph[2] = {0.6,255};
+double Global::fMWDvolt[2] = {4000, 255};
+double Global::fMWDamp[2] = {800, 255};
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -395,7 +405,7 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
                 TDate date = Now();
                 date.DecodeDate(&y, &m, &d);
                 fMoveLight =
-                    (double)date - (double)TDate(y, 1, 1) + 1; // numer bie¿¹cego dnia w roku
+                        (double)date - (double)TDate(y, 1, 1) + 1; // numer bie¿¹cego dnia w roku
             }
             if (fMoveLight > 0.0) // tu jest nadal zwiêkszone o 1
             { // obliczenie deklinacji wg:
@@ -404,9 +414,9 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
                 // 172 (1971)
                 fMoveLight = M_PI / 182.5 * (Global::fMoveLight - 1.0); // numer dnia w postaci k¹ta
                 fSunDeclination = 0.006918 - 0.3999120 * cos(fMoveLight) +
-                                  0.0702570 * sin(fMoveLight) - 0.0067580 * cos(2 * fMoveLight) +
-                                  0.0009070 * sin(2 * fMoveLight) -
-                                  0.0026970 * cos(3 * fMoveLight) + 0.0014800 * sin(3 * fMoveLight);
+                        0.0702570 * sin(fMoveLight) - 0.0067580 * cos(2 * fMoveLight) +
+                        0.0009070 * sin(2 * fMoveLight) -
+                        0.0026970 * cos(3 * fMoveLight) + 0.0014800 * sin(3 * fMoveLight);
             }
         }
         else if (str == AnsiString("smoothtraction")) // podwójna jasnoœæ ambient
@@ -430,7 +440,7 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
             iModifyTGA = GetNextSymbol().ToIntDef(0); // domyœlnie 0
         else if (str == AnsiString("hideconsole")) // hunter-271211: ukrywanie konsoli
             bHideConsole = (GetNextSymbol().LowerCase() == AnsiString("yes"));
-		else if (str == AnsiString("oldsmudge"))
+        else if (str == AnsiString("oldsmudge"))
             bOldSmudge = (GetNextSymbol().LowerCase() == AnsiString("yes"));
         else if (str ==
                  AnsiString(
@@ -451,21 +461,21 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
             fCalibrateIn[i][1] = GetNextSymbol().ToDouble(); // mno¿nik
             fCalibrateIn[i][2] = GetNextSymbol().ToDouble(); // mno¿nik dla kwadratu
             fCalibrateIn[i][3] = GetNextSymbol().ToDouble(); // mno¿nik dla szeœcianu
-			fCalibrateIn[i][4] = 0.0; // mno¿nik 4 potêgi
-			fCalibrateIn[i][5] = 0.0; // mno¿nik 5 potêgi
-		}
-		else if (str == AnsiString("calibrate5din")) // parametry kalibracji wejœæ
-		{ //
-			i = GetNextSymbol().ToIntDef(-1); // numer wejœcia
-			if ((i < 0) || (i > 5))
-				i = 5; // na ostatni, bo i tak trzeba pomin¹æ wartoœci
-			fCalibrateIn[i][0] = GetNextSymbol().ToDouble(); // wyraz wolny
-			fCalibrateIn[i][1] = GetNextSymbol().ToDouble(); // mno¿nik
-			fCalibrateIn[i][2] = GetNextSymbol().ToDouble(); // mno¿nik dla kwadratu
-			fCalibrateIn[i][3] = GetNextSymbol().ToDouble(); // mno¿nik dla szeœcianu
-			fCalibrateIn[i][4] = GetNextSymbol().ToDouble(); // mno¿nik 4 potêgi
-			fCalibrateIn[i][5] = GetNextSymbol().ToDouble(); // mno¿nik 5 potêgi
-		}
+            fCalibrateIn[i][4] = 0.0; // mno¿nik 4 potêgi
+            fCalibrateIn[i][5] = 0.0; // mno¿nik 5 potêgi
+        }
+        else if (str == AnsiString("calibrate5din")) // parametry kalibracji wejœæ
+        { //
+            i = GetNextSymbol().ToIntDef(-1); // numer wejœcia
+            if ((i < 0) || (i > 5))
+                i = 5; // na ostatni, bo i tak trzeba pomin¹æ wartoœci
+            fCalibrateIn[i][0] = GetNextSymbol().ToDouble(); // wyraz wolny
+            fCalibrateIn[i][1] = GetNextSymbol().ToDouble(); // mno¿nik
+            fCalibrateIn[i][2] = GetNextSymbol().ToDouble(); // mno¿nik dla kwadratu
+            fCalibrateIn[i][3] = GetNextSymbol().ToDouble(); // mno¿nik dla szeœcianu
+            fCalibrateIn[i][4] = GetNextSymbol().ToDouble(); // mno¿nik 4 potêgi
+            fCalibrateIn[i][5] = GetNextSymbol().ToDouble(); // mno¿nik 5 potêgi
+        }
         else if (str == AnsiString("calibrateout")) // parametry kalibracji wyjœæ
         { //
             i = GetNextSymbol().ToIntDef(-1); // numer wejœcia
@@ -475,39 +485,39 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
             fCalibrateOut[i][1] = GetNextSymbol().ToDouble(); // mno¿nik liniowy
             fCalibrateOut[i][2] = GetNextSymbol().ToDouble(); // mno¿nik dla kwadratu
             fCalibrateOut[i][3] = GetNextSymbol().ToDouble(); // mno¿nik dla szeœcianu
-			fCalibrateOut[i][4] = 0.0; // mno¿nik dla 4 potêgi
-			fCalibrateOut[i][5] = 0.0; // mno¿nik dla 5 potêgi
+            fCalibrateOut[i][4] = 0.0; // mno¿nik dla 4 potêgi
+            fCalibrateOut[i][5] = 0.0; // mno¿nik dla 5 potêgi
         }
-		else if (str == AnsiString("calibrate5dout")) // parametry kalibracji wyjœæ
-		{ //
-			i = GetNextSymbol().ToIntDef(-1); // numer wejœcia
-			if ((i < 0) || (i > 6))
-				i = 6; // na ostatni, bo i tak trzeba pomin¹æ wartoœci
-			fCalibrateOut[i][0] = GetNextSymbol().ToDouble(); // wyraz wolny
-			fCalibrateOut[i][1] = GetNextSymbol().ToDouble(); // mno¿nik liniowy
-			fCalibrateOut[i][2] = GetNextSymbol().ToDouble(); // mno¿nik dla kwadratu
-			fCalibrateOut[i][3] = GetNextSymbol().ToDouble(); // mno¿nik dla szeœcianu
-			fCalibrateOut[i][4] = GetNextSymbol().ToDouble(); // mno¿nik dla 4 potêgi
-			fCalibrateOut[i][5] = GetNextSymbol().ToDouble(); // mno¿nik dla 5 potêgi
-		}
-		else if (str == AnsiString("calibrateoutmaxvalues"))
-		{ // maksymalne wartoœci jakie mo¿na wyœwietliæ na mierniku
-			fCalibrateOutMax[0] = GetNextSymbol().ToDouble();
-			fCalibrateOutMax[1] = GetNextSymbol().ToDouble();
-			fCalibrateOutMax[2] = GetNextSymbol().ToDouble();
-			fCalibrateOutMax[3] = GetNextSymbol().ToDouble();
-			fCalibrateOutMax[4] = GetNextSymbol().ToDouble();
-			fCalibrateOutMax[5] = GetNextSymbol().ToDouble();
-			fCalibrateOutMax[6] = GetNextSymbol().ToDouble();
-		}
-		else if (str == AnsiString("calibrateoutdebuginfo")) // wyjœcie z info o przebiegu kalibracji
-			iCalibrateOutDebugInfo = GetNextSymbol().ToInt();
-		else if (str == AnsiString("pwm")) // zmiana numerów wyjœæ PWM
-		{
-			int pwm_out = GetNextSymbol().ToInt();
-			int pwm_no = GetNextSymbol().ToInt();
-			iPoKeysPWM[pwm_out] = pwm_no;
-		}
+        else if (str == AnsiString("calibrate5dout")) // parametry kalibracji wyjœæ
+        { //
+            i = GetNextSymbol().ToIntDef(-1); // numer wejœcia
+            if ((i < 0) || (i > 6))
+                i = 6; // na ostatni, bo i tak trzeba pomin¹æ wartoœci
+            fCalibrateOut[i][0] = GetNextSymbol().ToDouble(); // wyraz wolny
+            fCalibrateOut[i][1] = GetNextSymbol().ToDouble(); // mno¿nik liniowy
+            fCalibrateOut[i][2] = GetNextSymbol().ToDouble(); // mno¿nik dla kwadratu
+            fCalibrateOut[i][3] = GetNextSymbol().ToDouble(); // mno¿nik dla szeœcianu
+            fCalibrateOut[i][4] = GetNextSymbol().ToDouble(); // mno¿nik dla 4 potêgi
+            fCalibrateOut[i][5] = GetNextSymbol().ToDouble(); // mno¿nik dla 5 potêgi
+        }
+        else if (str == AnsiString("calibrateoutmaxvalues"))
+        { // maksymalne wartoœci jakie mo¿na wyœwietliæ na mierniku
+            fCalibrateOutMax[0] = GetNextSymbol().ToDouble();
+            fCalibrateOutMax[1] = GetNextSymbol().ToDouble();
+            fCalibrateOutMax[2] = GetNextSymbol().ToDouble();
+            fCalibrateOutMax[3] = GetNextSymbol().ToDouble();
+            fCalibrateOutMax[4] = GetNextSymbol().ToDouble();
+            fCalibrateOutMax[5] = GetNextSymbol().ToDouble();
+            fCalibrateOutMax[6] = GetNextSymbol().ToDouble();
+        }
+        else if (str == AnsiString("calibrateoutdebuginfo")) // wyjœcie z info o przebiegu kalibracji
+            iCalibrateOutDebugInfo = GetNextSymbol().ToInt();
+        else if (str == AnsiString("pwm")) // zmiana numerów wyjœæ PWM
+        {
+            int pwm_out = GetNextSymbol().ToInt();
+            int pwm_no = GetNextSymbol().ToInt();
+            iPoKeysPWM[pwm_out] = pwm_no;
+        }
         else if (str == AnsiString("brakestep")) // krok zmiany hamulca dla klawiszy [Num3] i [Num9]
             fBrakeStep = GetNextSymbol().ToDouble();
         else if (str ==
@@ -523,13 +533,51 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
             fOpenGL = GetNextSymbol().ToDouble(); // wymuszenie wersji OpenGL
         else if (str == AnsiString("pyscreenrendererpriority")) // priority of python screen renderer
             TPythonInterpreter::getInstance()->setScreenRendererPriority(GetNextSymbol().LowerCase().c_str());
-		else if (str == AnsiString("background"))
-		{
-			Background[0] = GetNextSymbol().ToDouble(); // r
-			Background[1] = GetNextSymbol().ToDouble(); // g
-			Background[2] = GetNextSymbol().ToDouble(); // b
-		}
-	} while (str != "endconfig"); //(!Parser->EndOfFile)
+        else if (str == AnsiString("background"))
+        {
+            Background[0] = GetNextSymbol().ToDouble(); // r
+            Background[1] = GetNextSymbol().ToDouble(); // g
+            Background[2] = GetNextSymbol().ToDouble(); // b
+        }
+        // maciek001: ustawienia MWD!
+        else if (str == AnsiString("comportname"))
+        {
+            sMWDPortId = GetNextSymbol().LowerCase();
+            WriteLog("PortName " + AnsiString(sMWDPortId));
+        }else if (str == AnsiString("mwdbaudrate"))		// pobierz prêdkoœæ transmisji danych
+            iMWDBaudrate = GetNextSymbol().ToInt();
+        else if (str == AnsiString("mwdbreakenable")) 			// czy w³¹czyæ obs³ugê hamulców
+            bMWDBreakEnable = (GetNextSymbol().LowerCase() == AnsiString("yes"));
+        else if(str == AnsiString("mwdbreak"))				// wartoœæ max dla potencjometru hamulca zasadniczego
+        {
+            i = GetNextSymbol().ToIntDef(-1); // numer wejœcia
+            if ((i < 0) || (i > 3)){
+                iMWDAnalogCalib[i][0] = GetNextSymbol().ToInt();	// max -> 255
+                iMWDAnalogCalib[i][1] = GetNextSymbol().ToInt();	// min -> 0
+                iMWDAnalogCalib[i][2] = GetNextSymbol().ToInt();	// rozdzielczoœæ -> 255 maksymalna mo¿liwa wartoœæ z ADC
+            }
+        }
+        else if(str == AnsiString("mwdzbiornikglowny")){
+            fMWDzg[0] = GetNextSymbol().ToDouble();         // ile max pokazuje
+            fMWDzg[1] = GetNextSymbol().ToDouble();         // jaka rozdzielczoœæ (2^rozdzielczoœæ - 1) np 255
+        }
+        else if(str == AnsiString("mwdprzewodglowny")){
+            fMWDpg[0] = GetNextSymbol().ToDouble();
+            fMWDpg[1] = GetNextSymbol().ToDouble();
+        }
+        else if(str == AnsiString("mwdcylinderhamulcowy")){
+            fMWDph[0] = GetNextSymbol().ToDouble();
+            fMWDph[1] = GetNextSymbol().ToDouble();
+        }
+        else if(str == AnsiString("mwdwoltomierzwn")){
+            fMWDvolt[0] = GetNextSymbol().ToDouble();
+            fMWDvolt[1] = GetNextSymbol().ToDouble();
+        }
+        else if(str == AnsiString("mwdamperomierzwn")){
+            fMWDamp[0] = GetNextSymbol().ToDouble();
+            fMWDamp[1] = GetNextSymbol().ToDouble();
+        }
+    } while (str != "endconfig"); //(!Parser->EndOfFile)
     // na koniec trochê zale¿noœci
     if (!bLoadTraction) // wczytywanie drutów i s³upów
     { // tutaj wy³¹czenie, bo mog¹ nie byæ zdefiniowane w INI
@@ -549,26 +597,26 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
         // (tryb instruktora)
     }
     fFpsMin = fFpsAverage -
-              fFpsDeviation; // dolna granica FPS, przy której promieñ scenerii bêdzie zmniejszany
+            fFpsDeviation; // dolna granica FPS, przy której promieñ scenerii bêdzie zmniejszany
     fFpsMax = fFpsAverage +
-              fFpsDeviation; // górna granica FPS, przy której promieñ scenerii bêdzie zwiêkszany
+            fFpsDeviation; // górna granica FPS, przy której promieñ scenerii bêdzie zwiêkszany
     if (iPause)
         iTextMode = VK_F1; // jak pauza, to pokazaæ zegar
     if (qp)
     { // to poni¿ej wykonywane tylko raz, jedynie po wczytaniu eu07.ini
         Console::ModeSet(iFeedbackMode, iFeedbackPort); // tryb pracy konsoli sterowniczej
         iFpsRadiusMax = 0.000025 * fFpsRadiusMax *
-                        fFpsRadiusMax; // maksymalny promieñ renderowania 3000.0 -> 225
+                fFpsRadiusMax; // maksymalny promieñ renderowania 3000.0 -> 225
         if (iFpsRadiusMax > 400)
             iFpsRadiusMax = 400;
         if (fDistanceFactor > 1.0)
         { // dla 1.0 specjalny tryb bez przeliczania
             fDistanceFactor =
-                iWindowHeight /
-                fDistanceFactor; // fDistanceFactor>1.0 dla rozdzielczoœci wiêkszych ni¿ bazowa
+                    iWindowHeight /
+                    fDistanceFactor; // fDistanceFactor>1.0 dla rozdzielczoœci wiêkszych ni¿ bazowa
             fDistanceFactor *=
-                (iMultisampling + 1.0) *
-                fDistanceFactor; // do kwadratu, bo wiêkszoœæ odleg³oœci to ich kwadraty
+                    (iMultisampling + 1.0) *
+                    fDistanceFactor; // do kwadratu, bo wiêkszoœæ odleg³oœci to ich kwadraty
         }
     }
 }
@@ -783,7 +831,7 @@ void TTranscripts::AddLine(char *txt, float show, float hide, bool it)
     hide = Global::fTimeAngleDeg + hide / 240.0;
     int i = iStart, j, k; // od czegoœ trzeba zacz¹æ
     while ((aLines[i].iNext >= 0) ? (aLines[aLines[i].iNext].fShow <= show) :
-                                    false) // póki nie koniec i wczeœniej puszczane
+           false) // póki nie koniec i wczeœniej puszczane
         i = aLines[i].iNext; // przejœcie do kolejnej linijki
     //(i) wskazuje na liniê, po której nale¿y wstawiæ dany tekst, chyba ¿e
     while (txt ? *txt : false)
@@ -886,7 +934,7 @@ void TTranscripts::Update()
 
 // Ra: tymczasowe rozwi¹zanie kwestii zagranicznych (czeskich) napisów
 char bezogonkowo[128] = "E?,?\"_++?%S<STZZ?`'\"\".--??s>stzz"
-                        " ^^L$A|S^CS<--RZo±,l'uP.,as>L\"lz"
+                        " ^^L$A|S^CS<--RZo±,l'uP.,as>L\"lz"
                         "RAAAALCCCEEEEIIDDNNOOOOxRUUUUYTB"
                         "raaaalccceeeeiiddnnoooo-ruuuuyt?";
 
@@ -905,18 +953,18 @@ AnsiString Global::Bezogonkow(AnsiString str, bool _)
 
 double Global::Min0RSpeed(double vel1, double vel2)
 { // rozszerzenie funkcji Min0R o wartoœci -1.0
-	if (vel1 == -1.0)
-		vel1 = std::numeric_limits<double>::max();
-	if (vel2 == -1.0)
-		vel2 = std::numeric_limits<double>::max();
-	return Min0R(vel1, vel2);
+    if (vel1 == -1.0)
+        vel1 = std::numeric_limits<double>::max();
+    if (vel2 == -1.0)
+        vel2 = std::numeric_limits<double>::max();
+    return Min0R(vel1, vel2);
 };
 
 double Global::CutValueToRange(double min, double value, double max)
 { // przycinanie wartosci do podanych granic
-	value = Max0R(value, min);
-	value = Min0R(value, max);
-	return value;
+    value = Max0R(value, min);
+    value = Min0R(value, max);
+    return value;
 };
 
 #pragma package(smart_init)
