@@ -13,11 +13,12 @@ http://mozilla.org/MPL/2.0/.
 class TConsoleDevice; // urz¹dzenie pod³¹czalne za pomoc¹ DLL
 class TPoKeys55;
 class TLPT;
+class MWDComm;        // maciek001: dodana obsluga portu COM
 
 // klasy konwersji znaków wprowadzanych z klawiatury
 class TKeyTrans
 { // przekodowanie kodu naciœniêcia i zwolnienia klawisza
-  public:
+public:
     short int iDown, iUp;
 };
 
@@ -25,13 +26,14 @@ class Console
 { // Ra: klasa statyczna gromadz¹ca sygna³y steruj¹ce oraz informacje zwrotne
     // Ra: stan wejœcia zmieniany klawiatur¹ albo dedykowanym urz¹dzeniem
     // Ra: stan wyjœcia zmieniany przez symulacjê (mierniki, kontrolki)
-  private:
+private:
     static int iMode; // tryb pracy
     static int iConfig; // dodatkowa informacja o sprzêcie (np. numer LPT)
-    static int iBits; // podstawowy zestaw lampek
+    static long int iBits; // podstawowy zestaw lampek
     static TPoKeys55 *PoKeys55[2]; // mo¿e ich byæ kilka
     static TLPT *LPT;
-    static void BitsUpdate(int mask);
+    static MWDComm *MWD;	// maciek001: na potrzeby MWD
+    static void BitsUpdate(long int mask);
     // zmienne dla trybu "jednokabinowego", potrzebne do wspó³pracy z pulpitem (PoKeys)
     // u¿ywaj¹c klawiatury, ka¿dy pojazd powinien mieæ w³asny stan prze³¹czników
     // bazowym sterowaniem jest wirtualny strumieñ klawiatury
@@ -39,19 +41,19 @@ class Console
     static int iSwitch[8]; // bistabilne w kabinie, za³¹czane z [Shift], wy³¹czane bez
     static int iButton[8]; // monostabilne w kabinie, za³¹czane podczas trzymania klawisza
     static TKeyTrans ktTable[4 * 256]; // tabela wczesnej konwersji klawiatury
-  public:
+public:
     Console();
     ~Console();
     static void ModeSet(int m, int h = 0);
-    static void BitsSet(int mask, int entry = 0);
-    static void BitsClear(int mask, int entry = 0);
+    static void BitsSet(long int mask, long int entry = 0);
+    static void BitsClear(long int mask, long int entry = 0);
     static int On();
     static void Off();
     static bool Pressed(int x);
     static void ValueSet(int x, double y);
     static void Update();
     static float AnalogGet(int x);
-	static float AnalogCalibrateGet(int x);
+    static float AnalogCalibrateGet(int x);
     static unsigned char DigitalGet(int x);
     static void OnKeyDown(int k);
     static void OnKeyUp(int k);
