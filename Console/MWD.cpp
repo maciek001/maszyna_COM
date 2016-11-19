@@ -143,9 +143,9 @@ bool MWDComm::ReadData()	// odbieranie danych + odczyta danych analogowych i zap
     fAnalog[2] = (float)((ReadDataBuff[13]<<8)+ReadDataBuff[14]) / Global::fMWDAnalogCalib[2][3];
     fAnalog[3] = (float)((ReadDataBuff[15]<<8)+ReadDataBuff[16]) / Global::fMWDAnalogCalib[3][3];
     CheckData();
-    WriteLog("hamulec zespolony VALUE: "+AnsiString(fAnalog[0]));
-    WriteLog("hamulec zespolony ReadB[9]: "+AnsiString(ReadDataBuff[9]));
-    WriteLog("hamulec zespolony calib: "+AnsiString(Global::fMWDAnalogCalib[0][3]));
+    //WriteLog("hamulec zespolony VALUE: "+AnsiString(fAnalog[0]));
+    //WriteLog("hamulec zespolony ReadB[9]: "+AnsiString(ReadDataBuff[9]));
+    //WriteLog("hamulec zespolony calib: "+AnsiString(Global::fMWDAnalogCalib[0][3]));
 
     return TRUE;
 }
