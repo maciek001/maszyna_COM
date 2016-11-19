@@ -329,7 +329,7 @@ public:
     static unsigned long int iMWDBaudrate;
     static AnsiString sMWDPortId;
     static bool bMWDBreakEnable;
-    static int iMWDAnalogCalib[4][3];
+    static double fMWDAnalogCalib[4][3];
     static double fMWDzg[2];
     static double fMWDpg[2];
     static double fMWDph[2];

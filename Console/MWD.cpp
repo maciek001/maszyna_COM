@@ -13,8 +13,8 @@
 
 #include <windows.h>
 
-#define BYTETOWRITE 31		// iloœæ bajtów przesy³anych z MaSzyny
-#define BYTETOREAD  17		// iloœæ bajtów przesy³anych do MaSzyny
+#define BYTETOWRITE 31 //31		// iloœæ bajtów przesy³anych z MaSzyny
+#define BYTETOREAD  17 //17		// iloœæ bajtów przesy³anych do MaSzyny
 
 HANDLE hComm;
 
@@ -75,12 +75,8 @@ bool MWDComm::Open()		// otwieranie portu COM
     }
 
     DCB CommDCB;
-
     CommDCB.DCBlength = sizeof(DCB);
-
     GetCommState(hComm, &CommDCB);
-
-    //unsigned long int baud = 500000;
 
     CommDCB.BaudRate = Global::iMWDBaudrate;
     CommDCB.fBinary = TRUE;
@@ -125,7 +121,6 @@ bool MWDComm::Close()		// zamykanie portu COM
     }
     Sleep(100);
     SendData();
-    //ReadData();
     Sleep(700);
     CloseHandle(hComm);
     WriteLog("COM zamkniety");
@@ -141,13 +136,17 @@ bool MWDComm::GetMWDState()	// sprawdzanie otwarcia portu COM
 bool MWDComm::ReadData()	// odbieranie danych + odczyta danych analogowych i zapis do zmiennych
 {
     DWORD bytes_read;
-    ReadFile(hComm, &ReadDataBuff[0], 13, &bytes_read, NULL);
+    ReadFile(hComm, &ReadDataBuff[0], BYTETOREAD, &bytes_read, NULL);
     //WriteConsoleOnly("Read OK!");
-    fAnalog[0] = (float)((ReadDataBuff[9]<<8)+ReadDataBuff[10]) / Global::iMWDAnalogCalib[0][3]; //4095.0f; //max wartosc wynikaj¹ca z rozdzielczoœci
-    fAnalog[1] = (float)((ReadDataBuff[11]<<8)+ReadDataBuff[12]) / Global::iMWDAnalogCalib[1][3];
-    fAnalog[2] = (float)((ReadDataBuff[13]<<8)+ReadDataBuff[14]) / Global::iMWDAnalogCalib[2][3];
-    fAnalog[3] = (float)((ReadDataBuff[15]<<8)+ReadDataBuff[16]) / Global::iMWDAnalogCalib[3][3];
+    fAnalog[0] = (float)((ReadDataBuff[9]<<8)+ReadDataBuff[10]) / Global::fMWDAnalogCalib[0][3]; //4095.0f; //max wartosc wynikaj¹ca z rozdzielczoœci
+    fAnalog[1] = (float)((ReadDataBuff[11]<<8)+ReadDataBuff[12]) / Global::fMWDAnalogCalib[1][3];
+    fAnalog[2] = (float)((ReadDataBuff[13]<<8)+ReadDataBuff[14]) / Global::fMWDAnalogCalib[2][3];
+    fAnalog[3] = (float)((ReadDataBuff[15]<<8)+ReadDataBuff[16]) / Global::fMWDAnalogCalib[3][3];
     CheckData();
+    WriteLog("hamulec zespolony VALUE: "+AnsiString(fAnalog[0]));
+    WriteLog("hamulec zespolony ReadB[9]: "+AnsiString(ReadDataBuff[9]));
+    WriteLog("hamulec zespolony calib: "+AnsiString(Global::fMWDAnalogCalib[0][3]));
+
     return TRUE;
 }
 
@@ -164,7 +163,7 @@ bool MWDComm::SendData()	// wysy³anie danych
 bool MWDComm::Run()			// wysyo³ywanie obs³ugi MWD + generacja wiêkszego opóŸnienia
 {
     MWDTime++;
-    if(!(MWDTime%5))
+    if(!(MWDTime%2))
     {
         if(GetMWDState())
         {
@@ -183,15 +182,6 @@ bool MWDComm::Run()			// wysyo³ywanie obs³ugi MWD + generacja wiêkszego opóŸnien
 
 bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowanie maszyn¹
 {
-    /*if(MoverParameters->ActiveCab<0){		//poprawiæ bo nie dzia³a
-                bKabina1 = true;
-                bkabina2 = false;
-        }
-        if(MoverParameters->ActiveCab>0){		//poprawiæ bo nie dzia³a
-                bKabina1 = false;
-                bkabina2 = true;
-        }*/
-
     int i=0;
     while(i<6)
     {
@@ -689,3 +679,5 @@ bool MWDComm::KeyBoard(int key, int s)	// emulacja klawiatury
 
     return 1;
 }
+
+

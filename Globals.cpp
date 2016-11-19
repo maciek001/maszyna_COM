@@ -191,7 +191,7 @@ int Global::iBpp = 32; // chyba ju¿ nie u¿ywa siê kart, na których 16bpp coœ pop
 unsigned long int Global::iMWDBaudrate = 500000;
 AnsiString Global::sMWDPortId = "COM1";		// nazwa portu z którego korzystamy - na razie nie dzia³a
 bool Global::bMWDBreakEnable = false;		// zmieniæ na FALSE!!! jak ju¿ bêdzie dzia³aæ wczytywanie z *.ini
-int Global::iMWDAnalogCalib[4][3] = {{255, 0, 255},{255, 0, 255},{255, 0, 255},{255, 0, 255}};	// wartoœæ max potencjometru, wartoœæ min potencjometru, rozdzielczoœæ (max. wartoœæ jaka mo¿e byæ)
+double Global::fMWDAnalogCalib[4][3] = {{1023, 0, 1023},{1023, 0, 1023},{1023, 0, 1023},{255, 0, 255}};	// wartoœæ max potencjometru, wartoœæ min potencjometru, rozdzielczoœæ (max. wartoœæ jaka mo¿e byæ)
 double Global::fMWDzg[2] = {0.9,255};
 double Global::fMWDpg[2] = {0.8,255};
 double Global::fMWDph[2] = {0.6,255};
@@ -552,9 +552,9 @@ void Global::ConfigParse(TQueryParserComp *qp, cParser *cp)
         {
             i = GetNextSymbol().ToIntDef(-1); // numer wejœcia
             if ((i < 0) || (i > 3)){
-                iMWDAnalogCalib[i][0] = GetNextSymbol().ToInt();	// max -> 255
-                iMWDAnalogCalib[i][1] = GetNextSymbol().ToInt();	// min -> 0
-                iMWDAnalogCalib[i][2] = GetNextSymbol().ToInt();	// rozdzielczoœæ -> 255 maksymalna mo¿liwa wartoœæ z ADC
+                fMWDAnalogCalib[i][0] = GetNextSymbol().ToDouble();	// max -> 2^16 -1
+                fMWDAnalogCalib[i][1] = GetNextSymbol().ToDouble();	// min -> 0
+                fMWDAnalogCalib[i][2] = GetNextSymbol().ToDouble();	// rozdzielczoœæ -> 255 maksymalna mo¿liwa wartoœæ z ADC
             }
         }
         else if(str == AnsiString("mwdzbiornikglowny")){
