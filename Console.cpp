@@ -442,15 +442,7 @@ void Console::ValueSet(int x, double y)
 			MWD->WriteDataBuff[19] = (unsigned char)iliczba;
 		}else
                 if(x==7) MWD->WriteDataBuff[30] = (unsigned char)floor(y);					// prêdkoœæ
-
-                if(x==0)WriteLog("  ZG= " + AnsiString(iliczba));
-                if(x==1)WriteLog("  PG= " + AnsiString(iliczba));
-                if(x==2)WriteLog("  CH= " + AnsiString(iliczba));
-                if(x==3)WriteLog("pant= " + AnsiString(iliczba));
-                if(x==4)WriteLog("amp1= " + AnsiString(iliczba));
-                if(x==5)WriteLog("amp2= " + AnsiString(iliczba));
-                if(x==6)WriteLog("amp3= " + AnsiString(iliczba));
-	}
+        }
 };
 
 void Console::Update()
