@@ -234,8 +234,8 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
     // wciskanie przycisków klawiatury
     /*PORT0*/
     if(maskData[0] & 0x02) if(lastStateData[0] & 0x02) 	KeyBoard('M',1);	// wy³¹czenie wy³¹cznika szybkiego
-    else 												KeyBoard('M',0);	// monostabilny
-    if(maskData[0] & 0x04) if(lastStateData[0] & 0x04) 	{					// impuls za³¹czaj¹cy wy³¹cznik szybki
+    else 						KeyBoard('M',0);	// monostabilny
+    if(maskData[0] & 0x04) if(lastStateData[0] & 0x04) 	{               	// impuls za³¹czaj¹cy wy³¹cznik szybki
         KeyBoard(0x10,1);	// monostabilny
         KeyBoard('M',1);
     }else{
@@ -243,18 +243,18 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         KeyBoard(0x10,0);
     }
     if(maskData[0] & 0x08) if(lastStateData[0] & 0x08) 	KeyBoard('N',1);	// odblok nadmiarowego silników trakcyjnych
-    else												KeyBoard('N',0);	// monostabilny
-    if(maskData[0] & 0x20) if(lastStateData[0] & 0x20) 	{					// odblok nadmiarowego przetwornicy, ogrzewania poc.
-        KeyBoard(0x11,1);	// ró¿nicowego obwodów pomocniczych
-        KeyBoard('N',1);	// monostabilny
+    else						KeyBoard('N',0);	// monostabilny
+    if(maskData[0] & 0x20) if(lastStateData[0] & 0x20) 	{			// odblok nadmiarowego przetwornicy, ogrzewania poc.
+        KeyBoard(0x11,1);                                                       // ró¿nicowego obwodów pomocniczych
+        KeyBoard('N',1);          // monostabilny
     }else{
         KeyBoard('N',0);
         KeyBoard(0x11,0);
     }
     if(maskData[0] & 0x40) if(lastStateData[0] & 0x40) 	KeyBoard('L',1);	// wy³. styczników liniowych
-    else												KeyBoard('L',0);	// monostabilny
+    else						KeyBoard('L',0);	// monostabilny
     if(maskData[0] & 0x80) if(lastStateData[0] & 0x80) 	KeyBoard(0x20,1);	// kasowanie czuwaka/SHP
-    else 												KeyBoard(0x20,0);	// kasowanie czuwaka/SHP
+    else 						KeyBoard(0x20,0);	// kasowanie czuwaka/SHP
 
     /*PORT1*/
 
@@ -295,7 +295,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
     }
 
 
-    if(maskData[1] & 0x02) if(lastStateData[1] & 0x02) 	{					// przetwornica
+    if(maskData[1] & 0x02) if(lastStateData[1] & 0x02) 	{                     // przetwornica
         KeyBoard(0x10,1);	// bistabilny
         KeyBoard('X',1);
         maskSwitch[1] |= 0x02;
@@ -305,7 +305,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         bitSwitch[1] &= ~0x02;
         KeyBoard('X',1);
     }
-    if(maskData[1] & 0x04) if(lastStateData[1] & 0x04) 	{					// sprê¿arka
+    if(maskData[1] & 0x04) if(lastStateData[1] & 0x04) 	{                      // sprê¿arka
         KeyBoard(0x10,1);	// bistabilny
         KeyBoard('C',1);
         maskSwitch[1] |= 0x04;
@@ -316,8 +316,8 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         KeyBoard('C',1);
     }
     if(maskData[1] & 0x08) if(lastStateData[1] & 0x08)	KeyBoard('S',1);	// piasecznica
-    else												KeyBoard('S',0);	// monostabilny
-    if(maskData[1] & 0x10) if(lastStateData[1] & 0x10)  {					// ogrzewanie sk³adu
+    else                                            	KeyBoard('S',0);	// monostabilny
+    if(maskData[1] & 0x10) if(lastStateData[1] & 0x10)  {			// ogrzewanie sk³adu
         KeyBoard(0x11,1);	// bistabilny
         KeyBoard('H',1);
         maskSwitch[1] |= 0x10;
@@ -327,7 +327,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         bitSwitch[1] &= ~0x10;
         KeyBoard('H',1);
     }
-    if(maskData[1] & 0x20 || maskData[1] & 0x40){							// prze³¹cznik hamowania
+    if(maskData[1] & 0x20 || maskData[1] & 0x40){				// prze³¹cznik hamowania
         if(lastStateData[1] & 0x20){		// Shift+B
             KeyBoard(0x10,1);
             maskSwitch[1] |= 0x20;
@@ -338,7 +338,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         KeyBoard('B',1);
     }
 
-    if(maskData[1] & 0x80) if(lastStateData[1] & 0x80) 	{					// rozruch
+    if(maskData[1] & 0x80) if(lastStateData[1] & 0x80) 	{			// rozruch wysoki/niski
         KeyBoard(0x10,1);	// bistabilny
         KeyBoard('F',1);
         maskSwitch[1] |= 0x80;
@@ -368,7 +368,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
     }
 
 
-    if(maskData[2] & 0x01) if(lastStateData[2] & 0x01) 	{					// pantograf przedni
+    if(maskData[2] & 0x01) if(lastStateData[2] & 0x01) 	{		// pantograf przedni
         KeyBoard(0x10,1);	// bistabilny
         KeyBoard('P',1);
         maskSwitch[2] |= 0x01;
@@ -378,7 +378,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         bitSwitch[2] &= ~0x01;
         KeyBoard('P',1);
     }
-    if(maskData[2] & 0x02) if(lastStateData[2] & 0x02) 	{					// pantograf tylni
+    if(maskData[2] & 0x02) if(lastStateData[2] & 0x02) 	{		// pantograf tylni
         KeyBoard(0x10,1);	// bistabilny
         KeyBoard('O',1);
         maskSwitch[2] |= 0x02;
@@ -388,7 +388,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         bitSwitch[2] &= ~0x02;
         KeyBoard('O',1);
     }
-    if(maskData[2] & 0x04) if(lastStateData[2] & 0x04) 	{					// przyhamowanie przy poœlizgu
+    if(maskData[2] & 0x04) if(lastStateData[2] & 0x04) 	{		// przyhamowanie przy poœlizgu
         KeyBoard(0x10,1);	// monostabilny
         KeyBoard(0x0D,1);
     }else{
@@ -396,27 +396,27 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         KeyBoard(0x0D,0);
         KeyBoard(0x10,0);
     }
-    /*if(maskData[2] & 0x08) if(lastStateData[2] & 0x08)	{					// przyciemnienie œwiate³
-                                                                                                                KeyBoard(' ',0);	// bistabilny
-                                                                                                                KeyBoard(0x10,1);
-                                                                                                                KeyBoard(' ',1);
+    /*if(maskData[2] & 0x08) if(lastStateData[2] & 0x08){           // przyciemnienie œwiate³
+            KeyBoard(' ',0);	// bistabilny
+            KeyBoard(0x10,1);
+            KeyBoard(' ',1);
         }else{
-                                                                                                                KeyBoard(' ',0);
-                                                                                                                KeyBoard(0x10,0);
-                                                                                                                KeyBoard(' ',1);
+            KeyBoard(' ',0);
+            KeyBoard(0x10,0);
+            KeyBoard(' ',1);
         }
-        if(maskData[2] & 0x10) if(lastStateData[2] & 0x10)  {					// przyciemnienie œwiate³
-                                                                                                                KeyBoard(' ',0);	// bistabilny
-                                                                                                                KeyBoard(0x11,1);
-                                                                                                                KeyBoard(' ',1);
+        if(maskData[2] & 0x10) if(lastStateData[2] & 0x10)  {       // przyciemnienie œwiate³
+            KeyBoard(' ',0);	// bistabilny
+            KeyBoard(0x11,1);
+            KeyBoard(' ',1);
         }else{
-                                                                                                                KeyBoard(' ',0);
-                                                                                                                KeyBoard(0x11,0);
-                                                                                                                KeyBoard(' ',1);
+            KeyBoard(' ',0);
+            KeyBoard(0x11,0);
+            KeyBoard(' ',1);
         }*/
     if(maskData[2] & 0x20) if(lastStateData[2] & 0x20)	KeyBoard(0x66,1);	// odluŸniacz
-    else												KeyBoard(0x66,0);	// monostabilny
-    if(maskData[2] & 0x40) if(lastStateData[2] & 0x40) 	{					// syrena wysoka
+    else						KeyBoard(0x66,0);	// monostabilny
+    if(maskData[2] & 0x40) if(lastStateData[2] & 0x40) 	{			// syrena wysoka
         KeyBoard(0x10,1);	// monostabilny
         KeyBoard('A',1);
     }else{
@@ -424,7 +424,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         KeyBoard(0x10,0);
     }
     if(maskData[2] & 0x80) if(lastStateData[2] & 0x80)	KeyBoard('A',1);	// syrena niska
-    else												KeyBoard('A',0);	// monostabilny
+    else						KeyBoard('A',0);	// monostabilny
 
 
     /*PORT3*/
@@ -437,7 +437,7 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         maskSwitch[3] &= ~0x01;
     }
 
-    if(maskData[3] & 0x01) if(lastStateData[3] & 0x01) 	{					// bateria
+    if(maskData[3] & 0x01) if(lastStateData[3] & 0x01) 	{			// bateria
         KeyBoard(0x10,1);	// bistabilny
         KeyBoard('J',1);
         maskSwitch[3] |= 0x01;
@@ -449,23 +449,22 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
     }
 
     /*
-        if(maskData[3] & 0x04) if(lastStateData[1] & 0x04) 	{
-                                                                                                                KeyBoard(0x10,1);
-                                                                                                                KeyBoard('C',1);	//
-                                                                                                                KeyBoard('C',0);
-                                                                                                                KeyBoard(0x10,0);
-        }else{												KeyBoard('C',1);	//
-                                                                                                                KeyBoard('C',0);
+        if(maskData[3] & 0x04) if(lastStateData[1] & 0x04) 	{                                                                                                                KeyBoard(0x10,1);
+                                                                        KeyBoard('C',1);	//
+                                                                        KeyBoard('C',0);
+                                                                        KeyBoard(0x10,0);
+        }else{								KeyBoard('C',1);	//
+                                                                        KeyBoard('C',0);
         }
         if(maskData[3] & 0x08) if(lastStateData[1] & 0x08)	KeyBoard('S',1);	//
-        else												KeyBoard('S',0);
+        else							KeyBoard('S',0);
 
 
         if(maskData[3] & 0x10) if(lastStateData[1] & 0x10)  {
-                                                                                                                KeyBoard(0x11,1);
-                                                                                                                KeyBoard('H',1);
-        }else{												KeyBoard('H',0);
-                                                                                                                KeyBoard(0x11,0);
+                                                                KeyBoard(0x11,1);
+                                                                KeyBoard('H',1);
+        }else{							KeyBoard('H',0);
+                                                                KeyBoard(0x11,0);
         }
         if(maskData[3] & 0x20) if(lastStateData[1] & 0x20) {
                                                                                                                 KeyBoard(0x11,1);
