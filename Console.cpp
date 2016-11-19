@@ -409,7 +409,7 @@ void Console::ValueSet(int x, double y)
 		if(x==0){
 			iliczba = (unsigned int) floor((y / (Global::fMWDph[0] * 10) * Global::fMWDph[1]) + 0.5);	// cylinder hamulcowy
 			MWD->WriteDataBuff[6] = (unsigned char)(iliczba>>8);
-			MWD->WriteDataBuff[7] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[7] = (unsigned char)iliczba;
 		}else
 		if(x==1){
 			iliczba = (unsigned int) floor((y / (Global::fMWDpg[0] * 10) * Global::fMWDpg[1]) + 0.5);	// przewód g³ówny
@@ -418,35 +418,38 @@ void Console::ValueSet(int x, double y)
 		}else
 		if(x==2){
 			iliczba = (unsigned int) floor((y / (Global::fMWDzg[0] * 10) * Global::fMWDzg[1]) + 0.5);	// zbiornik g³ówny
-			MWD->WriteDataBuff[10] = (unsigned int)(iliczba>>8);
+                        MWD->WriteDataBuff[10] = (unsigned char)(iliczba>>8);
 			MWD->WriteDataBuff[11] = (unsigned char)iliczba;
 		}else
 		if(x==3){
 			iliczba = (unsigned int) floor((y / Global::fMWDvolt[0] * Global::fMWDvolt[1]) + 0.5);	// woltomierz WN
-			MWD->WriteDataBuff[12] = (unsigned int)(iliczba>>8);
+                        MWD->WriteDataBuff[12] = (unsigned char)(iliczba>>8);
 			MWD->WriteDataBuff[13] = (unsigned char)iliczba;
 		}else
 		if(x==4){
 			iliczba = (unsigned char)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 1
-			MWD->WriteDataBuff[14] = (unsigned int)(iliczba>>8);
+                        MWD->WriteDataBuff[14] = (unsigned char)(iliczba>>8);
 			MWD->WriteDataBuff[15] = (unsigned char)iliczba;
 		}else
 		if(x==5){
-			iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);		// amp WN 2
-			MWD->WriteDataBuff[16] = (unsigned int)(iliczba>>8);
+                        iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 2
+                        MWD->WriteDataBuff[16] = (unsigned char)(iliczba>>8);
 			MWD->WriteDataBuff[17] = (unsigned char)iliczba;
 		}else
 		if(x==6){
-			iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);		// amp WN 3
-			MWD->WriteDataBuff[18] = (unsigned int)(iliczba>>8);
+                        iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 3
+                        MWD->WriteDataBuff[18] = (unsigned int)(iliczba>>8);
 			MWD->WriteDataBuff[19] = (unsigned char)iliczba;
 		}else
-		if(x==7) MWD->WriteDataBuff[30] = (unsigned char)floor(y);											// prêdkoœæ
+                if(x==7) MWD->WriteDataBuff[30] = (unsigned char)floor(y);					// prêdkoœæ
 
-		//if(x==0)WriteLog(" ZG=" + AnsiString(y));
-		//if(x==1)WriteLog(" PG=" + AnsiString(y));
-		//if(x==2)WriteLog(" CH=" + AnsiString(y));
-		//WriteLog(" =" + AnsiString(MWD->WriteDataBuff[10]));*/
+                if(x==0)WriteLog("  ZG=" + AnsiString(iliczba));
+                if(x==1)WriteLog("  PG=" + AnsiString(iliczba));
+                if(x==2)WriteLog("  CH=" + AnsiString(iliczba));
+                if(x==3)WriteLog("pant= " + AnsiString(iliczba));
+                if(x==4)WriteLog("amp1= " + AnsiString(iliczba));
+                if(x==5)WriteLog("amp2= " + AnsiString(iliczba));
+                if(x==6)WriteLog("amp3= " + AnsiString(iliczba));
 	}
 };
 
