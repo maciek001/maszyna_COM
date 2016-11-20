@@ -138,10 +138,10 @@ bool MWDComm::ReadData()	// odbieranie danych + odczyta danych analogowych i zap
     DWORD bytes_read;
     ReadFile(hComm, &ReadDataBuff[0], BYTETOREAD, &bytes_read, NULL);
     //WriteConsoleOnly("Read OK!");
-    fAnalog[0] = (float)((ReadDataBuff[8]<<8)+ReadDataBuff[9]) / Global::fMWDAnalogCalib[0][3]; //4095.0f; //max wartosc wynikaj¹ca z rozdzielczoœci
-    fAnalog[1] = (float)((ReadDataBuff[10]<<8)+ReadDataBuff[11]) / Global::fMWDAnalogCalib[1][3];
-    fAnalog[2] = (float)((ReadDataBuff[12]<<8)+ReadDataBuff[13]) / Global::fMWDAnalogCalib[2][3];
-    fAnalog[3] = (float)((ReadDataBuff[14]<<8)+ReadDataBuff[15]) / Global::fMWDAnalogCalib[3][3];
+    fAnalog[0] = (float)((ReadDataBuff[9]<<8)+ReadDataBuff[8]) / Global::fMWDAnalogCalib[0][3]; //4095.0f; //max wartosc wynikaj¹ca z rozdzielczoœci
+    fAnalog[1] = (float)((ReadDataBuff[11]<<8)+ReadDataBuff[10]) / Global::fMWDAnalogCalib[1][3];
+    fAnalog[2] = (float)((ReadDataBuff[13]<<8)+ReadDataBuff[12]) / Global::fMWDAnalogCalib[2][3];
+    fAnalog[3] = (float)((ReadDataBuff[15]<<8)+ReadDataBuff[14]) / Global::fMWDAnalogCalib[3][3];
     CheckData();
     //WriteLog("hamulec zespolony VALUE: "+AnsiString(fAnalog[0]));
     //WriteLog("hamulec zespolony ReadB[9]: "+AnsiString(ReadDataBuff[9]));
