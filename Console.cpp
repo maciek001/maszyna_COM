@@ -294,7 +294,8 @@ void Console::BitsUpdate(int mask)
         // out3: ogrzewanie sk³adu, opory rozruchowe, poslizg, zaluzjewent, -, -, czuwak, shp
         // out4: stycz.liniowe, pezekaznikró¿nicobwpomoc, nadmiarprzetw, roznicowy obw. g³, nadmiarsilniki, wylszybki, zanikpr¹duprzyjeŸdzienaoporach, nadmiarsprezarki
         // out5: HASLER
-        if(mask & 0x0001) 	if(iBits & 1){		MWD->WriteDataBuff[3] |= 1<<7;  	// SHP								HASLER te¿
+        if(mask & 0x0001) if(iBits & 1){
+            MWD->WriteDataBuff[3] |= 1<<7;  	// SHP	HASLER te¿
             if(!MWD->bSHPstate){
                 MWD->bSHPstate = true;
                 MWD->bPrzejazdSHP = true;
@@ -304,33 +305,33 @@ void Console::BitsUpdate(int mask)
             MWD->bPrzejazdSHP = false;
             MWD->bSHPstate = false;
         }
-        if(mask & 0x0002)	if(iBits & 2) 		MWD->WriteDataBuff[3] |= 1<<6;  	// CA
+        if(mask & 0x0002)	if(iBits & 2) 		MWD->WriteDataBuff[4] |= 1<<6;  	// CA
         else 				MWD->WriteDataBuff[3] &= ~(1<<6);
-        if(mask & 0x0004)	if(iBits & 4)		MWD->WriteDataBuff[3] |= 1<<1; 		// jazda na oporach rozruchowych
+        if(mask & 0x0004)	if(iBits & 4)		MWD->WriteDataBuff[4] |= 1<<1; 		// jazda na oporach rozruchowych
         else 				MWD->WriteDataBuff[3] &= ~(1<<1);
-        if(mask & 0x0008)	if(iBits & 8)		MWD->WriteDataBuff[4] |= 1<<5; 		// wy³¹cznik szybki
+        if(mask & 0x0008)	if(iBits & 8)		MWD->WriteDataBuff[5] |= 1<<5; 		// wy³¹cznik szybki
         else 				MWD->WriteDataBuff[4] &= ~(1<<5);
-        if(mask & 0x0010)	if(iBits & 0x10)	MWD->WriteDataBuff[4] |= 1<<4; 		// nadmiarowy silników trakcyjnych
+        if(mask & 0x0010)	if(iBits & 0x10)	MWD->WriteDataBuff[5] |= 1<<4; 		// nadmiarowy silników trakcyjnych
         else 				MWD->WriteDataBuff[4] &= ~(1<<4);
-        if(mask & 0x0020)	if(iBits & 0x20)	MWD->WriteDataBuff[4] |= 1<<0; 		// styczniki liniowe
+        if(mask & 0x0020)	if(iBits & 0x20)	MWD->WriteDataBuff[5] |= 1<<0; 		// styczniki liniowe
         else 				MWD->WriteDataBuff[4] &= ~(1<<0);
-        if(mask & 0x0040)	if(iBits & 0x40)	MWD->WriteDataBuff[3] |= 1<<2; 		// poœlizg
+        if(mask & 0x0040)	if(iBits & 0x40)	MWD->WriteDataBuff[4] |= 1<<2; 		// poœlizg
         else 				MWD->WriteDataBuff[3] &= ~(1<<2);
-        if(mask & 0x0080)	if(iBits & 0x80)	MWD->WriteDataBuff[4] |= 1<<2; 		// (nadmiarowy) przetwornicy? ++
+        if(mask & 0x0080)	if(iBits & 0x80)	MWD->WriteDataBuff[5] |= 1<<2; 		// (nadmiarowy) przetwornicy? ++
         else 				MWD->WriteDataBuff[4] &= ~(1<<2);
-        if(mask & 0x0100)	if(iBits & 0x100)	MWD->WriteDataBuff[4] |= 1<<7; 		// nadmiarowy sprê¿arki
+        if(mask & 0x0100)	if(iBits & 0x100)	MWD->WriteDataBuff[5] |= 1<<7; 		// nadmiarowy sprê¿arki
         else 				MWD->WriteDataBuff[5] &= ~(1<<7);
-        if(mask & 0x0200)	if(iBits & 0x200)	MWD->WriteDataBuff[1] |= 1<<1; 		// wentylatory i opory
+        if(mask & 0x0200)	if(iBits & 0x200)	MWD->WriteDataBuff[2] |= 1<<1; 		// wentylatory i opory
         else 				MWD->WriteDataBuff[1] &= ~(1<<1);
-        if(mask & 0x0400)	if(iBits & 0x400)	MWD->WriteDataBuff[1] |= 1<<2; 		// wysoki rozruch
+        if(mask & 0x0400)	if(iBits & 0x400)	MWD->WriteDataBuff[2] |= 1<<2; 		// wysoki rozruch
         else 				MWD->WriteDataBuff[1] &= ~(1<<2);
-        if(mask & 0x0800)	if(iBits & 0x800)	MWD->WriteDataBuff[3] |= 1<<0;	 	// ogrzewanie poci¹gu
+        if(mask & 0x0800)	if(iBits & 0x800)	MWD->WriteDataBuff[4] |= 1<<0;	 	// ogrzewanie poci¹gu
         else 				MWD->WriteDataBuff[3] &= ~(1<<0);
         if(mask & 0x1000)	if(iBits & 0x1000)	MWD->bHamowanie = true;				// hasler: ciœnienie w hamulcach 	HASLER rysik 2
         else 				MWD->bHamowanie = false;
-        if(mask & 0x2000)	if(iBits & 0x2000)	MWD->WriteDataBuff[5] |= 1<<4; 		// hasler: pr¹d "na" silnikach 		HASLER rysik 3
+        if(mask & 0x2000)	if(iBits & 0x2000)	MWD->WriteDataBuff[6] |= 1<<4; 		// hasler: pr¹d "na" silnikach 		HASLER rysik 3
         else 				MWD->WriteDataBuff[5] &= ~(1<<4);
-        if(mask & 0x4000)	if(iBits & 0x4000)	MWD->WriteDataBuff[5] |= 1<<7; 		// brzêczyk SHP/CA
+        if(mask & 0x4000)	if(iBits & 0x4000)	MWD->WriteDataBuff[6] |= 1<<7; 		// brzêczyk SHP/CA
         else 				MWD->WriteDataBuff[5] &= ~(1<<7);
         //if(mask & 0x8000)	if(iBits & 0x8000)	MWD->WriteDataBuff[1] |= 1<<7; 		//
         //					else 				MWD->WriteDataBuff[0] &= ~(1<<7);
@@ -408,40 +409,40 @@ void Console::ValueSet(int x, double y)
 		unsigned int iliczba ;
 		if(x==0){
 			iliczba = (unsigned int) floor((y / (Global::fMWDph[0] * 10) * Global::fMWDph[1]) + 0.5);	// cylinder hamulcowy
-			MWD->WriteDataBuff[6] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[7] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[7] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[8] = (unsigned char)iliczba;
 		}else
 		if(x==1){
 			iliczba = (unsigned int) floor((y / (Global::fMWDpg[0] * 10) * Global::fMWDpg[1]) + 0.5);	// przewód g³ówny
-			MWD->WriteDataBuff[8] = (unsigned char)(iliczba>>8);
-			MWD->WriteDataBuff[9] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[9] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[10] = (unsigned char)iliczba;
 		}else
 		if(x==2){
 			iliczba = (unsigned int) floor((y / (Global::fMWDzg[0] * 10) * Global::fMWDzg[1]) + 0.5);	// zbiornik g³ówny
-                        MWD->WriteDataBuff[10] = (unsigned char)(iliczba>>8);
-			MWD->WriteDataBuff[11] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[11] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[12] = (unsigned char)iliczba;
 		}else
 		if(x==3){
 			iliczba = (unsigned int) floor((y / Global::fMWDvolt[0] * Global::fMWDvolt[1]) + 0.5);	// woltomierz WN
-                        MWD->WriteDataBuff[12] = (unsigned char)(iliczba>>8);
-			MWD->WriteDataBuff[13] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[13] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[14] = (unsigned char)iliczba;
 		}else
 		if(x==4){
 			iliczba = (unsigned char)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 1
-                        MWD->WriteDataBuff[14] = (unsigned char)(iliczba>>8);
-			MWD->WriteDataBuff[15] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[15] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[16] = (unsigned char)iliczba;
 		}else
 		if(x==5){
                         iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 2
-                        MWD->WriteDataBuff[16] = (unsigned char)(iliczba>>8);
-			MWD->WriteDataBuff[17] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[17] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[18] = (unsigned char)iliczba;
 		}else
 		if(x==6){
                         iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 3
-                        MWD->WriteDataBuff[18] = (unsigned int)(iliczba>>8);
-			MWD->WriteDataBuff[19] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[19] = (unsigned int)(iliczba>>8);
+                        MWD->WriteDataBuff[20] = (unsigned char)iliczba;
 		}else
-                if(x==7) MWD->WriteDataBuff[30] = (unsigned char)floor(y);					// prêdkoœæ
+                if(x==7) MWD->WriteDataBuff[0] = (unsigned char)floor(y);					// prêdkoœæ
         }
 };
 
