@@ -647,14 +647,14 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         bRysik2L = false;
     }
     bCzuwak = false;
-    if(bRysik1H) 	WriteDataBuff[5] |= 1<<0;
-    else 			WriteDataBuff[5] &= ~(1<<0);
-    if(bRysik1L) 	WriteDataBuff[5] |= 1<<1;
-    else 			WriteDataBuff[5] &= ~(1<<1);
-    if(bRysik2H) 	WriteDataBuff[5] |= 1<<2;
-    else 			WriteDataBuff[5] &= ~(1<<2);
-    if(bRysik2L) 	WriteDataBuff[5] |= 1<<3;
-    else 			WriteDataBuff[5] &= ~(1<<3);
+    if(bRysik1H) 	WriteDataBuff[6] |= 1<<0;
+    else 			WriteDataBuff[6] &= ~(1<<0);
+    if(bRysik1L) 	WriteDataBuff[6] |= 1<<1;
+    else 			WriteDataBuff[6] &= ~(1<<1);
+    if(bRysik2H) 	WriteDataBuff[6] |= 1<<2;
+    else 			WriteDataBuff[6] &= ~(1<<2);
+    if(bRysik2L) 	WriteDataBuff[6] |= 1<<3;
+    else 			WriteDataBuff[6] &= ~(1<<3);
 }
 
 bool MWDComm::KeyBoard(int key, int s)	// emulacja klawiatury
