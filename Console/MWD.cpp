@@ -13,8 +13,8 @@
 
 #include <windows.h>
 
-#define BYTETOWRITE 31 //31		// iloœæ bajtów przesy³anych z MaSzyny
-#define BYTETOREAD  17 //17		// iloœæ bajtów przesy³anych do MaSzyny
+#define BYTETOWRITE 31  		/* iloœæ bajtów przesy³anych z MaSzyny*/
+#define BYTETOREAD  16  		/* iloœæ bajtów przesy³anych do MaSzyny*/
 
 HANDLE hComm;
 
@@ -138,10 +138,10 @@ bool MWDComm::ReadData()	// odbieranie danych + odczyta danych analogowych i zap
     DWORD bytes_read;
     ReadFile(hComm, &ReadDataBuff[0], BYTETOREAD, &bytes_read, NULL);
     //WriteConsoleOnly("Read OK!");
-    fAnalog[0] = (float)((ReadDataBuff[9]<<8)+ReadDataBuff[10]) / Global::fMWDAnalogCalib[0][3]; //4095.0f; //max wartosc wynikaj¹ca z rozdzielczoœci
-    fAnalog[1] = (float)((ReadDataBuff[11]<<8)+ReadDataBuff[12]) / Global::fMWDAnalogCalib[1][3];
-    fAnalog[2] = (float)((ReadDataBuff[13]<<8)+ReadDataBuff[14]) / Global::fMWDAnalogCalib[2][3];
-    fAnalog[3] = (float)((ReadDataBuff[15]<<8)+ReadDataBuff[16]) / Global::fMWDAnalogCalib[3][3];
+    fAnalog[0] = (float)((ReadDataBuff[9]<<8)+ReadDataBuff[8]) / Global::fMWDAnalogCalib[0][3]; //4095.0f; //max wartosc wynikaj¹ca z rozdzielczoœci
+    fAnalog[1] = (float)((ReadDataBuff[11]<<8)+ReadDataBuff[10]) / Global::fMWDAnalogCalib[1][3];
+    fAnalog[2] = (float)((ReadDataBuff[13]<<8)+ReadDataBuff[12]) / Global::fMWDAnalogCalib[2][3];
+    fAnalog[3] = (float)((ReadDataBuff[15]<<8)+ReadDataBuff[14]) / Global::fMWDAnalogCalib[3][3];
     CheckData();
     //WriteLog("hamulec zespolony VALUE: "+AnsiString(fAnalog[0]));
     //WriteLog("hamulec zespolony ReadB[9]: "+AnsiString(ReadDataBuff[9]));
@@ -163,7 +163,7 @@ bool MWDComm::SendData()	// wysy³anie danych
 bool MWDComm::Run()			// wysyo³ywanie obs³ugi MWD + generacja wiêkszego opóŸnienia
 {
     MWDTime++;
-    if(!(MWDTime%2))
+    if(!(MWDTime%5))
     {
         if(GetMWDState())
         {
@@ -596,25 +596,25 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         bnkMask &= ~8;
     }
 
-    if(nastawnik < ReadDataBuff[7])
+    if(nastawnik < ReadDataBuff[6])
     {
         bnkMask |= 1;
         nastawnik++;
         KeyBoard(0x6B,1); //wciœnij + i dodaj 1 do nastawnika
     }
-    if(nastawnik > ReadDataBuff[7])
+    if(nastawnik > ReadDataBuff[6])
     {
         bnkMask |= 2;
         nastawnik--;
         KeyBoard(0x6D,1); //wciœnij - i odejmij 1 do nastawnika
     }
-    if(bocznik < ReadDataBuff[8])
+    if(bocznik < ReadDataBuff[7])
     {
         bnkMask |= 4;
         bocznik++;
         KeyBoard(0x6F,1); //wciœnij / i dodaj 1 do bocznika
     }
-    if(bocznik > ReadDataBuff[8])
+    if(bocznik > ReadDataBuff[7])
     {
         bnkMask |= 8;
         bocznik--;
@@ -647,14 +647,14 @@ bool MWDComm::CheckData()	// sprawdzanie wejœæ cyfrowych i odpowiednie sterowani
         bRysik2L = false;
     }
     bCzuwak = false;
-    if(bRysik1H) 	WriteDataBuff[5] |= 1<<0;
-    else 			WriteDataBuff[5] &= ~(1<<0);
-    if(bRysik1L) 	WriteDataBuff[5] |= 1<<1;
-    else 			WriteDataBuff[5] &= ~(1<<1);
-    if(bRysik2H) 	WriteDataBuff[5] |= 1<<2;
-    else 			WriteDataBuff[5] &= ~(1<<2);
-    if(bRysik2L) 	WriteDataBuff[5] |= 1<<3;
-    else 			WriteDataBuff[5] &= ~(1<<3);
+    if(bRysik1H) 	WriteDataBuff[6] |= 1<<0;
+    else 			WriteDataBuff[6] &= ~(1<<0);
+    if(bRysik1L) 	WriteDataBuff[6] |= 1<<1;
+    else 			WriteDataBuff[6] &= ~(1<<1);
+    if(bRysik2H) 	WriteDataBuff[6] |= 1<<2;
+    else 			WriteDataBuff[6] &= ~(1<<2);
+    if(bRysik2L) 	WriteDataBuff[6] |= 1<<3;
+    else 			WriteDataBuff[6] &= ~(1<<3);
 }
 
 bool MWDComm::KeyBoard(int key, int s)	// emulacja klawiatury

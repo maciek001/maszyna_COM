@@ -326,6 +326,7 @@ public:
     static double CutValueToRange(double min, double value, double max);
 
     // maciek001: zmienne dla MWD
+    static bool bMWDdebugEnable;
     static unsigned long int iMWDBaudrate;
     static AnsiString sMWDPortId;
     static bool bMWDBreakEnable;
