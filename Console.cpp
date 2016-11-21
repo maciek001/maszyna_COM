@@ -295,13 +295,13 @@ void Console::BitsUpdate(int mask)
         // out4: stycz.liniowe, pezekaznikr??nicobwpomoc, nadmiarprzetw, roznicowy obw. g?, nadmiarsilniki, wylszybki, zanikpr?duprzyje?dzienaoporach, nadmiarsprezarki
         // out5: HASLER
         if(mask & 0x0001) if(iBits & 1){
-            MWD->WriteDataBuff[3] |= 1<<7;  	// SHP	HASLER te?
+            MWD->WriteDataBuff[4] |= 1<<7;  	// SHP	HASLER te?
             if(!MWD->bSHPstate){
                 MWD->bSHPstate = true;
                 MWD->bPrzejazdSHP = true;
             }else MWD->bPrzejazdSHP = false;
         }
-        else{ 				MWD->WriteDataBuff[3] &= ~(1<<7);
+        else{ 				MWD->WriteDataBuff[4] &= ~(1<<7);
             MWD->bPrzejazdSHP = false;
             MWD->bSHPstate = false;
         }
