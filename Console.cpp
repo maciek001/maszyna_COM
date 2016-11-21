@@ -434,7 +434,7 @@ void Console::ValueSet(int x, double y)
                         MWD->WriteDataBuff[13] = (unsigned char)iliczba;
                 }else
                 if(x==4){
-                        iliczba = (unsigned char)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 1
+                        iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 1
                         MWD->WriteDataBuff[16] = (unsigned char)(iliczba>>8);
                         MWD->WriteDataBuff[15] = (unsigned char)iliczba;
                 }else
