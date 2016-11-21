@@ -411,12 +411,6 @@ void Console::ValueSet(int x, double y)
                 iliczba = (unsigned int) floor((y / (Global::fMWDzg[0] * 10) * Global::fMWDzg[1]) + 0.5);	// zbiornik g??wny
                         MWD->WriteDataBuff[12] = (unsigned char)(iliczba>>8);
                         MWD->WriteDataBuff[11] = (unsigned char)iliczba;
-                        if (Global::bMWDdebugEnable){
-                            WriteLog("ZG int: " + AnsiString(iliczba));
-                            WriteLog("ZG ciś.max: " + AnsiString(Global::fMWDzg[0]));
-                            WriteLog("ZG max int: " + AnsiString(Global::fMWDzg[1]));
-                        }
-
                 }else
                 if(x==1){
                         iliczba = (unsigned int) floor((y / (Global::fMWDpg[0] * 10) * Global::fMWDpg[1]) + 0.5);	// przew?d g??wny
@@ -434,19 +428,31 @@ void Console::ValueSet(int x, double y)
                         MWD->WriteDataBuff[13] = (unsigned char)iliczba;
                 }else
                 if(x==4){
-                        iliczba = (unsigned char)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 1
+                        iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 1
                         MWD->WriteDataBuff[16] = (unsigned char)(iliczba>>8);
                         MWD->WriteDataBuff[15] = (unsigned char)iliczba;
+                        if (Global::bMWDdebugEnable){
+                            WriteLog("AMP1 int: " + AnsiString(iliczba));
+                            WriteLog("AMP1 y: " + AnsiString(y));
+                        }
                 }else
                 if(x==5){
                         iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 2
                         MWD->WriteDataBuff[18] = (unsigned char)(iliczba>>8);
                         MWD->WriteDataBuff[17] = (unsigned char)iliczba;
+                        if (Global::bMWDdebugEnable){
+                            WriteLog("AMP2 int: " + AnsiString(iliczba));
+                            WriteLog("AMP3 y: " + AnsiString(y));
+                        }
                 }else
                 if(x==6){
                         iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 3
                         MWD->WriteDataBuff[20] = (unsigned int)(iliczba>>8);
                         MWD->WriteDataBuff[19] = (unsigned char)iliczba;
+                        if (Global::bMWDdebugEnable){
+                            WriteLog("AMP3 int: " + AnsiString(iliczba));
+                            WriteLog("AMP3 y: " + AnsiString(y));
+                        }
                 }else
                 if(x==7) MWD->WriteDataBuff[0] = (unsigned char)floor(y);					// pr?dko??
         }
