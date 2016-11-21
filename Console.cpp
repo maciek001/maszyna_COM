@@ -408,9 +408,15 @@ void Console::ValueSet(int x, double y)
         {
                 unsigned int iliczba ;
                 if(x==0){
-                        iliczba = (unsigned int) floor((y / (Global::fMWDph[0] * 10) * Global::fMWDph[1]) + 0.5);	// cylinder hamulcowy
-                        MWD->WriteDataBuff[8] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[7] = (unsigned char)iliczba;
+                iliczba = (unsigned int) floor((y / (Global::fMWDzg[0] * 10) * Global::fMWDzg[1]) + 0.5);	// zbiornik g??wny
+                        MWD->WriteDataBuff[12] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[11] = (unsigned char)iliczba;
+                        if (Global::bMWDdebugEnable){
+                            WriteLog("ZG int: " + AnsiString(iliczba));
+                            WriteLog("ZG ciś.max: " + AnsiString(Global::fMWDzg[0]));
+                            WriteLog("ZG max int: " + AnsiString(Global::fMWDzg[1]));
+                        }
+
                 }else
                 if(x==1){
                         iliczba = (unsigned int) floor((y / (Global::fMWDpg[0] * 10) * Global::fMWDpg[1]) + 0.5);	// przew?d g??wny
@@ -418,9 +424,9 @@ void Console::ValueSet(int x, double y)
                         MWD->WriteDataBuff[9] = (unsigned char)iliczba;
                 }else
                 if(x==2){
-                        iliczba = (unsigned int) floor((y / (Global::fMWDzg[0] * 10) * Global::fMWDzg[1]) + 0.5);	// zbiornik g??wny
-                        MWD->WriteDataBuff[12] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[11] = (unsigned char)iliczba;
+                        iliczba = (unsigned int) floor((y / (Global::fMWDph[0] * 10) * Global::fMWDph[1]) + 0.5);	// cylinder hamulcowy
+                        MWD->WriteDataBuff[8] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[7] = (unsigned char)iliczba;
                 }else
                 if(x==3){
                         iliczba = (unsigned int) floor((y / Global::fMWDvolt[0] * Global::fMWDvolt[1]) + 0.5);	// woltomierz WN
