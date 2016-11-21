@@ -409,38 +409,38 @@ void Console::ValueSet(int x, double y)
                 unsigned int iliczba ;
                 if(x==0){
                         iliczba = (unsigned int) floor((y / (Global::fMWDph[0] * 10) * Global::fMWDph[1]) + 0.5);	// cylinder hamulcowy
-                        MWD->WriteDataBuff[7] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[8] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[8] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[7] = (unsigned char)iliczba;
                 }else
                 if(x==1){
                         iliczba = (unsigned int) floor((y / (Global::fMWDpg[0] * 10) * Global::fMWDpg[1]) + 0.5);	// przew?d g??wny
-                        MWD->WriteDataBuff[9] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[10] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[10] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[9] = (unsigned char)iliczba;
                 }else
                 if(x==2){
                         iliczba = (unsigned int) floor((y / (Global::fMWDzg[0] * 10) * Global::fMWDzg[1]) + 0.5);	// zbiornik g??wny
-                        MWD->WriteDataBuff[11] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[12] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[12] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[11] = (unsigned char)iliczba;
                 }else
                 if(x==3){
                         iliczba = (unsigned int) floor((y / Global::fMWDvolt[0] * Global::fMWDvolt[1]) + 0.5);	// woltomierz WN
-                        MWD->WriteDataBuff[13] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[14] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[14] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[13] = (unsigned char)iliczba;
                 }else
                 if(x==4){
                         iliczba = (unsigned char)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 1
-                        MWD->WriteDataBuff[15] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[16] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[16] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[15] = (unsigned char)iliczba;
                 }else
                 if(x==5){
                         iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 2
-                        MWD->WriteDataBuff[17] = (unsigned char)(iliczba>>8);
-                        MWD->WriteDataBuff[18] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[18] = (unsigned char)(iliczba>>8);
+                        MWD->WriteDataBuff[17] = (unsigned char)iliczba;
                 }else
                 if(x==6){
                         iliczba = (unsigned int)floor((y / Global::fMWDamp[0] * Global::fMWDamp[1]) + 0.5);	// amp WN 3
-                        MWD->WriteDataBuff[19] = (unsigned int)(iliczba>>8);
-                        MWD->WriteDataBuff[20] = (unsigned char)iliczba;
+                        MWD->WriteDataBuff[20] = (unsigned int)(iliczba>>8);
+                        MWD->WriteDataBuff[19] = (unsigned char)iliczba;
                 }else
                 if(x==7) MWD->WriteDataBuff[0] = (unsigned char)floor(y);					// pr?dko??
         }
